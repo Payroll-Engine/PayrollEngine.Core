@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>PayrollEngine.Core</AssemblyName>
+		<RootNamespace>PayrollEngine</RootNamespace>
+		<Authors>Jani Giannoudis</Authors>
+		<Company>Software Consulting Giannoudis</Company>
+		<Product>Payroll Engine</Product>
+		<Description>Payroll Engine Core Services</Description>
+	</PropertyGroup>
+
+	<!-- help file generation -->
+	<PropertyGroup>
+		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
+	</ItemGroup>
+
+	<!-- include xml documention files to the nuget package -->
+	<ItemGroup>
+		<!-- ReSharper disable UnknownProperty -->
+		<None Include="$(OutputDir)*.xml" Pack="true">
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+		</None>
+		<!-- ReSharper restore UnknownProperty -->
+	</ItemGroup>
+
+	<!-- copy nuget to package folder -->
+	<Target Name="CopyPackage" AfterTargets="Pack">
+		<Message Importance="High" Text="Deploying package global" />
+		<!-- ReSharper disable UnknownProperty -->
+		<Copy SourceFiles="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="$(ProjectDir)\..\..\.packages" />
+		<!-- ReSharper restore UnknownProperty -->
+	</Target>
+
+</Project>
