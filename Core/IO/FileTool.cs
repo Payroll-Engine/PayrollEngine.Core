@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayrollEngine
+namespace PayrollEngine.IO
 {
     /// <summary>File tools</summary>
     public static class FileTool

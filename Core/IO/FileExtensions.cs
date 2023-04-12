@@ -1,5 +1,4 @@
-﻿
-namespace PayrollEngine;
+﻿namespace PayrollEngine.IO;
 
 /// <summary>Common file extensions</summary>
 public static class FileExtensions

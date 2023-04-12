@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace PayrollEngine;
+namespace PayrollEngine.Document;
 
 /// <summary>The document type</summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
