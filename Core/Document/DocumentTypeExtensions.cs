@@ -6,10 +6,10 @@ namespace PayrollEngine.Document;
 /// <summary>Extensions for <see cref="DocumentType"/></summary>
 public static class DocumentTypeExtensions
 {
-    /// <summary>Get the target document extension</summary>
+    /// <summary>Get the document file extension</summary>
     /// <param name="documentType">The document type</param>
-    /// <returns>The document extension</returns>
-    public static string GetTargetExtension(this DocumentType documentType)
+    /// <returns>The file extension</returns>
+    public static string GetFileExtension(this DocumentType documentType)
     {
         switch (documentType)
         {

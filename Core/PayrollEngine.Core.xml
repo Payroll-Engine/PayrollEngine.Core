@@ -2213,10 +2213,10 @@
         <member name="T:PayrollEngine.Document.DocumentTypeExtensions">
             <summary>Extensions for <see cref="T:PayrollEngine.Document.DocumentType"/></summary>
         </member>
-        <member name="M:PayrollEngine.Document.DocumentTypeExtensions.GetTargetExtension(PayrollEngine.Document.DocumentType)">
-            <summary>Get the target document extension</summary>
+        <member name="M:PayrollEngine.Document.DocumentTypeExtensions.GetFileExtension(PayrollEngine.Document.DocumentType)">
+            <summary>Get the document file extension</summary>
             <param name="documentType">The document type</param>
-            <returns>The document extension</returns>
+            <returns>The file extension</returns>
         </member>
         <member name="T:PayrollEngine.Document.IDocumentMerge">
             <summary>Document merge</summary>
@@ -2225,15 +2225,7 @@
             <summary>Test if document type is mergeable</summary>
             <param name="documentType">Type of the document</param>
         </member>
-        <member name="M:PayrollEngine.Document.IDocumentMerge.MergeToFileAsync(System.IO.Stream,System.Data.DataSet,System.String,PayrollEngine.Document.DocumentType,PayrollEngine.Document.DocumentMetadata)">
-            <summary>Merge a document from a stream to a file</summary>
-            <param name="templateStream">Name of the template file</param>
-            <param name="dataSet">The data set</param>
-            <param name="targetFileName">Name of the target file</param>
-            <param name="documentType">Type of the document</param>
-            <param name="metadata">The document metadata</param>
-        </member>
-        <member name="M:PayrollEngine.Document.IDocumentMerge.MergeToStream(System.IO.Stream,System.Data.DataSet,PayrollEngine.Document.DocumentType,PayrollEngine.Document.DocumentMetadata)">
+        <member name="M:PayrollEngine.Document.IDocumentMerge.Merge(System.IO.Stream,System.Data.DataSet,PayrollEngine.Document.DocumentType,PayrollEngine.Document.DocumentMetadata)">
             <summary>Merge a document from a stream to a stream</summary>
             <param name="templateStream">Name of the template file</param>
             <param name="dataSet">The data set</param>
@@ -2241,13 +2233,7 @@
             <param name="metadata">The document metadata</param>
             <returns>The merged document stream</returns>
         </member>
-        <member name="M:PayrollEngine.Document.IDocumentMerge.MergeToExcelFileAsync(System.Data.DataSet,System.String,PayrollEngine.Document.DocumentMetadata)">
-            <summary>Merge to excel file</summary>
-            <param name="dataSet">The source data</param>
-            <param name="targetFileName">The target file name</param>
-            <param name="metadata">The document meta data</param>
-        </member>
-        <member name="M:PayrollEngine.Document.IDocumentMerge.MergeToExcelStream(System.Data.DataSet,PayrollEngine.Document.DocumentMetadata)">
+        <member name="M:PayrollEngine.Document.IDocumentMerge.ExcelMerge(System.Data.DataSet,PayrollEngine.Document.DocumentMetadata)">
             <summary>Merge to excel stream</summary>
             <param name="dataSet">The source data</param>
             <param name="metadata">The document meta data</param>
@@ -4040,6 +4026,16 @@
         </member>
         <member name="F:PayrollEngine.SortDirection.Descending">
             <summary>Sort from largest to smallest. For example, from Z to A</summary>
+        </member>
+        <member name="T:PayrollEngine.StreamExtensions">
+            <summary>Stream extension methods</summary>
+        </member>
+        <member name="M:PayrollEngine.StreamExtensions.WriteToFile(System.IO.MemoryStream,System.String)">
+            <summary>Get configuration object by type name</summary>
+            <param name="stream">The memory stream</param>
+            <param name="targetFileName">The target file name</param>
+            <remarks>Existing file will be deleted</remarks>
+            <returns>The configuration object</returns>
         </member>
         <member name="T:PayrollEngine.StringAttributeExtensions">
             <summary>Attribute extensions for <see cref="T:System.String"/></summary>
