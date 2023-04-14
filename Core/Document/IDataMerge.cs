@@ -3,8 +3,8 @@ using System.IO;
 
 namespace PayrollEngine.Document;
 
-/// <summary>Document merge</summary>
-public interface IDocumentMerge
+/// <summary>Data merge</summary>
+public interface IDataMerge
 {
     /// <summary>Test if document type is mergeable</summary>
     /// <param name="documentType">Type of the document</param>

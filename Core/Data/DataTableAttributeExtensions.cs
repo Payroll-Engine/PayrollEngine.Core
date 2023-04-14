@@ -46,22 +46,22 @@ public static class DataTableAttributeExtensions
             return attributesTable;
         }
 
-        // attribute columns
+        // relation column
         attributesTable.Columns.Add(relationSourceColumn, typeof(int));
         foreach (var dataRow in dataTable.AsEnumerable())
         {
-            if (dataRow[attributeColumn] is Dictionary<string, object> attributes)
+            var attributes = dataRow[attributeColumn];
+            // json dictionary
+            if (attributes is string stringValue && !string.IsNullOrWhiteSpace(stringValue))
             {
-                AddAttributeColumn(attributes, attributesTable);
+                attributes = JsonSerializer.Deserialize<Dictionary<string, object>>(stringValue);
             }
-        }
-
-        // attribute rows
-        foreach (var dataRow in dataTable.AsEnumerable())
-        {
-            if (dataRow[attributeColumn] is Dictionary<string, object> attributes)
+            if (attributes is Dictionary<string, object> attributeDictionary && attributeDictionary.Any())
             {
-                AddAttributeRow(attributes, attributesTable, dataRow, relationSourceColumn, relationTargetColumn);
+                // attribute column
+                AddAttributeColumn(attributeDictionary, attributesTable);
+                // attribute row
+                AddAttributeRow(attributeDictionary, attributesTable, dataRow, relationSourceColumn, relationTargetColumn);
             }
         }
 
@@ -72,6 +72,12 @@ public static class DataTableAttributeExtensions
     {
         foreach (var attribute in attributes)
         {
+            // existing
+            if (attributesTable.Columns.Contains(attribute.Key))
+            {
+                continue;
+            }
+
             var value = attribute.Value;
             // ignore attributes without value
             if (value == null)

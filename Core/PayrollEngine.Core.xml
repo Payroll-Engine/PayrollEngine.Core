@@ -2218,14 +2218,14 @@
             <param name="documentType">The document type</param>
             <returns>The file extension</returns>
         </member>
-        <member name="T:PayrollEngine.Document.IDocumentMerge">
-            <summary>Document merge</summary>
+        <member name="T:PayrollEngine.Document.IDataMerge">
+            <summary>Data merge</summary>
         </member>
-        <member name="M:PayrollEngine.Document.IDocumentMerge.IsMergeable(PayrollEngine.Document.DocumentType)">
+        <member name="M:PayrollEngine.Document.IDataMerge.IsMergeable(PayrollEngine.Document.DocumentType)">
             <summary>Test if document type is mergeable</summary>
             <param name="documentType">Type of the document</param>
         </member>
-        <member name="M:PayrollEngine.Document.IDocumentMerge.Merge(System.IO.Stream,System.Data.DataSet,PayrollEngine.Document.DocumentType,PayrollEngine.Document.DocumentMetadata)">
+        <member name="M:PayrollEngine.Document.IDataMerge.Merge(System.IO.Stream,System.Data.DataSet,PayrollEngine.Document.DocumentType,PayrollEngine.Document.DocumentMetadata)">
             <summary>Merge a document from a stream to a stream</summary>
             <param name="templateStream">Name of the template file</param>
             <param name="dataSet">The data set</param>
@@ -2233,7 +2233,7 @@
             <param name="metadata">The document metadata</param>
             <returns>The merged document stream</returns>
         </member>
-        <member name="M:PayrollEngine.Document.IDocumentMerge.ExcelMerge(System.Data.DataSet,PayrollEngine.Document.DocumentMetadata)">
+        <member name="M:PayrollEngine.Document.IDataMerge.ExcelMerge(System.Data.DataSet,PayrollEngine.Document.DocumentMetadata)">
             <summary>Merge to excel stream</summary>
             <param name="dataSet">The source data</param>
             <param name="metadata">The document meta data</param>
