@@ -51,6 +51,9 @@ public static class QuerySpecification
     /// <summary>Contains function</summary>
     public static readonly string ContainsFunction = "contains";
 
+    /// <summary>Not contains function</summary>
+    public static readonly string NotContainsFunction = "notcontains";
+
     /// <summary>Ends with function</summary>
     public static readonly string EndsWithFunction = "endswith";
 

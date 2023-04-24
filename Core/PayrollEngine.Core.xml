@@ -3734,6 +3734,9 @@
         <member name="F:PayrollEngine.QuerySpecification.ContainsFunction">
             <summary>Contains function</summary>
         </member>
+        <member name="F:PayrollEngine.QuerySpecification.NotContainsFunction">
+            <summary>Not contains function</summary>
+        </member>
         <member name="F:PayrollEngine.QuerySpecification.EndsWithFunction">
             <summary>Ends with function</summary>
         </member>
