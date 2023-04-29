@@ -183,6 +183,107 @@ public static class StringExtensions
         return builder.ToString();
     }
 
+    /// <summary>Change to camel case sentence</summary>
+    /// <param name="source">The source value</param>
+    /// <param name="wordCaseType">The word start character casing</param>
+    /// <param name="separator">The word separator</param>
+    /// <returns>Camel case text sentence</returns>
+    public static string ToCamelSentence(this string source,
+        CharacterCaseType wordCaseType = CharacterCaseType.ToLower, string separator = " ") =>
+        ToSentence(source, CharacterCaseType.ToLower, wordCaseType, separator);
+
+    /// <summary>Change to pascal case sentence</summary>
+    /// <param name="source">The source value</param>
+    /// <param name="wordCaseType">The word start character casing</param>
+    /// <param name="separator">The word separator</param>
+    /// <returns>Camel case text sentence</returns>
+    public static string ToPascalSentence(this string source,
+        CharacterCaseType wordCaseType = CharacterCaseType.ToLower, string separator = " ") =>
+        ToSentence(source, CharacterCaseType.ToUpper, wordCaseType, separator);
+
+    /// <summary>Change text sentence</summary>
+    /// <remarks>source: https://stackoverflow.com/a/51310790/15659039 </remarks>
+    /// <param name="source">The source value</param>
+    /// <param name="startCaseType">The first character casing</param>
+    /// <param name="wordCaseType">The word start character casing</param>
+    /// <param name="separator">The word separator</param>
+    /// <returns></returns>
+    public static string ToSentence(this string source,
+        CharacterCaseType startCaseType = CharacterCaseType.Keep,
+        CharacterCaseType wordCaseType = CharacterCaseType.Keep,
+        string separator = " ")
+    {
+        if (string.IsNullOrWhiteSpace(source))
+        {
+            return source;
+        }
+
+        var buffer = new StringBuilder();
+        // start with the first character -- consistent camelcase and pascal case
+        buffer.Append(ChangeCase(source[0], startCaseType));
+
+        // march through the rest of it
+        for (var i = 1; i < source.Length; i++)
+        {
+            // any time we hit an uppercase OR number, it's a new word
+            if (char.IsUpper(source[i]) || char.IsDigit(source[i]))
+            {
+                if (separator != null)
+                {
+                    buffer.Append(separator);
+                }
+                buffer.Append(ChangeCase(source[i], wordCaseType));
+            }
+            else
+            {
+                // add regularly
+                buffer.Append(source[i]);
+            }
+        }
+
+        return buffer.ToString();
+    }
+
+    private static char ChangeCase(char input, CharacterCaseType startCaseType)
+    {
+        switch (startCaseType)
+        {
+            case CharacterCaseType.ToUpper:
+                return char.ToUpper(input);
+            case CharacterCaseType.ToLower:
+                return char.ToLower(input);
+            default:
+                return input;
+        }
+    }
+
+    /// <summary>Truncate a string, preserving the sentence words</summary>
+    /// <param name="source">The source value</param>
+    /// <param name="length">The string length</param>
+    /// <param name="ellipsis">Replacement for cut text</param>
+    /// <remarks>source https://stackoverflow.com/a/53843505/15659039</remarks>
+    /// <returns>Camel case text sentence</returns>
+    public static string TruncateSentence(this string source, int length, string ellipsis = "...")
+    {
+        if (string.IsNullOrWhiteSpace(source) || source.Length < length)
+        {
+            return source;
+        }
+
+        var truncate = source;
+        if (source.Length > length)
+        {
+            var truncateRaw = source.Substring(0, length);
+            // preserve words
+            var lastWordIndex = truncateRaw.LastIndexOf(' ');
+            if (lastWordIndex > 0)
+            {
+                truncate = truncateRaw.Substring(0, lastWordIndex) + ellipsis;
+            }
+        }
+        return truncate;
+    }
+
     #endregion
 
     #region Html

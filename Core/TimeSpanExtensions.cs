@@ -29,7 +29,7 @@ public static class TimeSpanExtensions
         {
             formatted = formatted.Substring(0, formatted.Length - 2);
         }
-        if (string.IsNullOrEmpty(formatted))
+        if (string.IsNullOrWhiteSpace(formatted))
         {
             formatted = "0 seconds";
         }

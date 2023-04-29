@@ -178,14 +178,14 @@ public static class ValueConvert
     /// <returns>The string value</returns>
     public static string ToString(string json) =>
         string.IsNullOrWhiteSpace(json) ? default :
-        json.StartsWith("\"") ? JsonSerializer.Deserialize<string>(json) : json;
+        json.StartsWith('"') ? JsonSerializer.Deserialize<string>(json) : json;
 
     /// <summary>Converts a JSON string to a date time value</summary>
     /// <param name="json">The JSON representation</param>
     /// <returns>The date value</returns>
     public static DateTime ToDateTime(string json) =>
         string.IsNullOrWhiteSpace(json) ? default :
-        json.StartsWith("\"") ? JsonSerializer.Deserialize<DateTime>(json) : DateTime.Parse(json, null, DateTimeStyles.AdjustToUniversal);
+        json.StartsWith('"') ? JsonSerializer.Deserialize<DateTime>(json) : DateTime.Parse(json, null, DateTimeStyles.AdjustToUniversal);
 
     /// <summary>Converts a JSON string to a boolean value</summary>
     /// <param name="json">The JSON representation</param>

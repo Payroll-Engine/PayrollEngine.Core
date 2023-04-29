@@ -425,6 +425,18 @@
             <param name="timeType">The time type</param>
             <returns>True for time type is scalable</returns>
         </member>
+        <member name="T:PayrollEngine.CharacterCaseType">
+            <summary>The text character case type</summary>
+        </member>
+        <member name="F:PayrollEngine.CharacterCaseType.Keep">
+            <summary>Keep existing state</summary>
+        </member>
+        <member name="F:PayrollEngine.CharacterCaseType.ToUpper">
+            <summary>Change to upper character</summary>
+        </member>
+        <member name="F:PayrollEngine.CharacterCaseType.ToLower">
+            <summary>Change to lower character</summary>
+        </member>
         <member name="T:PayrollEngine.ClientJsonSerializer">
             <summary>Payroll client JSON serializer</summary>
         </member>
@@ -2462,6 +2474,12 @@
         <member name="P:PayrollEngine.IAttributeObject.Attributes">
             <summary>Custom object attributes</summary>
         </member>
+        <member name="T:PayrollEngine.IIdentifierObject">
+            <summary>Object identified by identifier</summary>
+        </member>
+        <member name="P:PayrollEngine.IIdentifierObject.Identifier">
+            <summary>The object identifier</summary>
+        </member>
         <member name="T:PayrollEngine.ILogger">
             <summary>Payroll engine logger</summary>
         </member>
@@ -2584,6 +2602,12 @@
             <example>
             Log.Fatal(ex, "Process terminating.");
             </example>
+        </member>
+        <member name="T:PayrollEngine.INameObject">
+            <summary>Object identified by name</summary>
+        </member>
+        <member name="P:PayrollEngine.INameObject.Name">
+            <summary>The object name</summary>
         </member>
         <member name="T:PayrollEngine.IO.CsvSerializer">
             <summary>CSV serializer from/to file, stream and reader</summary>
@@ -4179,6 +4203,37 @@
             <param name="source">The source value</param>
             <returns>The source value without special characters</returns>
         </member>
+        <member name="M:PayrollEngine.StringExtensions.ToCamelSentence(System.String,PayrollEngine.CharacterCaseType,System.String)">
+            <summary>Change to camel case sentence</summary>
+            <param name="source">The source value</param>
+            <param name="wordCaseType">The word start character casing</param>
+            <param name="separator">The word separator</param>
+            <returns>Camel case text sentence</returns>
+        </member>
+        <member name="M:PayrollEngine.StringExtensions.ToPascalSentence(System.String,PayrollEngine.CharacterCaseType,System.String)">
+            <summary>Change to pascal case sentence</summary>
+            <param name="source">The source value</param>
+            <param name="wordCaseType">The word start character casing</param>
+            <param name="separator">The word separator</param>
+            <returns>Camel case text sentence</returns>
+        </member>
+        <member name="M:PayrollEngine.StringExtensions.ToSentence(System.String,PayrollEngine.CharacterCaseType,PayrollEngine.CharacterCaseType,System.String)">
+            <summary>Change text sentence</summary>
+            <remarks>source: https://stackoverflow.com/a/51310790/15659039 </remarks>
+            <param name="source">The source value</param>
+            <param name="startCaseType">The first character casing</param>
+            <param name="wordCaseType">The word start character casing</param>
+            <param name="separator">The word separator</param>
+            <returns></returns>
+        </member>
+        <member name="M:PayrollEngine.StringExtensions.TruncateSentence(System.String,System.Int32,System.String)">
+            <summary>Truncate a string, preserving the sentence words</summary>
+            <param name="source">The source value</param>
+            <param name="length">The string length</param>
+            <param name="ellipsis">Replacement for cut text</param>
+            <remarks>source https://stackoverflow.com/a/53843505/15659039</remarks>
+            <returns>Camel case text sentence</returns>
+        </member>
         <member name="M:PayrollEngine.StringExtensions.HtmlEncode(System.String)">
             <summary>Encode string to html, single quotation marks and double quotation marks are included as \' and \"</summary>
             <param name="value">The string value</param>
@@ -4230,29 +4285,34 @@
             <returns>The converted value</returns>
         </member>
         <member name="M:PayrollEngine.StringJsonExtensions.JsonToInteger(System.String)">
-            <summary>Converts a JSON string to an integer value</summary>
-            <param name="json">The JSON representation</param>
+            <summary>Converts a json string to an integer value</summary>
+            <param name="json">The json representation</param>
             <returns>The integer value</returns>
         </member>
         <member name="M:PayrollEngine.StringJsonExtensions.JsonToDecimal(System.String)">
-            <summary>Converts a JSON string to an decimal value</summary>
-            <param name="json">The JSON representation</param>
+            <summary>Converts a json string to an decimal value</summary>
+            <param name="json">The json representation</param>
             <returns>The decimal value</returns>
         </member>
         <member name="M:PayrollEngine.StringJsonExtensions.JsonToString(System.String)">
-            <summary>Converts a JSON string to a string value</summary>
-            <param name="json">The JSON representation</param>
+            <summary>Converts a json string to a string value</summary>
+            <param name="json">The json representation</param>
             <returns>The string value</returns>
         </member>
         <member name="M:PayrollEngine.StringJsonExtensions.JsonToDateTime(System.String)">
-            <summary>Converts a JSON string to a date value</summary>
-            <param name="json">The JSON representation</param>
+            <summary>Converts a json string to a date value</summary>
+            <param name="json">The json representation</param>
             <returns>The date value</returns>
         </member>
         <member name="M:PayrollEngine.StringJsonExtensions.JsonToBoolean(System.String)">
-            <summary>Converts a JSON string to a boolean value</summary>
-            <param name="json">The JSON representation</param>
+            <summary>Converts a json string to a boolean value</summary>
+            <param name="json">The json representation</param>
             <returns>The boolean value</returns>
+        </member>
+        <member name="M:PayrollEngine.StringJsonExtensions.JsonPrettify(System.String)">
+            <summary>Prettify json string</summary>
+            <param name="json">The json representation</param>
+            <returns>Indented json representation</returns>
         </member>
         <member name="T:PayrollEngine.SystemSpecification">
             <summary>The system specification</summary>

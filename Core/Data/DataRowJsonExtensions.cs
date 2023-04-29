@@ -37,7 +37,7 @@ namespace PayrollEngine.Data
             {
                 return defaultValue;
             }
-            if (type == typeof(string) && !json.StartsWith("\""))
+            if (type == typeof(string) && !json.StartsWith('"'))
             {
                 return json;
             }

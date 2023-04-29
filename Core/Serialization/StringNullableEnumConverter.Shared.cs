@@ -54,7 +54,7 @@ public class StringNullableEnumConverter<T> : JsonConverter<T>
         }
 
         var value = reader.GetString();
-        if (string.IsNullOrEmpty(value))
+        if (string.IsNullOrWhiteSpace(value))
         {
             return default;
         }
