@@ -85,6 +85,134 @@
             <param name="key">The value key</param>
             <param name="value">The Guid value to set</param>
         </member>
+        <member name="T:PayrollEngine.AttributesExtensions">
+            <summary>
+            Attribute dictionary extension methods
+            </summary>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.HasAttribute(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+            <summary>
+            Test for attribute
+            </summary>
+            <param name="attributes">The attributes dictionary</param>
+            <param name="name">The attribute name</param>
+            <param name="language">The attribute language</param>
+            <returns>True if attribute exists</returns>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.GetMemberAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},``0,System.Nullable{PayrollEngine.Language},System.String)">
+            <summary>
+            Get member value
+            </summary>
+            <param name="attributes">The attributes dictionary</param>
+            <param name="defaultValue">The default value</param>
+            <param name="language">The attribute language</param>
+            <param name="memberName">The member name</param>
+            <returns>The member value</returns>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.GetAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0,System.Nullable{PayrollEngine.Language})">
+            <summary>
+            Get attribute value
+            </summary>
+            <param name="attributes">The attributes dictionary</param>
+            <param name="name">The attribute name</param>
+            <param name="defaultValue">The default value</param>
+            <param name="language">The attribute language</param>
+            <returns>The attribute value</returns>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.TryGetAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0@,System.Nullable{PayrollEngine.Language})">
+            <summary>
+            Try to get an attribute value
+            </summary>
+            <param name="attributes">The attributes dictionary</param>
+            <param name="name">The attribute name</param>
+            <param name="value">The attribute value</param>
+            <param name="language">The attribute language</param>
+            <returns>True for an existing attribute</returns>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.GetStringAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+            <summary>
+            Get a string attribute value
+            </summary>
+            <param name="attributes">The attributes dictionary</param>
+            <param name="name">The attribute name</param>
+            <param name="language">The attribute language</param>
+            <returns>The string value</returns>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.GetDateTimeAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language},System.Globalization.CultureInfo)">
+            <summary>
+            Get a date attribute value
+            </summary>
+            <param name="attributes">The attributes dictionary</param>
+            <param name="name">The attribute name</param>
+            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
+            <returns>The date value</returns>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.GetBooleanAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+            <summary>
+            Get a boolean attribute value
+            </summary>
+            <param name="attributes">The attributes dictionary</param>
+            <param name="name">The attribute name</param>
+            <param name="language">The attribute language</param>
+            <returns>The boolean value</returns>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.GetIntegerAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+            <summary>
+            Get a integer attribute value
+            </summary>
+            <param name="attributes">The attributes dictionary</param>
+            <param name="name">The attribute name</param>
+            <param name="language">The attribute language</param>
+            <returns>The integer value</returns>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.GetDecimalAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+            <summary>
+            Get a decimal attribute value
+            </summary>
+            <param name="attributes">The attributes dictionary</param>
+            <param name="name">The attribute name</param>
+            <param name="language">The attribute language</param>
+            <returns>The decimal value</returns>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.GetEnumAttributeValue``1(System.Collections.Generic.Dictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+            <summary>
+            Get an enum attribute value
+            </summary>
+            <typeparam name="T">Enum type</typeparam>
+            <param name="attributes">Attribute dictionary</param>
+            <param name="name">Name of attribute to extract enum from</param>
+            <param name="language">The attribute language</param>
+            <returns>Enum representation of string input</returns>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.SetMemberAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},``0,System.Nullable{PayrollEngine.Language},System.String)">
+            <summary>
+            Set member value
+            </summary>
+            <param name="attributes">The attributes dictionary</param>
+            <param name="value">The value</param>
+            <param name="language">The attribute language</param>
+            <param name="memberName">The member name</param>
+            <returns>The member value</returns>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.SetAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0,System.Nullable{PayrollEngine.Language})">
+            <summary>
+            Set an attribute value
+            </summary>
+            <param name="attributes">The attributes dictionary</param>
+            <param name="name">The attribute name</param>
+            <param name="value">The value</param>
+            <param name="language">The attribute language</param>
+        </member>
+        <member name="M:PayrollEngine.AttributesExtensions.GetAttributeKey(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+            <summary>
+            Get attribute key
+            </summary>
+            <param name="attributes">The attributes dictionary</param>
+            <param name="name">The attribute name</param>
+            <param name="language">The attribute language</param>
+            <returns>The attribute key</returns>
+        </member>
         <member name="T:PayrollEngine.CacheRatio">
             <exclude />
             <summary>Calculates and logs the cache ratio</summary>
@@ -342,6 +470,9 @@
         <member name="F:PayrollEngine.CaseIssueType.CaseValueIncomplete">
             <summary>Incomplete case value</summary>
         </member>
+        <member name="F:PayrollEngine.CaseIssueType.CaseValueMissing">
+            <summary>Missing case value</summary>
+        </member>
         <member name="F:PayrollEngine.CaseIssueType.CaseValueStartInvalid">
             <summary>Invalid case value start date</summary>
         </member>
@@ -350,6 +481,12 @@
         </member>
         <member name="F:PayrollEngine.CaseIssueType.CaseValueEndMissing">
             <summary>Missing case value end date</summary>
+        </member>
+        <member name="F:PayrollEngine.CaseIssueType.CaseValueWeekdayInvalid">
+            <summary>Invalid weekday (0..6)</summary>
+        </member>
+        <member name="F:PayrollEngine.CaseIssueType.CaseValueMonthInvalid">
+            <summary>Invalid month (0..11)</summary>
         </member>
         <member name="T:PayrollEngine.CaseType">
             <summary>The type of a case</summary>
@@ -425,16 +562,16 @@
             <param name="timeType">The time type</param>
             <returns>True for time type is scalable</returns>
         </member>
-        <member name="T:PayrollEngine.CharacterCaseType">
+        <member name="T:PayrollEngine.CharacterCase">
             <summary>The text character case type</summary>
         </member>
-        <member name="F:PayrollEngine.CharacterCaseType.Keep">
+        <member name="F:PayrollEngine.CharacterCase.Keep">
             <summary>Keep existing state</summary>
         </member>
-        <member name="F:PayrollEngine.CharacterCaseType.ToUpper">
+        <member name="F:PayrollEngine.CharacterCase.ToUpper">
             <summary>Change to upper character</summary>
         </member>
-        <member name="F:PayrollEngine.CharacterCaseType.ToLower">
+        <member name="F:PayrollEngine.CharacterCase.ToLower">
             <summary>Change to lower character</summary>
         </member>
         <member name="T:PayrollEngine.ClientJsonSerializer">
@@ -541,15 +678,17 @@
         <member name="T:PayrollEngine.CopyTool">
             <summary>Copy object tool</summary>
         </member>
-        <member name="M:PayrollEngine.CopyTool.CopyObjectProperties(System.Object,System.Object)">
+        <member name="M:PayrollEngine.CopyTool.CopyObjectProperties(System.Object,System.Object,System.Collections.Generic.IEnumerable{System.Type})">
             <summary>Copy objects properties, base types are not considered</summary>
             <param name="source">The left object to compare</param>
             <param name="target">The right object to compare</param>
+            <param name="ignoreAttributes">The property attribute to ignore</param>
         </member>
-        <member name="M:PayrollEngine.CopyTool.CopyProperties``1(``0,``0)">
+        <member name="M:PayrollEngine.CopyTool.CopyProperties``1(``0,``0,System.Collections.Generic.IEnumerable{System.Type})">
             <summary>Copy typed object properties, base types are not considered</summary>
             <param name="source">The left object to compare</param>
             <param name="target">The right object to compare</param>
+            <param name="ignoreAttributes">The property attribute to ignore</param>
         </member>
         <member name="T:PayrollEngine.Country">
             <summary>The payroll countries, ISO ISO 3166-1</summary>
@@ -1464,7 +1603,7 @@
             <param name="dataTable">The system data table to convert</param>
             <returns>The payroll data table</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataTableConversionExtensions.ToSystemDataTable(System.Collections.IEnumerable,System.String,System.Boolean,System.String)">
+        <member name="M:PayrollEngine.Data.DataTableConversionExtensions.ToSystemDataTable(System.Collections.IEnumerable,System.String,System.Boolean,System.String,System.Collections.Generic.IList{System.String})">
             <summary>
             Convert items to a system data set
             </summary>
@@ -1472,6 +1611,7 @@
             <param name="tableName">The table name, default is the type name</param>
             <param name="includeRows">Include table rows</param>
             <param name="primaryKey">The primary key column name</param>
+            <param name="properties">The properties to convert int columns (default: all)</param>
             <returns>Data table with items data</returns>
         </member>
         <member name="M:PayrollEngine.Data.DataTableConversionExtensions.ToSystemDataTable(PayrollEngine.Data.DataTable)">
@@ -1511,20 +1651,22 @@
         <member name="T:PayrollEngine.Data.DataTableItemExtensions">
             <summary>Data table item extension methods</summary>
         </member>
-        <member name="M:PayrollEngine.Data.DataTableItemExtensions.AppendItems(System.Data.DataTable,System.Collections.IEnumerable)">
+        <member name="M:PayrollEngine.Data.DataTableItemExtensions.AppendItems(System.Data.DataTable,System.Collections.IEnumerable,System.Collections.Generic.IList{System.String})">
             <summary>
             Append items to a system data table
             </summary>
             <param name="dataTable">The target table</param>
             <param name="items">The items to convert</param>
+            <param name="properties">The properties to convert int columns (default: all)</param>
             <returns>Data table with items data</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataTableItemExtensions.AppendItem(System.Data.DataTable,System.Object)">
+        <member name="M:PayrollEngine.Data.DataTableItemExtensions.AppendItem(System.Data.DataTable,System.Object,System.Collections.Generic.IList{System.String})">
             <summary>
             Append items to a system data table
             </summary>
             <param name="dataTable">The target table</param>
             <param name="item">The items to append</param>
+            <param name="properties">The properties to convert int columns (default: all)</param>
             <returns>Data table with items data</returns>
         </member>
         <member name="T:PayrollEngine.Data.DataTableRowExtensions">
@@ -2288,9 +2430,6 @@
         </member>
         <member name="T:PayrollEngine.FunctionType">
             <summary>The payroll function type</summary>
-        </member>
-        <member name="F:PayrollEngine.FunctionType.None">
-            <summary>No function</summary>
         </member>
         <member name="F:PayrollEngine.FunctionType.All">
             <summary>All functions</summary>
@@ -3098,9 +3237,6 @@
         <member name="T:PayrollEngine.Month">
             <summary>Enumeration with the year months</summary>
         </member>
-        <member name="F:PayrollEngine.Month.NotSet">
-            <summary>Not set</summary>
-        </member>
         <member name="F:PayrollEngine.Month.January">
             <summary>Indicates January</summary>
         </member>
@@ -3404,24 +3540,55 @@
         <member name="F:PayrollEngine.PayrunJobStatus.Cancel">
             <summary>Released Job has been canceled</summary>
         </member>
-        <member name="F:PayrollEngine.PayrunJobStatus.Working">
-            <summary>Working status, including draft, release and process</summary>
-        </member>
-        <member name="F:PayrollEngine.PayrunJobStatus.Legal">
-            <summary>Legal status, including release, process and complete</summary>
-        </member>
-        <member name="F:PayrollEngine.PayrunJobStatus.Final">
-            <summary>Final status, including complete, forecast, abort and cancel</summary>
-        </member>
         <member name="T:PayrollEngine.PayrunJobStatusExtensions">
             <summary>Extensions for <see cref="T:PayrollEngine.PayrunJobStatus"/></summary>
         </member>
-        <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsWorkingState(PayrollEngine.PayrunJobStatus)">
+        <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsDraft(PayrollEngine.PayrunJobStatus)">
+            <summary>Test if the payrun job is in a draft state</summary>
+            <param name="jobStatus">The payrun job status</param>
+            <returns>True, if the state is a draft state</returns>
+        </member>
+        <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsRelease(PayrollEngine.PayrunJobStatus)">
+            <summary>Test if the payrun job is in a release state</summary>
+            <param name="jobStatus">The payrun job status</param>
+            <returns>True, if the state is a release state</returns>
+        </member>
+        <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsProcess(PayrollEngine.PayrunJobStatus)">
+            <summary>Test if the payrun job is in a process state</summary>
+            <param name="jobStatus">The payrun job status</param>
+            <returns>True, if the state is a process state</returns>
+        </member>
+        <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsComplete(PayrollEngine.PayrunJobStatus)">
+            <summary>Test if the payrun job is in a complete state</summary>
+            <param name="jobStatus">The payrun job status</param>
+            <returns>True, if the state is a complete state</returns>
+        </member>
+        <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsForecast(PayrollEngine.PayrunJobStatus)">
+            <summary>Test if the payrun job is in a forecast state</summary>
+            <param name="jobStatus">The payrun job status</param>
+            <returns>True, if the state is a forecast state</returns>
+        </member>
+        <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsAbort(PayrollEngine.PayrunJobStatus)">
+            <summary>Test if the payrun job is in a abort state</summary>
+            <param name="jobStatus">The payrun job status</param>
+            <returns>True, if the state is a abort state</returns>
+        </member>
+        <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsCancel(PayrollEngine.PayrunJobStatus)">
+            <summary>Test if the payrun job is in a cancel state</summary>
+            <param name="jobStatus">The payrun job status</param>
+            <returns>True, if the state is a cancel state</returns>
+        </member>
+        <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsWorking(PayrollEngine.PayrunJobStatus)">
             <summary>Test if the payrun job is in a working state</summary>
             <param name="jobStatus">The payrun job status</param>
             <returns>True, if the state is a working state</returns>
         </member>
-        <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsFinalState(PayrollEngine.PayrunJobStatus)">
+        <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsLegal(PayrollEngine.PayrunJobStatus)">
+            <summary>Test if the payrun job is in a working state</summary>
+            <param name="jobStatus">The payrun job status</param>
+            <returns>True, if the state is a working state</returns>
+        </member>
+        <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsFinal(PayrollEngine.PayrunJobStatus)">
             <summary>Test if the payrun job is in a final state</summary>
             <param name="jobStatus">The payrun job status</param>
             <returns>True, if the state is a final state</returns>
@@ -3594,6 +3761,41 @@
         </member>
         <member name="T:PayrollEngine.QueryExtensions">
             <summary>Extension methods for <see cref="T:System.Uri"/> </summary>
+        </member>
+        <member name="M:PayrollEngine.QueryExtensions.HasStatus(PayrollEngine.Query)">
+            <summary>Test if query contains a status</summary>
+            <param name="query">The query to append</param>
+            <returns>True if status is defined</returns>
+        </member>
+        <member name="M:PayrollEngine.QueryExtensions.HasFilter(PayrollEngine.Query)">
+            <summary>Test if query contains a filter</summary>
+            <param name="query">The query to append</param>
+            <returns>True if filter is defined</returns>
+        </member>
+        <member name="M:PayrollEngine.QueryExtensions.HasOrderBy(PayrollEngine.Query)">
+            <summary>Test if query contains an order by</summary>
+            <param name="query">The query to append</param>
+            <returns>True if order by is defined</returns>
+        </member>
+        <member name="M:PayrollEngine.QueryExtensions.HasSelect(PayrollEngine.Query)">
+            <summary>Test if query contains a select</summary>
+            <param name="query">The query to append</param>
+            <returns>True if select is defined</returns>
+        </member>
+        <member name="M:PayrollEngine.QueryExtensions.HasTop(PayrollEngine.Query)">
+            <summary>Test if query contains a top</summary>
+            <param name="query">The query to append</param>
+            <returns>True if top is defined</returns>
+        </member>
+        <member name="M:PayrollEngine.QueryExtensions.HasSkip(PayrollEngine.Query)">
+            <summary>Test if query contains a skip</summary>
+            <param name="query">The query to append</param>
+            <returns>True if skip is defined</returns>
+        </member>
+        <member name="M:PayrollEngine.QueryExtensions.HasResult(PayrollEngine.Query)">
+            <summary>Test if query contains a result</summary>
+            <param name="query">The query to append</param>
+            <returns>True if result is defined</returns>
         </member>
         <member name="M:PayrollEngine.QueryExtensions.AppendQueryString(PayrollEngine.Query,System.String)">
             <summary>Append the given object query key and value to the URI</summary>
@@ -4203,28 +4405,34 @@
             <param name="source">The source value</param>
             <returns>The source value without special characters</returns>
         </member>
-        <member name="M:PayrollEngine.StringExtensions.ToCamelSentence(System.String,PayrollEngine.CharacterCaseType,System.String)">
+        <member name="M:PayrollEngine.StringExtensions.ToCamelSentence(System.String,PayrollEngine.CharacterCase,System.String)">
             <summary>Change to camel case sentence</summary>
             <param name="source">The source value</param>
-            <param name="wordCaseType">The word start character casing</param>
+            <param name="wordCase">The word start character casing</param>
             <param name="separator">The word separator</param>
             <returns>Camel case text sentence</returns>
         </member>
-        <member name="M:PayrollEngine.StringExtensions.ToPascalSentence(System.String,PayrollEngine.CharacterCaseType,System.String)">
+        <member name="M:PayrollEngine.StringExtensions.ToPascalSentence(System.String,PayrollEngine.CharacterCase,System.String)">
             <summary>Change to pascal case sentence</summary>
             <param name="source">The source value</param>
-            <param name="wordCaseType">The word start character casing</param>
+            <param name="wordCase">The word start character casing</param>
             <param name="separator">The word separator</param>
             <returns>Camel case text sentence</returns>
         </member>
-        <member name="M:PayrollEngine.StringExtensions.ToSentence(System.String,PayrollEngine.CharacterCaseType,PayrollEngine.CharacterCaseType,System.String)">
+        <member name="M:PayrollEngine.StringExtensions.ToSentence(System.String,PayrollEngine.CharacterCase,PayrollEngine.CharacterCase,System.String)">
             <summary>Change text sentence</summary>
             <remarks>source: https://stackoverflow.com/a/51310790/15659039 </remarks>
             <param name="source">The source value</param>
-            <param name="startCaseType">The first character casing</param>
-            <param name="wordCaseType">The word start character casing</param>
+            <param name="startCase">The first character casing</param>
+            <param name="wordCase">The word start character casing</param>
             <param name="separator">The word separator</param>
             <returns></returns>
+        </member>
+        <member name="M:PayrollEngine.StringExtensions.TruncateSentence(System.String,System.Int32)">
+            <summary>Truncate a string, preserving the sentence words</summary>
+            <param name="source">The source value</param>
+            <param name="length">The string length</param>
+            <returns>Truncated case text sentence</returns>
         </member>
         <member name="M:PayrollEngine.StringExtensions.TruncateSentence(System.String,System.Int32,System.String)">
             <summary>Truncate a string, preserving the sentence words</summary>
@@ -4232,7 +4440,7 @@
             <param name="length">The string length</param>
             <param name="ellipsis">Replacement for cut text</param>
             <remarks>source https://stackoverflow.com/a/53843505/15659039</remarks>
-            <returns>Camel case text sentence</returns>
+            <returns>Truncated case text sentence</returns>
         </member>
         <member name="M:PayrollEngine.StringExtensions.HtmlEncode(System.String)">
             <summary>Encode string to html, single quotation marks and double quotation marks are included as \' and \"</summary>
@@ -4397,7 +4605,12 @@
             <summary>Type tools</summary>
         </member>
         <member name="M:PayrollEngine.TypeTool.GetInstanceProperties(System.Type)">
-            <summary>Get the public type properties</summary>
+            <summary>Get the public instance properties</summary>
+            <param name="type">The type</param>
+            <returns>The public type properties</returns>
+        </member>
+        <member name="M:PayrollEngine.TypeTool.GetTypeProperties(System.Type)">
+            <summary>Get the public type properties (instance and interfaces)</summary>
             <param name="type">The type</param>
             <returns>The public type properties</returns>
         </member>
@@ -4563,38 +4776,29 @@
         <member name="F:PayrollEngine.ValueType.Date">
             <summary>Date (base type string)</summary>
         </member>
-        <member name="F:PayrollEngine.ValueType.WebResource">
-            <summary>Web Resource e.g. Url (base type string)</summary>
-        </member>
-        <member name="F:PayrollEngine.ValueType.Money">
-            <summary>Money (base type numeric)</summary>
-        </member>
-        <member name="F:PayrollEngine.ValueType.Percent">
-            <summary>Percentage (base type numeric)</summary>
-        </member>
-        <member name="F:PayrollEngine.ValueType.Hour">
-            <summary>Hour (base type numeric)</summary>
-        </member>
-        <member name="F:PayrollEngine.ValueType.Day">
-            <summary>Day (base type numeric)</summary>
-        </member>
-        <member name="F:PayrollEngine.ValueType.Week">
-            <summary>Week (base type numeric)</summary>
+        <member name="F:PayrollEngine.ValueType.Weekday">
+            <summary>Day of week (base type integer 0..6)</summary>
         </member>
         <member name="F:PayrollEngine.ValueType.Month">
-            <summary>Month (base type numeric)</summary>
+            <summary>Month (base type integer 0..11)</summary>
         </member>
         <member name="F:PayrollEngine.ValueType.Year">
-            <summary>Year (base type numeric)</summary>
+            <summary>Year (base type integer)</summary>
         </member>
-        <member name="F:PayrollEngine.ValueType.Distance">
-            <summary>Distance (base type numeric)</summary>
+        <member name="F:PayrollEngine.ValueType.Money">
+            <summary>Money (base type decimal)</summary>
+        </member>
+        <member name="F:PayrollEngine.ValueType.Percent">
+            <summary>Percentage (base type decimal)</summary>
+        </member>
+        <member name="F:PayrollEngine.ValueType.WebResource">
+            <summary>Web Resource e.g. Url (base type string)</summary>
         </member>
         <member name="T:PayrollEngine.ValueTypeExtensions">
             <summary>Extensions for <see cref="T:PayrollEngine.ValueType"/></summary>
         </member>
-        <member name="M:PayrollEngine.ValueTypeExtensions.GetDataType(PayrollEngine.ValueType)">
-            <summary>Get the data type</summary>
+        <member name="M:PayrollEngine.ValueTypeExtensions.GetSystemType(PayrollEngine.ValueType)">
+            <summary>Get the data system type</summary>
             <param name="valueType">The value type</param>
             <returns>The data type</returns>
         </member>
@@ -4611,15 +4815,30 @@
             <param name="valueType">The value type</param>
             <returns>The value</returns>
         </member>
-        <member name="M:PayrollEngine.ValueTypeExtensions.IsText(PayrollEngine.ValueType)">
-            <summary>Test if value type is a text</summary>
+        <member name="M:PayrollEngine.ValueTypeExtensions.IsBoolean(PayrollEngine.ValueType)">
+            <summary>Test if value type is a bool</summary>
             <param name="valueType">The value type</param>
-            <returns>True for text value types</returns>
+            <returns>True for boolean value types</returns>
+        </member>
+        <member name="M:PayrollEngine.ValueTypeExtensions.IsString(PayrollEngine.ValueType)">
+            <summary>Test if value type is a string</summary>
+            <param name="valueType">The value type</param>
+            <returns>True for string value types</returns>
+        </member>
+        <member name="M:PayrollEngine.ValueTypeExtensions.IsDateTime(PayrollEngine.ValueType)">
+            <summary>Test if value type is a date time</summary>
+            <param name="valueType">The value type</param>
+            <returns>True for date time value types</returns>
         </member>
         <member name="M:PayrollEngine.ValueTypeExtensions.IsNumber(PayrollEngine.ValueType)">
             <summary>Test if value type is a number</summary>
             <param name="valueType">The value type</param>
             <returns>True for number value types</returns>
+        </member>
+        <member name="M:PayrollEngine.ValueTypeExtensions.IsInteger(PayrollEngine.ValueType)">
+            <summary>Test if value type is a integer</summary>
+            <param name="valueType">The value type</param>
+            <returns>True for integer value types</returns>
         </member>
         <member name="M:PayrollEngine.ValueTypeExtensions.IsDecimal(PayrollEngine.ValueType)">
             <summary>Test if value type is a decimal number</summary>

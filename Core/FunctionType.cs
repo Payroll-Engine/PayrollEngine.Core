@@ -8,8 +8,6 @@ namespace PayrollEngine;
 [Flags]
 public enum FunctionType
 {
-    /// <summary>No function</summary>
-    None = 0,
 
     // combined functions
     /// <summary>All functions</summary>

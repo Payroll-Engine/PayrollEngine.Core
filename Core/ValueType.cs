@@ -23,23 +23,19 @@ public enum ValueType
 
     /// <summary>Date (base type string)</summary>
     Date = 10,
-    /// <summary>Web Resource e.g. Url (base type string)</summary>
-    WebResource = 11,
 
-    /// <summary>Money (base type numeric)</summary>
-    Money = 20,
-    /// <summary>Percentage (base type numeric)</summary>
-    Percent = 21,
-    /// <summary>Hour (base type numeric)</summary>
-    Hour = 22,
-    /// <summary>Day (base type numeric)</summary>
-    Day = 23,
-    /// <summary>Week (base type numeric)</summary>
-    Week = 24,
-    /// <summary>Month (base type numeric)</summary>
-    Month = 25,
-    /// <summary>Year (base type numeric)</summary>
-    Year = 26,
-    /// <summary>Distance (base type numeric)</summary>
-    Distance = 27
+    /// <summary>Day of week (base type integer 0..6)</summary>
+    Weekday = 20,
+    /// <summary>Month (base type integer 0..11)</summary>
+    Month = 21,
+    /// <summary>Year (base type integer)</summary>
+    Year = 22,
+
+    /// <summary>Money (base type decimal)</summary>
+    Money = 30,
+    /// <summary>Percentage (base type decimal)</summary>
+    Percent = 31,
+
+    /// <summary>Web Resource e.g. Url (base type string)</summary>
+    WebResource = 40
 }

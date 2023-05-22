@@ -185,32 +185,32 @@ public static class StringExtensions
 
     /// <summary>Change to camel case sentence</summary>
     /// <param name="source">The source value</param>
-    /// <param name="wordCaseType">The word start character casing</param>
+    /// <param name="wordCase">The word start character casing</param>
     /// <param name="separator">The word separator</param>
     /// <returns>Camel case text sentence</returns>
     public static string ToCamelSentence(this string source,
-        CharacterCaseType wordCaseType = CharacterCaseType.ToLower, string separator = " ") =>
-        ToSentence(source, CharacterCaseType.ToLower, wordCaseType, separator);
+        CharacterCase wordCase = CharacterCase.ToLower, string separator = " ") =>
+        ToSentence(source, CharacterCase.ToLower, wordCase, separator);
 
     /// <summary>Change to pascal case sentence</summary>
     /// <param name="source">The source value</param>
-    /// <param name="wordCaseType">The word start character casing</param>
+    /// <param name="wordCase">The word start character casing</param>
     /// <param name="separator">The word separator</param>
     /// <returns>Camel case text sentence</returns>
     public static string ToPascalSentence(this string source,
-        CharacterCaseType wordCaseType = CharacterCaseType.ToLower, string separator = " ") =>
-        ToSentence(source, CharacterCaseType.ToUpper, wordCaseType, separator);
+        CharacterCase wordCase = CharacterCase.ToLower, string separator = " ") =>
+        ToSentence(source, CharacterCase.ToUpper, wordCase, separator);
 
     /// <summary>Change text sentence</summary>
     /// <remarks>source: https://stackoverflow.com/a/51310790/15659039 </remarks>
     /// <param name="source">The source value</param>
-    /// <param name="startCaseType">The first character casing</param>
-    /// <param name="wordCaseType">The word start character casing</param>
+    /// <param name="startCase">The first character casing</param>
+    /// <param name="wordCase">The word start character casing</param>
     /// <param name="separator">The word separator</param>
     /// <returns></returns>
     public static string ToSentence(this string source,
-        CharacterCaseType startCaseType = CharacterCaseType.Keep,
-        CharacterCaseType wordCaseType = CharacterCaseType.Keep,
+        CharacterCase startCase = CharacterCase.Keep,
+        CharacterCase wordCase = CharacterCase.Keep,
         string separator = " ")
     {
         if (string.IsNullOrWhiteSpace(source))
@@ -220,7 +220,7 @@ public static class StringExtensions
 
         var buffer = new StringBuilder();
         // start with the first character -- consistent camelcase and pascal case
-        buffer.Append(ChangeCase(source[0], startCaseType));
+        buffer.Append(ChangeCase(source[0], startCase));
 
         // march through the rest of it
         for (var i = 1; i < source.Length; i++)
@@ -232,7 +232,7 @@ public static class StringExtensions
                 {
                     buffer.Append(separator);
                 }
-                buffer.Append(ChangeCase(source[i], wordCaseType));
+                buffer.Append(ChangeCase(source[i], wordCase));
             }
             else
             {
@@ -244,13 +244,13 @@ public static class StringExtensions
         return buffer.ToString();
     }
 
-    private static char ChangeCase(char input, CharacterCaseType startCaseType)
+    private static char ChangeCase(char input, CharacterCase startCase)
     {
-        switch (startCaseType)
+        switch (startCase)
         {
-            case CharacterCaseType.ToUpper:
+            case CharacterCase.ToUpper:
                 return char.ToUpper(input);
-            case CharacterCaseType.ToLower:
+            case CharacterCase.ToLower:
                 return char.ToLower(input);
             default:
                 return input;
@@ -260,10 +260,17 @@ public static class StringExtensions
     /// <summary>Truncate a string, preserving the sentence words</summary>
     /// <param name="source">The source value</param>
     /// <param name="length">The string length</param>
+    /// <returns>Truncated case text sentence</returns>
+    public static string TruncateSentence(this string source, int length) =>
+        TruncateSentence(source, length, "...");
+
+    /// <summary>Truncate a string, preserving the sentence words</summary>
+    /// <param name="source">The source value</param>
+    /// <param name="length">The string length</param>
     /// <param name="ellipsis">Replacement for cut text</param>
     /// <remarks>source https://stackoverflow.com/a/53843505/15659039</remarks>
-    /// <returns>Camel case text sentence</returns>
-    public static string TruncateSentence(this string source, int length, string ellipsis = "...")
+    /// <returns>Truncated case text sentence</returns>
+    public static string TruncateSentence(this string source, int length, string ellipsis)
     {
         if (string.IsNullOrWhiteSpace(source) || source.Length < length)
         {

@@ -5,16 +5,64 @@ namespace PayrollEngine;
 /// <summary>Extensions for <see cref="PayrunJobStatus"/></summary>
 public static class PayrunJobStatusExtensions
 {
+    /// <summary>Test if the payrun job is in a draft state</summary>
+    /// <param name="jobStatus">The payrun job status</param>
+    /// <returns>True, if the state is a draft state</returns>
+    public static bool IsDraft(this PayrunJobStatus jobStatus) =>
+        jobStatus is PayrunJobStatus.Draft;
+
+    /// <summary>Test if the payrun job is in a release state</summary>
+    /// <param name="jobStatus">The payrun job status</param>
+    /// <returns>True, if the state is a release state</returns>
+    public static bool IsRelease(this PayrunJobStatus jobStatus) =>
+        jobStatus is PayrunJobStatus.Release;
+
+    /// <summary>Test if the payrun job is in a process state</summary>
+    /// <param name="jobStatus">The payrun job status</param>
+    /// <returns>True, if the state is a process state</returns>
+    public static bool IsProcess(this PayrunJobStatus jobStatus) =>
+        jobStatus is PayrunJobStatus.Process;
+
+    /// <summary>Test if the payrun job is in a complete state</summary>
+    /// <param name="jobStatus">The payrun job status</param>
+    /// <returns>True, if the state is a complete state</returns>
+    public static bool IsComplete(this PayrunJobStatus jobStatus) =>
+        jobStatus is PayrunJobStatus.Complete;
+
+    /// <summary>Test if the payrun job is in a forecast state</summary>
+    /// <param name="jobStatus">The payrun job status</param>
+    /// <returns>True, if the state is a forecast state</returns>
+    public static bool IsForecast(this PayrunJobStatus jobStatus) =>
+        jobStatus is PayrunJobStatus.Forecast;
+
+    /// <summary>Test if the payrun job is in a abort state</summary>
+    /// <param name="jobStatus">The payrun job status</param>
+    /// <returns>True, if the state is a abort state</returns>
+    public static bool IsAbort(this PayrunJobStatus jobStatus) =>
+        jobStatus is PayrunJobStatus.Abort;
+
+    /// <summary>Test if the payrun job is in a cancel state</summary>
+    /// <param name="jobStatus">The payrun job status</param>
+    /// <returns>True, if the state is a cancel state</returns>
+    public static bool IsCancel(this PayrunJobStatus jobStatus) =>
+        jobStatus is PayrunJobStatus.Cancel;
+
     /// <summary>Test if the payrun job is in a working state</summary>
     /// <param name="jobStatus">The payrun job status</param>
     /// <returns>True, if the state is a working state</returns>
-    public static bool IsWorkingState(this PayrunJobStatus jobStatus) =>
+    public static bool IsWorking(this PayrunJobStatus jobStatus) =>
         jobStatus is PayrunJobStatus.Draft or PayrunJobStatus.Release or PayrunJobStatus.Process;
+
+    /// <summary>Test if the payrun job is in a working state</summary>
+    /// <param name="jobStatus">The payrun job status</param>
+    /// <returns>True, if the state is a working state</returns>
+    public static bool IsLegal(this PayrunJobStatus jobStatus) =>
+        jobStatus is PayrunJobStatus.Release or PayrunJobStatus.Process or PayrunJobStatus.Complete;
 
     /// <summary>Test if the payrun job is in a final state</summary>
     /// <param name="jobStatus">The payrun job status</param>
     /// <returns>True, if the state is a final state</returns>
-    public static bool IsFinalState(this PayrunJobStatus jobStatus) =>
+    public static bool IsFinal(this PayrunJobStatus jobStatus) =>
         jobStatus is PayrunJobStatus.Complete or PayrunJobStatus.Forecast or PayrunJobStatus.Abort or PayrunJobStatus.Cancel;
 
     /// <summary>Test if the payrun job state change is handled by the webhook start message, change from final to transmit</summary>

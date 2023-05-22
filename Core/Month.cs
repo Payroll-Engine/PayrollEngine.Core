@@ -6,9 +6,6 @@ namespace PayrollEngine;
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Month
 {
-    /// <summary>Not set</summary>
-    NotSet = 0,
-
     /// <summary>Indicates January</summary>
     January = 1,
 

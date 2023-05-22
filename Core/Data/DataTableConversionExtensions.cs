@@ -124,9 +124,10 @@ public static class DataTableConversionExtensions
     /// <param name="tableName">The table name, default is the type name</param>
     /// <param name="includeRows">Include table rows</param>
     /// <param name="primaryKey">The primary key column name</param>
+    /// <param name="properties">The properties to convert int columns (default: all)</param>
     /// <returns>Data table with items data</returns>
     public static System.Data.DataTable ToSystemDataTable(this IEnumerable items, string tableName = null,
-        bool includeRows = false, string primaryKey = null)
+        bool includeRows = false, string primaryKey = null, IList<string> properties = null)
     {
         if (items == null)
         {
@@ -143,10 +144,17 @@ public static class DataTableConversionExtensions
                 var name = string.IsNullOrWhiteSpace(tableName) ? item.GetType().Name : tableName;
                 dataTable = new(name);
 
-                // columns
-                var properties = ObjectInfo.GetProperties(item.GetType());
-                foreach (var property in properties)
+                var itemProperties = ObjectInfo.GetProperties(item.GetType());
+                var convertPropertyNames = properties ?? itemProperties.Select(x => x.Name).ToList();
+                foreach (var propertyName in convertPropertyNames)
                 {
+                    // property column
+                    var property = itemProperties.FirstOrDefault(x => string.Equals(propertyName, x.Name));
+                    if (property == null)
+                    {
+                        continue;
+                    }
+
                     // add column
                     var nullableType = Nullable.GetUnderlyingType(property.PropertyType);
                     var columnType = nullableType ?? property.PropertyType;
@@ -157,17 +165,17 @@ public static class DataTableConversionExtensions
                         columnType = typeof(string);
                     }
 
-                    var column = new System.Data.DataColumn(property.Name, columnType);
+                    var dataColumn = new System.Data.DataColumn(property.Name, columnType);
                     if (nullableType != null)
                     {
-                        column.AllowDBNull = true;
+                        dataColumn.AllowDBNull = true;
                     }
-                    dataTable.Columns.Add(column);
+                    dataTable.Columns.Add(dataColumn);
 
                     // primary key
                     if (primaryKey != null && string.Equals(property.Name, primaryKey))
                     {
-                        dataTable.PrimaryKey = new[] { column };
+                        dataTable.PrimaryKey = new[] { dataColumn };
                     }
                 }
             }
@@ -175,7 +183,7 @@ public static class DataTableConversionExtensions
             // rows
             if (includeRows)
             {
-                dataTable.AppendItem(item);
+                dataTable.AppendItem(item, properties);
             }
         }
 

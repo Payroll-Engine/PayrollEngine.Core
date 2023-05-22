@@ -46,7 +46,7 @@ public static class CompareTool
             return false;
         }
 
-        var properties = TypeTool.GetInstanceProperties(typeof(T));
+        var properties = TypeTool.GetTypeProperties(typeof(T));
         foreach (var property in properties)
         {
             if (!EqualValues(property.GetValue(left), property.GetValue(right)))

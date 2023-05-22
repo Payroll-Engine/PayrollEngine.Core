@@ -24,12 +24,21 @@ public enum CaseIssueType
     /// <summary>Incomplete case value</summary>
     CaseValueIncomplete = 5,
 
+    /// <summary>Missing case value</summary>
+    CaseValueMissing = 6,
+
     /// <summary>Invalid case value start date</summary>
-    CaseValueStartInvalid = 6,
+    CaseValueStartInvalid = 7,
 
     /// <summary>Invalid case value end date</summary>
-    CaseValueEndInvalid = 7,
+    CaseValueEndInvalid = 8,
 
     /// <summary>Missing case value end date</summary>
-    CaseValueEndMissing = 8
+    CaseValueEndMissing = 9,
+
+    /// <summary>Invalid weekday (0..6)</summary>
+    CaseValueWeekdayInvalid = 10,
+
+    /// <summary>Invalid month (0..11)</summary>
+    CaseValueMonthInvalid = 11
 }

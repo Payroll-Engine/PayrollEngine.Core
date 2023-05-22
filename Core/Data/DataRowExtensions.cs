@@ -179,7 +179,7 @@ namespace PayrollEngine.Data
         public static object GetPayrollValue(this System.Data.DataRow dataRow,
             string valueColumn, string valueTypeColumn, object defaultValue = null) =>
             dataRow.GetJsonValue(valueColumn,
-                GetPayrollValueType(dataRow, valueTypeColumn).GetDataType(), defaultValue);
+                GetPayrollValueType(dataRow, valueTypeColumn).GetSystemType(), defaultValue);
 
         #endregion
 

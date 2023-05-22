@@ -7,7 +7,7 @@ namespace PayrollEngine;
 /// <summary>Convert a value</summary>
 public static class ValueConvert
 {
-        
+
     /// <summary>Invert numeric json value</summary>
     /// <param name="json">The json to convert</param>
     /// <param name="valueType">The value type</param>
@@ -24,33 +24,13 @@ public static class ValueConvert
             return null;
         }
 
-        string outputValue;
-        switch (valueType)
+        return valueType.GetSystemType().Name switch
         {
-            case ValueType.Integer:
-                outputValue = ToJson((int)value * -1);
-                break;
-            case ValueType.NumericBoolean:
-            case ValueType.Decimal:
-            case ValueType.Money:
-            case ValueType.Percent:
-            case ValueType.Hour:
-            case ValueType.Day:
-            case ValueType.Week:
-            case ValueType.Month:
-            case ValueType.Year:
-            case ValueType.Distance:
-                outputValue = ToJson((decimal)value * -1);
-                break;
-            case ValueType.Boolean:
-                outputValue = ToJson(!(bool)value);
-                break;
-            default:
-                outputValue = json;
-                break;
-        }
-
-        return outputValue;
+            nameof(Int32) => ToJson((int)value * -1),
+            nameof(Decimal) => ToJson((decimal)value * -1),
+            nameof(Boolean) => ToJson(!(bool)value),
+            _ => json
+        };
     }
 
     #region Value to JSON string
@@ -127,38 +107,15 @@ public static class ValueConvert
             return null;
         }
 
-        switch (valueType)
+        return valueType.GetSystemType().Name switch
         {
-            case ValueType.Integer:
-                return ToInteger(json);
-
-            case ValueType.NumericBoolean:
-            case ValueType.Decimal:
-            case ValueType.Money:
-            case ValueType.Percent:
-            case ValueType.Hour:
-            case ValueType.Day:
-            case ValueType.Week:
-            case ValueType.Month:
-            case ValueType.Year:
-            case ValueType.Distance:
-                return ToDecimal(json);
-
-            case ValueType.String:
-            case ValueType.WebResource:
-                return ToString(json);
-
-            case ValueType.Date:
-            case ValueType.DateTime:
-                return ToDateTime(json);
-
-            case ValueType.Boolean:
-                return ToBoolean(json);
-            case ValueType.None:
-                return null;
-            default:
-                throw new PayrollException($"unknown value type {valueType}");
-        }
+            nameof(Int32) => ToInteger(json),
+            nameof(Decimal) => ToDecimal(json),
+            nameof(String) => ToString(json),
+            nameof(DateTime) => ToDateTime(json),
+            nameof(Boolean) => ToBoolean(json),
+            _ => null
+        };
     }
 
     /// <summary>Converts a JSON string to an integer value</summary>

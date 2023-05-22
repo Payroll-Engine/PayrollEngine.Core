@@ -2,7 +2,7 @@
 namespace PayrollEngine;
 
 /// <summary>The text character case type</summary>
-public enum CharacterCaseType
+public enum CharacterCase
 {
     /// <summary>Keep existing state</summary>
     Keep,

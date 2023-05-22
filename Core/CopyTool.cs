@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace PayrollEngine;
 
@@ -8,7 +11,9 @@ public static class CopyTool
     /// <summary>Copy objects properties, base types are not considered</summary>
     /// <param name="source">The left object to compare</param>
     /// <param name="target">The right object to compare</param>
-    public static void CopyObjectProperties(object source, object target)
+    /// <param name="ignoreAttributes">The property attribute to ignore</param>
+    public static void CopyObjectProperties(object source, object target,
+        IEnumerable<Type> ignoreAttributes = null)
     {
         if (source == null)
         {
@@ -22,9 +27,16 @@ public static class CopyTool
         {
             throw new ArgumentException(nameof(target));
         }
-        var properties = TypeTool.GetInstanceProperties(source.GetType());
+        var properties = TypeTool.GetTypeProperties(source.GetType());
+        var ignoreTypes = GetIgnoreTypes(ignoreAttributes);
         foreach (var property in properties)
         {
+            // ignore
+            if (IgnoreProperty(property, ignoreTypes))
+            {
+                continue;
+            }
+
             if (property.SetMethod != null)
             {
                 var value = property.GetValue(source);
@@ -36,7 +48,8 @@ public static class CopyTool
     /// <summary>Copy typed object properties, base types are not considered</summary>
     /// <param name="source">The left object to compare</param>
     /// <param name="target">The right object to compare</param>
-    public static void CopyProperties<T>(T source, T target) where T : class
+    /// <param name="ignoreAttributes">The property attribute to ignore</param>
+    public static void CopyProperties<T>(T source, T target, IEnumerable<Type> ignoreAttributes = null) where T : class
     {
         if (source == null)
         {
@@ -47,14 +60,49 @@ public static class CopyTool
             throw new ArgumentNullException(nameof(target));
         }
 
-        var properties = TypeTool.GetInstanceProperties(typeof(T));
+        var properties = TypeTool.GetTypeProperties(typeof(T));
+        var ignoreTypes = GetIgnoreTypes(ignoreAttributes);
         foreach (var property in properties)
         {
+            // ignore
+            if (IgnoreProperty(property, ignoreTypes))
+            {
+                continue;
+            }
+
+            // copy
             if (property.SetMethod != null)
             {
                 var value = property.GetValue(source);
                 property.SetValue(target, value);
             }
         }
+    }
+
+    private static List<Type> GetIgnoreTypes(IEnumerable<Type> ignoreAttributes = null)
+    {
+        var ignoreTypes = ignoreAttributes != null ? ignoreAttributes.ToList() : new List<Type>();
+        if (!ignoreTypes.Any())
+        {
+            ignoreTypes.Add(typeof(System.ComponentModel.DataAnnotations.Schema.NotMappedAttribute));
+            ignoreTypes.Add(typeof(System.Text.Json.Serialization.JsonIgnoreAttribute));
+        }
+        return ignoreTypes;
+    }
+
+    private static bool IgnoreProperty(PropertyInfo property, List<Type> ignoreTypes = null)
+    {
+        if (ignoreTypes == null)
+        {
+            return false;
+        }
+        foreach (var ignoreType in ignoreTypes)
+        {
+            if (property.GetCustomAttributes(ignoreType).Any())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace PayrollEngine;
@@ -11,7 +12,7 @@ public static class TypeExtensions
     /// </summary>
     /// <param name="type">The type</param>
     /// <returns>The public type properties</returns>
-    public static PropertyInfo[] GetInstanceProperties(this Type type) =>
+    public static List<PropertyInfo> GetInstanceProperties(this Type type) =>
         TypeTool.GetInstanceProperties(type);
 
     /// <summary>
