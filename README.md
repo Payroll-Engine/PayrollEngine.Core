@@ -1,6 +1,6 @@
-# Core
-[Payroll Engine](https://github.com/Payroll-Engine) core library, used by any other component:
+# Payroll Engine Core
 
+The Payroll Engine core library, used by any other component:
 - Exceptions
 - Logger abstraction
 - Value conversion
@@ -11,8 +11,6 @@
 - Data set and table
 - program configuration
 
-
 ## Build
-Runtime environment variables:
-
+Supported runtime environment variables:
 - *PayrollEnginePackageDir* - the NuGet package target direcotry (optional)
