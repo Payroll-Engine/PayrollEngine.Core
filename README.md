@@ -1,14 +1,14 @@
-# Payroll Engine Core
+<h1>Payroll Engine Core</h1>
 
 The Payroll Engine core library, used by any other component:
 - Exceptions
 - Logger abstraction
+- Document abstraction for reports
 - Value conversion
 - Shared types
 - Shared type extensions
-- IO: CSV
-- Json Serialization
-- Data set and table
+- JSON and CSV serialization
+- ADO.NET DataSets extensions
 - program configuration
 
 ## Build
