@@ -2748,41 +2748,6 @@
         <member name="P:PayrollEngine.INameObject.Name">
             <summary>The object name</summary>
         </member>
-        <member name="T:PayrollEngine.IO.CsvSerializer">
-            <summary>CSV serializer from/to file, stream and reader</summary>
-            <remarks>
-            source: https://github.com/jcoehoorn/EasyCSV
-            </remarks>
-        </member>
-        <member name="M:PayrollEngine.IO.CsvSerializer.ToFile(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.IList{System.String}},System.Text.Encoding,System.Char)">
-            <summary>Write CSV to file</summary>
-            <param name="fileName">The file name</param>
-            <param name="rows">The CSV rows</param>
-            <param name="encoding">The encoding (default: UTF8)</param>
-            <param name="columnSeparator">The default column separator (default: ,)</param>
-        </member>
-        <member name="M:PayrollEngine.IO.CsvSerializer.FromFile(System.String,System.Text.Encoding,System.Boolean,System.Char)">
-            <summary>Get CSV from file</summary>
-            <param name="fileName">The file name</param>
-            <param name="encoding">The encoding (default: UTF8)</param>
-            <param name="ignoreFirstLine">Ignore the header line (default: false)</param>
-            <param name="columnSeparator">The default column separator (default: ,)</param>
-            <returns>The CSV string list</returns>
-        </member>
-        <member name="M:PayrollEngine.IO.CsvSerializer.FromStream(System.IO.Stream,System.Boolean,System.Char)">
-            <summary>Get CSV from stream</summary>
-            <param name="stream">The stream</param>
-            <param name="ignoreFirstLine">Ignore the header line (default: false)</param>
-            <param name="columnSeparator">The default column separator (default: ,)</param>
-            <returns>The CSV string list</returns>
-        </member>
-        <member name="M:PayrollEngine.IO.CsvSerializer.FromReaderAsync(System.IO.TextReader,System.Boolean,System.Char)">
-            <summary>Get CSV from stream</summary>
-            <param name="reader">The reader</param>
-            <param name="ignoreFirstLine">Ignore the header line (default: false)</param>
-            <param name="columnSeparator">The default column separator (default: ,)</param>
-            <returns>The CSV string list</returns>
-        </member>
         <member name="T:PayrollEngine.IO.FileExtensions">
             <summary>Common file extensions</summary>
         </member>
@@ -4106,6 +4071,41 @@
             <param name="tag">The tag to test</param>
             <returns>True id the tag is known</returns>
         </member>
+        <member name="T:PayrollEngine.Serialization.CsvSerializer">
+            <summary>CSV serializer from/to file, stream and reader</summary>
+            <remarks>
+            source: https://github.com/jcoehoorn/EasyCSV
+            </remarks>
+        </member>
+        <member name="M:PayrollEngine.Serialization.CsvSerializer.ToFile(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.IList{System.String}},System.Text.Encoding,System.Char)">
+            <summary>Write CSV to file</summary>
+            <param name="fileName">The file name</param>
+            <param name="rows">The CSV rows</param>
+            <param name="encoding">The encoding (default: UTF8)</param>
+            <param name="columnSeparator">The default column separator (default: ,)</param>
+        </member>
+        <member name="M:PayrollEngine.Serialization.CsvSerializer.FromFile(System.String,System.Text.Encoding,System.Boolean,System.Char)">
+            <summary>Get CSV from file</summary>
+            <param name="fileName">The file name</param>
+            <param name="encoding">The encoding (default: UTF8)</param>
+            <param name="ignoreFirstLine">Ignore the header line (default: false)</param>
+            <param name="columnSeparator">The default column separator (default: ,)</param>
+            <returns>The CSV string list</returns>
+        </member>
+        <member name="M:PayrollEngine.Serialization.CsvSerializer.FromStream(System.IO.Stream,System.Boolean,System.Char)">
+            <summary>Get CSV from stream</summary>
+            <param name="stream">The stream</param>
+            <param name="ignoreFirstLine">Ignore the header line (default: false)</param>
+            <param name="columnSeparator">The default column separator (default: ,)</param>
+            <returns>The CSV string list</returns>
+        </member>
+        <member name="M:PayrollEngine.Serialization.CsvSerializer.FromReaderAsync(System.IO.TextReader,System.Boolean,System.Char)">
+            <summary>Get CSV from stream</summary>
+            <param name="reader">The reader</param>
+            <param name="ignoreFirstLine">Ignore the header line (default: false)</param>
+            <param name="columnSeparator">The default column separator (default: ,)</param>
+            <returns>The CSV string list</returns>
+        </member>
         <member name="T:PayrollEngine.Serialization.DefaultJsonSerializer">
             <summary>Default JSON serializer</summary>
         </member>
@@ -4138,6 +4138,13 @@
             <summary>Serialize object to string content using the default options</summary>
             <param name="json">The JSON text</param>
             <returns>The string content</returns>
+        </member>
+        <member name="M:PayrollEngine.Serialization.DefaultJsonSerializer.DefaultValueModifier(System.Text.Json.Serialization.Metadata.JsonTypeInfo)">
+            <summary>
+            Suppress empty collections
+            </summary>
+            <remarks>see https://stackoverflow.com/a/73777873/15659039</remarks>
+            <param name="typeInfo"></param>
         </member>
         <member name="T:PayrollEngine.Serialization.JsonSerializer">
             <summary>Extensions for System.Text.Json.JsonSerializer</summary>

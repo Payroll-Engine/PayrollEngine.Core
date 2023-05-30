@@ -1,8 +1,10 @@
-﻿using System.Net.Http;
+﻿using System.Collections;
+using System.Net.Http;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 
 namespace PayrollEngine.Serialization;
 
@@ -16,6 +18,10 @@ public static class DefaultJsonSerializer
         IgnoreReadOnlyProperties = true,
         WriteIndented = true,
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+        TypeInfoResolver = new DefaultJsonTypeInfoResolver
+        {
+            Modifiers = { DefaultValueModifier }
+        },
         Converters = { new NamedDictionaryConverter() }
     };
 
@@ -53,4 +59,21 @@ public static class DefaultJsonSerializer
     /// <returns>The string content</returns>
     public static StringContent SerializeJson(string json) =>
         new(json, Encoding.UTF8, ContentType.Json);
+
+    /// <summary>
+    /// Suppress empty collections
+    /// </summary>
+    /// <remarks>see https://stackoverflow.com/a/73777873/15659039</remarks>
+    /// <param name="typeInfo"></param>
+    private static void DefaultValueModifier(JsonTypeInfo typeInfo)
+    {
+        foreach (var property in typeInfo.Properties)
+        {
+            if (typeof(ICollection).IsAssignableFrom(property.PropertyType))
+            {
+                property.ShouldSerialize = (_, value) =>
+                    value is ICollection collection && collection.Count > 0;
+            }
+        }
+    }
 }

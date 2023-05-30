@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace PayrollEngine.IO;
+namespace PayrollEngine.Serialization;
 
 /// <summary>CSV serializer from/to file, stream and reader</summary>
 /// <remarks>
