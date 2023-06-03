@@ -4662,6 +4662,18 @@
             <param name="value">The date time value</param>
             <returns>The combined result</returns>
         </member>
+        <member name="T:PayrollEngine.UserType">
+            <summary>The type of the user</summary>
+        </member>
+        <member name="F:PayrollEngine.UserType.Regular">
+            <summary>Regular user</summary>
+        </member>
+        <member name="F:PayrollEngine.UserType.Employee">
+            <summary>User with employee self service</summary>
+        </member>
+        <member name="F:PayrollEngine.UserType.Supervisor">
+            <summary>User who can manage all users</summary>
+        </member>
         <member name="T:PayrollEngine.ValueBaseType">
             <summary>The payroll value base types (JSON compatible)</summary>
         </member>
