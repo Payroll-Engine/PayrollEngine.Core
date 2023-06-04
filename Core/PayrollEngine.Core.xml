@@ -263,11 +263,11 @@
         <member name="T:PayrollEngine.CalendarConfiguration">
             <summary>Configuration for the payroll calendar</summary>
         </member>
+        <member name="P:PayrollEngine.CalendarConfiguration.DefaultConfiguration">
+            <summary>The default working days</summary>
+        </member>
         <member name="P:PayrollEngine.CalendarConfiguration.FirstMonthOfYear">
             <summary>The first month of a year</summary>
-        </member>
-        <member name="P:PayrollEngine.CalendarConfiguration.WorkingDays">
-            <summary>The working days</summary>
         </member>
         <member name="P:PayrollEngine.CalendarConfiguration.AverageMonthDays">
             <summary>Average month days</summary>
@@ -283,6 +283,9 @@
         </member>
         <member name="P:PayrollEngine.CalendarConfiguration.FirstDayOfWeek">
             <summary>First day of week</summary>
+        </member>
+        <member name="P:PayrollEngine.CalendarConfiguration.WorkingDays">
+            <summary>The working days</summary>
         </member>
         <member name="M:PayrollEngine.CalendarConfiguration.#ctor">
             <summary>Initializes a new instance</summary>
@@ -2251,10 +2254,97 @@
             <param name="precision">The precision, number of digits after the decimal that will be considered when comparing</param>
             <returns>True, if both values are withing the precision scale</returns>
         </member>
+        <member name="M:PayrollEngine.DecimalExtensions.Truncate(System.Decimal,System.Int32)">
+            <summary>Returns the integral digits of the specified decimal, using a step size</summary>
+            <param name="value">The decimal number to truncate</param>
+            <param name="stepSize">The step size used to truncate</param>
+            <returns>The result of d rounded toward zero, to the nearest whole number within the step size</returns>
+        </member>
+        <member name="M:PayrollEngine.DecimalExtensions.RoundUp(System.Decimal,System.Decimal)">
+            <summary>Rounds a decimal value up</summary>
+            <param name="value">The decimal value to round</param>
+            <param name="stepSize">The round step size</param>
+            <returns>The up-rounded value</returns>
+        </member>
+        <member name="M:PayrollEngine.DecimalExtensions.RoundDown(System.Decimal,System.Decimal)">
+            <summary>Rounds a decimal value down</summary>
+            <param name="value">The decimal value to round</param>
+            <param name="stepSize">The round step size</param>
+            <returns>The rounded value</returns>
+        </member>
+        <member name="M:PayrollEngine.DecimalExtensions.Round(System.Decimal,PayrollEngine.DecimalRounding)">
+            <summary>Rounds a decimal value wit predefined rounding type</summary>
+            <param name="value">The decimal value to round</param>
+            <param name="rounding">The rounding type</param>
+            <returns>The rounded value</returns>
+        </member>
+        <member name="M:PayrollEngine.DecimalExtensions.RoundHalf(System.Decimal)">
+            <summary>Rounds a decimal value to a one-half (e.g. 50 cents)</summary>
+            <param name="value">The decimal value to round</param>
+            <returns>The rounded value to one-half</returns>
+        </member>
+        <member name="M:PayrollEngine.DecimalExtensions.RoundFifth(System.Decimal)">
+            <summary>Rounds a decimal value to a one-fifth (e.g. 20 cents)</summary>
+            <param name="value">The decimal value to round</param>
+            <returns>The rounded value to one-fifth</returns>
+        </member>
+        <member name="M:PayrollEngine.DecimalExtensions.RoundTenth(System.Decimal)">
+            <summary>Rounds a decimal value to a one-tenth (e.g. 10 cents)</summary>
+            <param name="value">The decimal value to round</param>
+            <returns>The rounded value to one-tenth</returns>
+        </member>
+        <member name="M:PayrollEngine.DecimalExtensions.RoundTwentieth(System.Decimal)">
+            <summary>Rounds a decimal value to a one-twentieth (e.g. 5 cents)</summary>
+            <param name="value">The decimal value to round</param>
+            <returns>The rounded value to one-twentieth</returns>
+        </member>
+        <member name="M:PayrollEngine.DecimalExtensions.RoundFiftieth(System.Decimal)">
+            <summary>Rounds a decimal value to a one-fiftieth (e.g. 2 cents)</summary>
+            <param name="value">The decimal value to round</param>
+            <returns>The rounded value to one-fiftieth</returns>
+        </member>
+        <member name="M:PayrollEngine.DecimalExtensions.RoundHundredth(System.Decimal)">
+            <summary>Rounds a decimal value to a one-hundredth (e.g. 1 cents)</summary>
+            <param name="value">The decimal value to round</param>
+            <returns>The rounded value to one-hundredth</returns>
+        </member>
+        <member name="M:PayrollEngine.DecimalExtensions.RoundPartOfOne(System.Decimal,System.Int32)">
+            <summary>Rounds a decimal value to a one-tenth</summary>
+            <param name="value">The decimal value to round</param>
+            <param name="divisor">The divisor factor</param>
+            <returns>The rounded value to one-tenth</returns>
+        </member>
         <member name="M:PayrollEngine.DecimalExtensions.RoundPayroll(System.Decimal)">
             <summary>Round a decimal value using the payroll system precision</summary>
             <param name="value">The decimal value to round</param>
             <returns>The rounded payroll value</returns>
+        </member>
+        <member name="T:PayrollEngine.DecimalRounding">
+            <summary>Decimal rounding types</summary>
+        </member>
+        <member name="F:PayrollEngine.DecimalRounding.None">
+            <summary>No rounding</summary>
+        </member>
+        <member name="F:PayrollEngine.DecimalRounding.Integer">
+            <summary>Round to nearest integer</summary>
+        </member>
+        <member name="F:PayrollEngine.DecimalRounding.Half">
+            <summary>Round to half (e.g. 50 cents)</summary>
+        </member>
+        <member name="F:PayrollEngine.DecimalRounding.Fifth">
+            <summary>Round to one-fifth (e.g. 20 cents)</summary>
+        </member>
+        <member name="F:PayrollEngine.DecimalRounding.Tenth">
+            <summary>Round to one-tenth (e.g. 10 cents)</summary>
+        </member>
+        <member name="F:PayrollEngine.DecimalRounding.Twentieth">
+            <summary>Round to one-twentieth (e.g. 5 cents)</summary>
+        </member>
+        <member name="F:PayrollEngine.DecimalRounding.Fiftieth">
+            <summary>Round to one-fiftieth (e.g. 2 cents)</summary>
+        </member>
+        <member name="F:PayrollEngine.DecimalRounding.Hundredth">
+            <summary>Round to one-hundredth (e.g. 1 cent)</summary>
         </member>
         <member name="T:PayrollEngine.DictionaryExtensions">
             <summary>Extensions for <see cref="T:System.Collections.Generic.IDictionary`2"/></summary>
