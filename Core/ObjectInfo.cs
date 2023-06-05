@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 
 namespace PayrollEngine;
 
@@ -146,6 +147,118 @@ public static class ObjectInfo
         if (property != null)
         {
             property.SetValue(obj, value);
+        }
+    }
+
+    /// <summary>
+    /// Resolve property expression
+    /// </summary>
+    /// <param name="item">The value item</param>
+    /// <param name="expression">The property expression</param>
+    /// <returns>Value with property</returns>
+    public static PropertyValue ResolvePropertyValue(this object item, string expression)
+    {
+        while (true)
+        {
+            if (item == null || string.IsNullOrWhiteSpace(expression))
+            {
+                return null;
+            }
+
+            // item properties
+            var itemProperties = GetProperties(item.GetType());
+            if (!itemProperties.Any())
+            {
+                return null;
+            }
+
+            // child property
+            var index = expression.IndexOf('.');
+            var propertyName = expression;
+            string childExpression = null;
+            if (index > 0)
+            {
+                propertyName = expression.Substring(0, index);
+                childExpression = expression.Substring(index + 1);
+            }
+
+            // property
+            var property = itemProperties.FirstOrDefault(x => string.Equals(x.Name, propertyName));
+            if (property == null)
+            {
+                return null;
+            }
+
+            // value
+            object value;
+
+            // test for string dictionary
+            var isDictionary = false;
+            if (property.PropertyType.IsGenericType &&
+                property.PropertyType.GetGenericTypeDefinition() == typeof(Dictionary<,>))
+            {
+                var keyType = property.PropertyType.GetGenericArguments()[0];
+                var valueType = property.PropertyType.GetGenericArguments()[1];
+                isDictionary = keyType == typeof(string) && valueType == typeof(object);
+            }
+
+            // dictionary 
+            if (isDictionary)
+            {
+                // test child expression and string/object dictionary
+                if (string.IsNullOrWhiteSpace(childExpression) ||
+                    property.GetValue(item, null) is not IDictionary<string, object> dictionary)
+                {
+                    return null;
+                }
+
+                // missing dictionary value
+                if (!dictionary.ContainsKey(childExpression))
+                {
+                    // missing dictionary value
+                    return new PropertyValue
+                    {
+                        Property = property,
+                        Value = null,
+                        DictionaryKey = childExpression
+                    };
+                }
+
+                // dictionary value
+                value = dictionary[childExpression];
+                if (value is JsonElement jsonElement)
+                {
+                    value = jsonElement.GetValue();
+                }
+                return new PropertyValue
+                {
+                    Property = property,
+                    Value = value,
+                    DictionaryKey = childExpression
+                };
+            }
+
+            // plain property
+            value = property.GetValue(item, null);
+
+            if (value == null)
+            {
+                return null;
+            }
+
+            // final object property
+            if (string.IsNullOrWhiteSpace(childExpression))
+            {
+                return new PropertyValue
+                {
+                    Property = property,
+                    Value = value
+                };
+            }
+
+            // child property
+            item = value;
+            expression = childExpression;
         }
     }
 }

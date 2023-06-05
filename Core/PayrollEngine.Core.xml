@@ -1615,6 +1615,10 @@
             <param name="includeRows">Include table rows</param>
             <param name="primaryKey">The primary key column name</param>
             <param name="properties">The properties to convert int columns (default: all)</param>
+            <remarks>Property expressions:
+            simple property: {PropertyName}
+            child property: {ChildName1}.{ChildNameN}.{PropertyName}
+            dictionary property: {ChildName}.{PropertyName}.{DictionaryKey}</remarks>
             <returns>Data table with items data</returns>
         </member>
         <member name="M:PayrollEngine.Data.DataTableConversionExtensions.ToSystemDataTable(PayrollEngine.Data.DataTable)">
@@ -1661,6 +1665,10 @@
             <param name="dataTable">The target table</param>
             <param name="items">The items to convert</param>
             <param name="properties">The properties to convert int columns (default: all)</param>
+            <remarks>Property expressions:
+            simple property: {PropertyName}
+            child property: {ChildName1}.{ChildNameN}.{PropertyName}
+            dictionary property: {ChildName}.{PropertyName}.{DictionaryKey}</remarks>
             <returns>Data table with items data</returns>
         </member>
         <member name="M:PayrollEngine.Data.DataTableItemExtensions.AppendItem(System.Data.DataTable,System.Object,System.Collections.Generic.IList{System.String})">
@@ -1670,6 +1678,10 @@
             <param name="dataTable">The target table</param>
             <param name="item">The items to append</param>
             <param name="properties">The properties to convert int columns (default: all)</param>
+            <remarks>Property expressions:
+            simple property: {PropertyName}
+            child property: {ChildName1}.{ChildNameN}.{PropertyName}
+            dictionary property: {ChildName}.{PropertyName}.{DictionaryKey}</remarks>
             <returns>Data table with items data</returns>
         </member>
         <member name="T:PayrollEngine.Data.DataTableRowExtensions">
@@ -3410,6 +3422,14 @@
             <param name="name">The property name</param>
             <param name="value">The value to set</param>
         </member>
+        <member name="M:PayrollEngine.ObjectInfo.ResolvePropertyValue(System.Object,System.String)">
+            <summary>
+            Resolve property expression
+            </summary>
+            <param name="item">The value item</param>
+            <param name="expression">The property expression</param>
+            <returns>Value with property</returns>
+        </member>
         <member name="T:PayrollEngine.ObjectStatus">
             <summary>The object status</summary>
         </member>
@@ -3741,6 +3761,26 @@
         </member>
         <member name="F:PayrollEngine.ProgramConfigurationOptions.UserSecrets">
             <summary>Enable user secrets</summary>
+        </member>
+        <member name="T:PayrollEngine.PropertyValue">
+            <summary>
+            Property with value
+            </summary>
+        </member>
+        <member name="P:PayrollEngine.PropertyValue.Property">
+            <summary>
+            The property
+            </summary>
+        </member>
+        <member name="P:PayrollEngine.PropertyValue.Value">
+            <summary>
+            The property value
+            </summary>
+        </member>
+        <member name="P:PayrollEngine.PropertyValue.DictionaryKey">
+            <summary>
+            The dictionary key
+            </summary>
         </member>
         <member name="T:PayrollEngine.Query">
             <summary>

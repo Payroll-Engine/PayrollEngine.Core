@@ -17,6 +17,10 @@ public static class DataTableItemExtensions
     /// <param name="dataTable">The target table</param>
     /// <param name="items">The items to convert</param>
     /// <param name="properties">The properties to convert int columns (default: all)</param>
+    /// <remarks>Property expressions:
+    /// simple property: {PropertyName}
+    /// child property: {ChildName1}.{ChildNameN}.{PropertyName}
+    /// dictionary property: {ChildName}.{PropertyName}.{DictionaryKey}</remarks>
     /// <returns>Data table with items data</returns>
     public static void AppendItems(this System.Data.DataTable dataTable, IEnumerable items,
         IList<string> properties = null)
@@ -42,6 +46,10 @@ public static class DataTableItemExtensions
     /// <param name="dataTable">The target table</param>
     /// <param name="item">The items to append</param>
     /// <param name="properties">The properties to convert int columns (default: all)</param>
+    /// <remarks>Property expressions:
+    /// simple property: {PropertyName}
+    /// child property: {ChildName1}.{ChildNameN}.{PropertyName}
+    /// dictionary property: {ChildName}.{PropertyName}.{DictionaryKey}</remarks>
     /// <returns>Data table with items data</returns>
     public static System.Data.DataRow AppendItem(this System.Data.DataTable dataTable, object item,
         IList<string> properties = null)
@@ -55,16 +63,34 @@ public static class DataTableItemExtensions
             throw new ArgumentNullException(nameof(item));
         }
 
-        // data set
+        // properties
         var itemProperties = ObjectInfo.GetProperties(item.GetType());
-        var convertNames = properties ?? itemProperties.Select(x => x.Name).ToList();
-
-        // rows
-        var rowValues = new object[convertNames.Count];
-        for (var i = 0; i < convertNames.Count; i++)
+        var propertyNames = properties ?? itemProperties.Select(x => x.Name).ToList();
+        var propertyValues = new List<PropertyValue>();
+        foreach (var propertyName in propertyNames)
         {
-            var property = itemProperties.First(x => string.Equals(x.Name, convertNames[i]));
-            var value = property.GetValue(item, null);
+            var propertyValue = item.ResolvePropertyValue(propertyName);
+            if (propertyValue == null)
+            {
+                continue;
+            }
+            propertyValues.Add(propertyValue);
+        }
+
+        // row
+        System.Data.DataRow dataRow = dataTable.NewRow();
+        if (!propertyValues.Any())
+        {
+            return dataRow;
+        }
+
+        // collect row data
+        var rowValues = new object[propertyValues.Count];
+        for (var i = 0; i < propertyValues.Count; i++)
+        {
+            var property = propertyValues[i].Property;
+            var value = propertyValues[i].Value;
+
             // json value
             if (value != null && property.PropertyType.IsSerializedType())
             {
@@ -74,11 +100,9 @@ public static class DataTableItemExtensions
         }
 
         // values row
-        System.Data.DataRow dataRow = dataTable.NewRow();
         dataRow.ItemArray = rowValues;
         dataTable.Rows.Add(dataRow);
 
         return dataRow;
     }
-
 }

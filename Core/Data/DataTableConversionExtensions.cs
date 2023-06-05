@@ -125,6 +125,10 @@ public static class DataTableConversionExtensions
     /// <param name="includeRows">Include table rows</param>
     /// <param name="primaryKey">The primary key column name</param>
     /// <param name="properties">The properties to convert int columns (default: all)</param>
+    /// <remarks>Property expressions:
+    /// simple property: {PropertyName}
+    /// child property: {ChildName1}.{ChildNameN}.{PropertyName}
+    /// dictionary property: {ChildName}.{PropertyName}.{DictionaryKey}</remarks>
     /// <returns>Data table with items data</returns>
     public static System.Data.DataTable ToSystemDataTable(this IEnumerable items, string tableName = null,
         bool includeRows = false, string primaryKey = null, IList<string> properties = null)
@@ -146,14 +150,14 @@ public static class DataTableConversionExtensions
 
                 var itemProperties = ObjectInfo.GetProperties(item.GetType());
                 var convertPropertyNames = properties ?? itemProperties.Select(x => x.Name).ToList();
-                foreach (var propertyName in convertPropertyNames)
+                foreach (var convertPropertyName in convertPropertyNames)
                 {
-                    // property column
-                    var property = itemProperties.FirstOrDefault(x => string.Equals(propertyName, x.Name));
-                    if (property == null)
+                    var resolvedProperty = item.ResolvePropertyValue(convertPropertyName);
+                    if (resolvedProperty == null)
                     {
                         continue;
                     }
+                    var property = resolvedProperty.Property;
 
                     // add column
                     var nullableType = Nullable.GetUnderlyingType(property.PropertyType);
@@ -165,7 +169,8 @@ public static class DataTableConversionExtensions
                         columnType = typeof(string);
                     }
 
-                    var dataColumn = new System.Data.DataColumn(property.Name, columnType);
+                    var propertyName = resolvedProperty.DictionaryKey ?? property.Name;
+                    var dataColumn = new System.Data.DataColumn(propertyName, columnType);
                     if (nullableType != null)
                     {
                         dataColumn.AllowDBNull = true;
@@ -237,5 +242,4 @@ public static class DataTableConversionExtensions
 
         return systemTable;
     }
-
 }
