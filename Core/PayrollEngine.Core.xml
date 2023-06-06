@@ -323,6 +323,18 @@
         <member name="F:PayrollEngine.CaseCancellationType.Case">
             <summary>Cancellation by case</summary>
         </member>
+        <member name="T:PayrollEngine.CaseFieldAggregationType">
+            <summary>Aggregation type for a period case field <see cref="F:PayrollEngine.CaseFieldTimeType.Period"/></summary>
+        </member>
+        <member name="F:PayrollEngine.CaseFieldAggregationType.Summary">
+            <summary>Summary of period values</summary>
+        </member>
+        <member name="F:PayrollEngine.CaseFieldAggregationType.Last">
+            <summary>The last period value</summary>
+        </member>
+        <member name="F:PayrollEngine.CaseFieldAggregationType.First">
+            <summary>The first period value</summary>
+        </member>
         <member name="T:PayrollEngine.CaseFieldCancellationMode">
             <summary>The cancellation mode for a regulation case field</summary>
         </member>
