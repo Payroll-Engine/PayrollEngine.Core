@@ -4175,12 +4175,6 @@
         <member name="F:PayrollEngine.ScriptingSpecification.CSharpLanguageVersion">
             <summary>The c# language version, string represents the Microsoft.CodeAnalysis.CSharp.LanguageVersion enum</summary>
         </member>
-        <member name="F:PayrollEngine.ScriptingSpecification.ScriptFunctionTimeout">
-            <summary>Script function timeout in milliseconds (default: 10 seconds, test/debug: 1000 seconds)</summary>
-        </member>
-        <member name="F:PayrollEngine.ScriptingSpecification.PayrunScriptFunctionTimeout">
-            <summary>Payrun script function timeout in milliseconds (default: 10 seconds, test/debug: 1000 seconds)</summary>
-        </member>
         <member name="F:PayrollEngine.ScriptingSpecification.TagsStartMarker">
             <summary>Tags start marker</summary>
         </member>

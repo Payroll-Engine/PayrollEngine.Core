@@ -1,5 +1,4 @@
-﻿//#define MAX_SCRIPT_TIMEOUT
-using System;
+﻿using System;
 
 namespace PayrollEngine;
 
@@ -11,20 +10,6 @@ public static class ScriptingSpecification
 
     /// <summary>The c# language version, string represents the Microsoft.CodeAnalysis.CSharp.LanguageVersion enum</summary>
     public static readonly string CSharpLanguageVersion = "CSharp11";
-
-    /// <summary>Script function timeout in milliseconds (default: 10 seconds, test/debug: 1000 seconds)</summary>
-#if MAX_SCRIPT_TIMEOUT
-        public static readonly double ScriptFunctionTimeout = 10000000;
-#else
-    public static readonly double ScriptFunctionTimeout = 100000;
-#endif
-
-    /// <summary>Payrun script function timeout in milliseconds (default: 10 seconds, test/debug: 1000 seconds)</summary>
-#if MAX_SCRIPT_TIMEOUT
-        public static readonly double PayrunScriptFunctionTimeout = 10000000;
-#else
-    public static readonly double PayrunScriptFunctionTimeout = 100000;
-#endif
 
     /// <summary>Tags start marker</summary>
     public static readonly string TagsStartMarker = "/*";
