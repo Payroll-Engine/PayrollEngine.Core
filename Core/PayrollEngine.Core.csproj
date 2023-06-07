@@ -3,11 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>PayrollEngine.Core</AssemblyName>
 		<RootNamespace>PayrollEngine</RootNamespace>
-		<Authors>Jani Giannoudis</Authors>
-		<Company>Software Consulting Giannoudis</Company>
-		<Copyright>2023 Software Consulting Giannoudis</Copyright>
-		<Product>Payroll Engine</Product>
-		<Description>Payroll Engine Core Services</Description>
+		<Description>Payroll Engine Core</Description>
 	</PropertyGroup>
 
 	<!-- help file generation -->
