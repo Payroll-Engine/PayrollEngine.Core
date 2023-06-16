@@ -242,62 +242,64 @@
             <summary>Updates and logs the cache ratio</summary>
             <param name="cached">The cache state</param>
         </member>
-        <member name="T:PayrollEngine.CalendarCalculationMode">
-            <summary>The calculation mode for case value</summary>
+        <member name="T:PayrollEngine.CalendarTimeMap">
+            <summary>The calendar time map</summary>
         </member>
-        <member name="F:PayrollEngine.CalendarCalculationMode.MonthCalendarDay">
-            <summary>Divide value by month calendar days</summary>
+        <member name="F:PayrollEngine.CalendarTimeMap.Period">
+            <summary>Period</summary>
         </member>
-        <member name="F:PayrollEngine.CalendarCalculationMode.MonthAverageDay">
-            <summary>Divide value by month average days (eg. 30 days)</summary>
+        <member name="F:PayrollEngine.CalendarTimeMap.Cycle">
+            <summary>Cycle</summary>
         </member>
-        <member name="F:PayrollEngine.CalendarCalculationMode.MonthEffectiveWorkDay">
-            <summary>Divide value by effective month working days</summary>
+        <member name="T:PayrollEngine.CalendarTimeUnit">
+            <summary>The calendar time unit</summary>
+            <remarks>The enum value is used as year divisor
+            see also https://docs.oracle.com/cd/A60725_05/html/comnls/us/per/pylgp02.htm</remarks>
         </member>
-        <member name="F:PayrollEngine.CalendarCalculationMode.MonthAverageWorkDay">
-            <summary>Divide value by average month working days (e.g. 21.75 days)</summary>
+        <member name="F:PayrollEngine.CalendarTimeUnit.Year">
+            <summary>Year</summary>
         </member>
-        <member name="F:PayrollEngine.CalendarCalculationMode.WeekCalendarDay">
-            <summary>Divide value by week calendar days</summary>
+        <member name="F:PayrollEngine.CalendarTimeUnit.SemiYear">
+            <summary>Semi year</summary>
         </member>
-        <member name="T:PayrollEngine.CalendarConfiguration">
-            <summary>Configuration for the payroll calendar</summary>
+        <member name="F:PayrollEngine.CalendarTimeUnit.Quarter">
+            <summary>Quarter</summary>
         </member>
-        <member name="P:PayrollEngine.CalendarConfiguration.DefaultConfiguration">
-            <summary>The default working days</summary>
+        <member name="F:PayrollEngine.CalendarTimeUnit.BiMonth">
+            <summary>Bi month</summary>
         </member>
-        <member name="P:PayrollEngine.CalendarConfiguration.FirstMonthOfYear">
-            <summary>The first month of a year</summary>
+        <member name="F:PayrollEngine.CalendarTimeUnit.CalendarMonth">
+            <summary>Calendar month</summary>
         </member>
-        <member name="P:PayrollEngine.CalendarConfiguration.AverageMonthDays">
-            <summary>Average month days</summary>
+        <member name="F:PayrollEngine.CalendarTimeUnit.LunisolarMonth">
+            <summary>Lunisolar month</summary>
         </member>
-        <member name="P:PayrollEngine.CalendarConfiguration.AverageWorkDays">
-            <summary>Average working days</summary>
+        <member name="F:PayrollEngine.CalendarTimeUnit.SemiMonth">
+            <summary>Semi month</summary>
         </member>
-        <member name="P:PayrollEngine.CalendarConfiguration.CalculationMode">
-            <summary>The calendar calculation mode</summary>
+        <member name="F:PayrollEngine.CalendarTimeUnit.BiWeek">
+            <summary>Bi week</summary>
         </member>
-        <member name="P:PayrollEngine.CalendarConfiguration.CalendarWeekRule">
-            <summary>Calendar week rule</summary>
+        <member name="F:PayrollEngine.CalendarTimeUnit.Week">
+            <summary>Week</summary>
         </member>
-        <member name="P:PayrollEngine.CalendarConfiguration.FirstDayOfWeek">
-            <summary>First day of week</summary>
+        <member name="T:PayrollEngine.CalendarTimeUnitExtensions">
+            <summary>Extensions for <see cref="T:PayrollEngine.CalendarTimeUnit"/></summary>
         </member>
-        <member name="P:PayrollEngine.CalendarConfiguration.WorkingDays">
-            <summary>The working days</summary>
+        <member name="M:PayrollEngine.CalendarTimeUnitExtensions.IsValidTimeUnit(PayrollEngine.CalendarTimeUnit,PayrollEngine.CalendarTimeUnit)">
+            <summary>Test for valid time unit combination</summary>
+            <param name="cycleUnit">The payroll cycle unit</param>
+            <param name="periodUnit">The payroll period unit</param>
+            <returns>True for a valid cycle/period combination</returns>
         </member>
-        <member name="M:PayrollEngine.CalendarConfiguration.#ctor">
-            <summary>Initializes a new instance</summary>
+        <member name="T:PayrollEngine.CalendarWeekMode">
+            <summary>The calendar week mode</summary>
         </member>
-        <member name="M:PayrollEngine.CalendarConfiguration.#ctor(PayrollEngine.CalendarConfiguration)">
-            <summary>Initializes a new instance from a copy</summary>
-            <param name="copySource">The copy source</param>
+        <member name="F:PayrollEngine.CalendarWeekMode.Week">
+            <summary>Use the days of the entire week</summary>
         </member>
-        <member name="M:PayrollEngine.CalendarConfiguration.Equals(PayrollEngine.CalendarConfiguration)">
-            <summary>Compare two objects</summary>
-            <param name="compare">The object to compare with this</param>
-            <returns>True for objects with the same data</returns>
+        <member name="F:PayrollEngine.CalendarWeekMode.WorkWeek">
+            <summary>Use the working days from the payroll calendar</summary>
         </member>
         <member name="T:PayrollEngine.CalendarWeekRule">
             <summary>Defines different rules for determining the first week of the year</summary>
@@ -1788,20 +1790,59 @@
             <param name="moment">The moment to test</param>
             <returns>True in case the moment is date</returns>
         </member>
+        <member name="F:PayrollEngine.Date.SemiYearsInYear">
+            <summary>Number of semi years in a year</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.QuartersInYear">
+            <summary>Number of quarters in a year</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.BiMonthsInYear">
+            <summary>Number of bi months in a year</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.MonthsInYear">
+            <summary>Number of calendar months in a year</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.LunisolarMonthsInYear">
+            <summary>Number of lunisolar months in a year</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.SemiMonthsInYear">
+            <summary>Number of semi months in a year</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.DaysInSemiMonth">
+            <summary>Days in semi month</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.BiWeeksInYear">
+            <summary>Number of bi weeks in a year</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.WeeksInYear">
+            <summary>Number of weeks in a year</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.MonthsInSemiYear">
+            <summary>Number of months in a half year</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.MonthsInQuarter">
+            <summary>Number of months in a quarter</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.WeeksInLunisolarMonth">
+            <summary>Number of weeks in a lunisolar month</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.DaysInWeek">
+            <summary>Number of days in a week</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.DaysInBiWeek">
+            <summary>Number of days in two week</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.DaysInLunisolarMonth">
+            <summary>Number of days in a lunisolar month</summary>
+        </member>
         <member name="F:PayrollEngine.Date.FirstMonthOfCalendarYear">
             <summary>First month in year</summary>
         </member>
         <member name="F:PayrollEngine.Date.FirstDayOfMonth">
             <summary>First day in month</summary>
         </member>
-        <member name="F:PayrollEngine.Date.MonthsInYear">
-            <summary>Number of months in a year</summary>
-        </member>
         <member name="F:PayrollEngine.Date.LastMonthOfCalendarYear">
             <summary>Last month in year</summary>
-        </member>
-        <member name="F:PayrollEngine.Date.DaysInWeek">
-            <summary>Number of days in a week</summary>
         </member>
         <member name="M:PayrollEngine.Date.DaysInMonth(System.Int32,System.Int32)">
             <summary>Returns the number of days in the specified month and year</summary>
@@ -2895,29 +2936,6 @@
             <param name="moment">The time moment</param>
             <returns>The file name</returns>
         </member>
-        <member name="T:PayrollEngine.IPayrollCalendar">
-            <summary>Represents a payroll calendar</summary>
-        </member>
-        <member name="P:PayrollEngine.IPayrollCalendar.TenantId">
-            <summary>The tenant id</summary>
-        </member>
-        <member name="P:PayrollEngine.IPayrollCalendar.UserId">
-            <summary>The user id</summary>
-        </member>
-        <member name="P:PayrollEngine.IPayrollCalendar.Culture">
-            <summary>The calendar culture</summary>
-        </member>
-        <member name="P:PayrollEngine.IPayrollCalendar.Calendar">
-            <summary>The calendar</summary>
-        </member>
-        <member name="P:PayrollEngine.IPayrollCalendar.Configuration">
-            <summary>The calendar configuration</summary>
-        </member>
-        <member name="M:PayrollEngine.IPayrollCalendar.GetWeekOfYear(System.DateTime)">
-            <summary>Returns the week of year for the specified DateTime</summary>
-            <param name="moment">The moment of the week</param>
-            <returns> The returned value is an integer between 1 and 53</returns>
-        </member>
         <member name="T:PayrollEngine.IPayrollPeriod">
             <summary>Payroll date period</summary>
         </member>
@@ -3460,36 +3478,6 @@
         <member name="F:PayrollEngine.OverrideType.Inactive">
             <summary>Inactive override</summary>
         </member>
-        <member name="T:PayrollEngine.PayrollCalendar">
-            <summary>Represents a payroll calendar</summary>
-        </member>
-        <member name="P:PayrollEngine.PayrollCalendar.TenantId">
-            <inheritdoc/>
-        </member>
-        <member name="P:PayrollEngine.PayrollCalendar.UserId">
-            <inheritdoc/>
-        </member>
-        <member name="P:PayrollEngine.PayrollCalendar.Culture">
-            <inheritdoc/>
-        </member>
-        <member name="P:PayrollEngine.PayrollCalendar.Calendar">
-            <inheritdoc/>
-        </member>
-        <member name="P:PayrollEngine.PayrollCalendar.Configuration">
-            <inheritdoc/>
-        </member>
-        <member name="M:PayrollEngine.PayrollCalendar.#ctor(PayrollEngine.CalendarConfiguration,System.Int32,System.Nullable{System.Int32},System.Globalization.CultureInfo)">
-            <summary>Initializes a new instance of the <see cref="T:PayrollEngine.PayrollCalendar"/> class</summary>
-            <param name="configuration">The calendar configuration</param>
-            <param name="tenantId">The tenant id</param>
-            <param name="userId">The user id</param>
-            <param name="culture">The culture</param>
-        </member>
-        <member name="M:PayrollEngine.PayrollCalendar.GetWeekOfYear(System.DateTime)">
-            <summary>Returns the week of year for the specified DateTime</summary>
-            <param name="moment">The moment of the week</param>
-            <returns> The returned value is an integer between 1 and 53</returns>
-        </member>
         <member name="T:PayrollEngine.PayrollException">
             <summary>Payroll exception</summary>
         </member>
@@ -3577,15 +3565,6 @@
         </member>
         <member name="F:PayrollEngine.PayrunExecutionPhase.Reevaluation">
             <summary>Job reevaluation execution phase</summary>
-        </member>
-        <member name="T:PayrollEngine.PayrunJobExecutionMode">
-            <summary>The payrun job execution mode</summary>
-        </member>
-        <member name="F:PayrollEngine.PayrunJobExecutionMode.Synchronous">
-            <summary>Execute payrun job synchronously</summary>
-        </member>
-        <member name="F:PayrollEngine.PayrunJobExecutionMode.Asynchronous">
-            <summary>Execute payrun job asynchronously</summary>
         </member>
         <member name="T:PayrollEngine.PayrunJobResult">
             <summary>The payrun job result</summary>

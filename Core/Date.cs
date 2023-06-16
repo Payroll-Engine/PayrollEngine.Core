@@ -43,20 +43,59 @@ public static class Date
 
     #region Calendar
 
+    /// <summary>Number of semi years in a year</summary>
+    public static readonly int SemiYearsInYear = 2;
+
+    /// <summary>Number of quarters in a year</summary>
+    public static readonly int QuartersInYear = 4;
+
+    /// <summary>Number of bi months in a year</summary>
+    public static readonly int BiMonthsInYear = 6;
+
+    /// <summary>Number of calendar months in a year</summary>
+    public static readonly int MonthsInYear = 12;
+
+    /// <summary>Number of lunisolar months in a year</summary>
+    public static readonly int LunisolarMonthsInYear = 13;
+
+    /// <summary>Number of semi months in a year</summary>
+    public static readonly int SemiMonthsInYear = 24;
+
+    /// <summary>Days in semi month</summary>
+    public static readonly int DaysInSemiMonth = 15;
+
+    /// <summary>Number of bi weeks in a year</summary>
+    public static readonly int BiWeeksInYear = 26;
+
+    /// <summary>Number of weeks in a year</summary>
+    public static readonly int WeeksInYear = 52;
+
+    /// <summary>Number of months in a half year</summary>
+    public static readonly int MonthsInSemiYear = MonthsInYear / 2;
+
+    /// <summary>Number of months in a quarter</summary>
+    public static readonly int MonthsInQuarter = 3;
+
+    /// <summary>Number of weeks in a lunisolar month</summary>
+    public static readonly int WeeksInLunisolarMonth = 4;
+
+    /// <summary>Number of days in a week</summary>
+    public static readonly int DaysInWeek = 7;
+
+    /// <summary>Number of days in two week</summary>
+    public static readonly int DaysInBiWeek = DaysInWeek * 2;
+
+    /// <summary>Number of days in a lunisolar month</summary>
+    public static readonly int DaysInLunisolarMonth = WeeksInLunisolarMonth * DaysInWeek;
+
     /// <summary>First month in year</summary>
     public static readonly int FirstMonthOfCalendarYear = 1;
 
     /// <summary>First day in month</summary>
     public static readonly int FirstDayOfMonth = 1;
 
-    /// <summary>Number of months in a year</summary>
-    public static readonly int MonthsInYear = 12;
-
     /// <summary>Last month in year</summary>
     public static readonly int LastMonthOfCalendarYear = MonthsInYear;
-
-    /// <summary>Number of days in a week</summary>
-    public static readonly int DaysInWeek = 7;
 
     /// <summary>Returns the number of days in the specified month and year</summary>
     /// <param name="year">The year</param>
