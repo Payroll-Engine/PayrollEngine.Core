@@ -451,8 +451,8 @@
         <member name="F:PayrollEngine.CaseFieldTimeType.Period">
             <summary>Value within a time period (e.g. working hours)</summary>
         </member>
-        <member name="F:PayrollEngine.CaseFieldTimeType.ScaledPeriod">
-            <summary>Value within a time period, scaled to the evaluation period (e.g. monthly wage)</summary>
+        <member name="F:PayrollEngine.CaseFieldTimeType.CalendarPeriod">
+            <summary>Value within a time period, mapped to the payroll calendar (e.g. monthly wage)</summary>
         </member>
         <member name="T:PayrollEngine.CaseFieldTimeUnit">
             <summary>The date type for a regulation case field</summary>
@@ -574,8 +574,8 @@
         <member name="T:PayrollEngine.CaseValueTimeTypeExtensions">
             <summary>Extensions for <see cref="T:PayrollEngine.CaseFieldTimeType"/></summary>
         </member>
-        <member name="M:PayrollEngine.CaseValueTimeTypeExtensions.IsScalable(PayrollEngine.CaseFieldTimeType)">
-            <summary>Test if time type is scalable</summary>
+        <member name="M:PayrollEngine.CaseValueTimeTypeExtensions.IsCalendarPeriod(PayrollEngine.CaseFieldTimeType)">
+            <summary>Test if time type is a calendar period</summary>
             <param name="timeType">The time type</param>
             <returns>True for time type is scalable</returns>
         </member>

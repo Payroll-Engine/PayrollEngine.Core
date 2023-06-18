@@ -15,6 +15,6 @@ public enum CaseFieldTimeType
     /// <summary>Value within a time period (e.g. working hours)</summary>
     Period = 2,
 
-    /// <summary>Value within a time period, scaled to the evaluation period (e.g. monthly wage)</summary>
-    ScaledPeriod = 3
+    /// <summary>Value within a time period, mapped to the payroll calendar (e.g. monthly wage)</summary>
+    CalendarPeriod = 3
 }
