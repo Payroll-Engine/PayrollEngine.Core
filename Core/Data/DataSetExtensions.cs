@@ -8,6 +8,34 @@ namespace PayrollEngine.Data;
 public static class DataSetExtensions
 {
     /// <summary>
+    /// Test for payroll data set rows
+    /// </summary>
+    /// <param name="dataSet">The payroll data set to convert</param>
+    /// <returns>True if any row is available</returns>
+    public static bool HasRows(this DataSet dataSet)
+    {
+        if (dataSet?.Tables == null || !dataSet.Tables.Any())
+        {
+            return false;
+        }
+        return dataSet.Tables.Any(table => table.Rows.Any());
+    }
+
+    /// <summary>
+    /// Test for  data set rows
+    /// </summary>
+    /// <param name="dataSet">The system data set to convert</param>
+    /// <returns>True if any row is available</returns>
+    public static bool HasRows(this System.Data.DataSet dataSet)
+    {
+        if (dataSet?.Tables == null || dataSet.Tables.Count == 0)
+        {
+            return false;
+        }
+        return dataSet.Tables.Cast<System.Data.DataTable>().Any(table => table.Rows.Count > 0);
+    }
+
+    /// <summary>
     /// Convert a payroll data set to a system data set
     /// </summary>
     /// <param name="dataSet">The payroll data set to convert</param>

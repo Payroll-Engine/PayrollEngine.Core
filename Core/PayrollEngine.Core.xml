@@ -1449,6 +1449,20 @@
         <member name="T:PayrollEngine.Data.DataSetExtensions">
             <summary>Data set extension methods</summary>
         </member>
+        <member name="M:PayrollEngine.Data.DataSetExtensions.HasRows(PayrollEngine.Data.DataSet)">
+            <summary>
+            Test for payroll data set rows
+            </summary>
+            <param name="dataSet">The payroll data set to convert</param>
+            <returns>True if any row is available</returns>
+        </member>
+        <member name="M:PayrollEngine.Data.DataSetExtensions.HasRows(System.Data.DataSet)">
+            <summary>
+            Test for  data set rows
+            </summary>
+            <param name="dataSet">The system data set to convert</param>
+            <returns>True if any row is available</returns>
+        </member>
         <member name="M:PayrollEngine.Data.DataSetExtensions.ToSystemDataSet(PayrollEngine.Data.DataSet)">
             <summary>
             Convert a payroll data set to a system data set
