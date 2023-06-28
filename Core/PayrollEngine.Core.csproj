@@ -27,23 +27,12 @@
 		<None Include="$(OutputDir)*.schema.json" Pack="true">
 			<PackageCopyToOutput>true</PackageCopyToOutput>
 		</None>
-			<!-- ReSharper restore UnknownProperty -->
-	</ItemGroup>
-	<ItemGroup>
-	  <Compile Remove="CalendarCalculationMode.cs" />
-	  <Compile Remove="CalendarConfiguration.cs" />
-	  <Compile Remove="IPayrollCalendar.cs" />
-	  <Compile Remove="PayrollCalendar.cs" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Include="..\README.md">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
-	  <None Include="CalendarCalculationMode.cs" />
-	  <None Include="CalendarConfiguration.cs" />
-	  <None Include="IPayrollCalendar.cs" />
-	  <None Include="PayrollCalendar.cs" />
 	</ItemGroup>
 
 	<!-- publish package -->

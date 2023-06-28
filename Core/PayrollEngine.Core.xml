@@ -90,127 +90,126 @@
             Attribute dictionary extension methods
             </summary>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.HasAttribute(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+        <member name="M:PayrollEngine.AttributesExtensions.HasAttribute(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.String)">
             <summary>
             Test for attribute
             </summary>
             <param name="attributes">The attributes dictionary</param>
             <param name="name">The attribute name</param>
-            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
             <returns>True if attribute exists</returns>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.GetMemberAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},``0,System.Nullable{PayrollEngine.Language},System.String)">
+        <member name="M:PayrollEngine.AttributesExtensions.GetMemberAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},``0,System.String,System.String)">
             <summary>
             Get member value
             </summary>
             <param name="attributes">The attributes dictionary</param>
             <param name="defaultValue">The default value</param>
-            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
             <param name="memberName">The member name</param>
             <returns>The member value</returns>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.GetAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0,System.Nullable{PayrollEngine.Language})">
+        <member name="M:PayrollEngine.AttributesExtensions.GetAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0,System.String)">
             <summary>
             Get attribute value
             </summary>
             <param name="attributes">The attributes dictionary</param>
             <param name="name">The attribute name</param>
             <param name="defaultValue">The default value</param>
-            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
             <returns>The attribute value</returns>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.TryGetAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0@,System.Nullable{PayrollEngine.Language})">
+        <member name="M:PayrollEngine.AttributesExtensions.TryGetAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0@,System.String)">
             <summary>
             Try to get an attribute value
             </summary>
             <param name="attributes">The attributes dictionary</param>
             <param name="name">The attribute name</param>
             <param name="value">The attribute value</param>
-            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
             <returns>True for an existing attribute</returns>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.GetStringAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+        <member name="M:PayrollEngine.AttributesExtensions.GetStringAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.String)">
             <summary>
             Get a string attribute value
             </summary>
             <param name="attributes">The attributes dictionary</param>
             <param name="name">The attribute name</param>
-            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
             <returns>The string value</returns>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.GetDateTimeAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language},System.Globalization.CultureInfo)">
+        <member name="M:PayrollEngine.AttributesExtensions.GetDateTimeAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Globalization.CultureInfo)">
             <summary>
             Get a date attribute value
             </summary>
             <param name="attributes">The attributes dictionary</param>
             <param name="name">The attribute name</param>
-            <param name="language">The attribute language</param>
             <param name="culture">The attribute culture</param>
             <returns>The date value</returns>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.GetBooleanAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+        <member name="M:PayrollEngine.AttributesExtensions.GetBooleanAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.String)">
             <summary>
             Get a boolean attribute value
             </summary>
             <param name="attributes">The attributes dictionary</param>
             <param name="name">The attribute name</param>
-            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
             <returns>The boolean value</returns>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.GetIntegerAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+        <member name="M:PayrollEngine.AttributesExtensions.GetIntegerAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.String)">
             <summary>
             Get a integer attribute value
             </summary>
             <param name="attributes">The attributes dictionary</param>
             <param name="name">The attribute name</param>
-            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
             <returns>The integer value</returns>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.GetDecimalAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+        <member name="M:PayrollEngine.AttributesExtensions.GetDecimalAttributeValue(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.String)">
             <summary>
             Get a decimal attribute value
             </summary>
             <param name="attributes">The attributes dictionary</param>
             <param name="name">The attribute name</param>
-            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
             <returns>The decimal value</returns>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.GetEnumAttributeValue``1(System.Collections.Generic.Dictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+        <member name="M:PayrollEngine.AttributesExtensions.GetEnumAttributeValue``1(System.Collections.Generic.Dictionary{System.String,System.Object},System.String,System.String)">
             <summary>
             Get an enum attribute value
             </summary>
             <typeparam name="T">Enum type</typeparam>
             <param name="attributes">Attribute dictionary</param>
             <param name="name">Name of attribute to extract enum from</param>
-            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
             <returns>Enum representation of string input</returns>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.SetMemberAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},``0,System.Nullable{PayrollEngine.Language},System.String)">
+        <member name="M:PayrollEngine.AttributesExtensions.SetMemberAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},``0,System.String,System.String)">
             <summary>
             Set member value
             </summary>
             <param name="attributes">The attributes dictionary</param>
             <param name="value">The value</param>
-            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
             <param name="memberName">The member name</param>
             <returns>The member value</returns>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.SetAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0,System.Nullable{PayrollEngine.Language})">
+        <member name="M:PayrollEngine.AttributesExtensions.SetAttributeValue``1(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,``0,System.String)">
             <summary>
             Set an attribute value
             </summary>
             <param name="attributes">The attributes dictionary</param>
             <param name="name">The attribute name</param>
             <param name="value">The value</param>
-            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
         </member>
-        <member name="M:PayrollEngine.AttributesExtensions.GetAttributeKey(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.Nullable{PayrollEngine.Language})">
+        <member name="M:PayrollEngine.AttributesExtensions.GetAttributeKey(System.Collections.Generic.IDictionary{System.String,System.Object},System.String,System.String)">
             <summary>
             Get attribute key
             </summary>
             <param name="attributes">The attributes dictionary</param>
             <param name="name">The attribute name</param>
-            <param name="language">The attribute language</param>
+            <param name="culture">The attribute culture</param>
             <returns>The attribute key</returns>
         </member>
         <member name="T:PayrollEngine.CacheRatio">
@@ -1357,31 +1356,31 @@
         <member name="T:PayrollEngine.Data.DataRowLocalizationExtensions">
             <summary>Data row localization extension methods</summary>
         </member>
-        <member name="M:PayrollEngine.Data.DataRowLocalizationExtensions.GetLocalizedName(System.Data.DataRow,PayrollEngine.Language)">
+        <member name="M:PayrollEngine.Data.DataRowLocalizationExtensions.GetLocalizedName(System.Data.DataRow,System.String)">
             <summary>Get data row localized name</summary>
             <param name="dataRow">The data row</param>
-            <param name="language">The language</param>
+            <param name="culture">The attribute culture</param>
             <returns>The localized data row name</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataRowLocalizationExtensions.GetLocalizedIdentifier(System.Data.DataRow,PayrollEngine.Language)">
+        <member name="M:PayrollEngine.Data.DataRowLocalizationExtensions.GetLocalizedIdentifier(System.Data.DataRow,System.String)">
             <summary>Get data row localized identifier</summary>
             <param name="dataRow">The data row</param>
-            <param name="language">The language</param>
+            <param name="culture">The attribute culture</param>
             <returns>The localized data row identifier</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataRowLocalizationExtensions.GetLocalizedValue(System.Data.DataRow,System.String,PayrollEngine.Language)">
+        <member name="M:PayrollEngine.Data.DataRowLocalizationExtensions.GetLocalizedValue(System.Data.DataRow,System.String,System.String)">
             <summary>Get data row localized value using the ValueColumnLocalizations column</summary>
             <param name="dataRow">The data row</param>
             <param name="valueColumn">The value column name</param>
-            <param name="language">The language</param>
+            <param name="culture">The attribute culture</param>
             <returns>The localized data row value</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataRowLocalizationExtensions.GetLocalizedValue(System.Data.DataRow,System.String,System.String,PayrollEngine.Language)">
+        <member name="M:PayrollEngine.Data.DataRowLocalizationExtensions.GetLocalizedValue(System.Data.DataRow,System.String,System.String,System.String)">
             <summary>Get data row localized value</summary>
             <param name="dataRow">The data row</param>
             <param name="valueColumn">The value column name</param>
             <param name="localizationColumn">The localization column name</param>
-            <param name="language">The language</param>
+            <param name="culture">The attribute culture</param>
             <returns>The localized data row value</returns>
         </member>
         <member name="M:PayrollEngine.Data.DataRowLocalizationExtensions.GetLocalizations(System.Data.DataRow,System.String)">
@@ -1390,11 +1389,11 @@
             <param name="column">The column name</param>
             <returns>The attributes dictionary</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataRowLocalizationExtensions.GetLocalization(System.Data.DataRow,System.String,PayrollEngine.Language,System.String)">
+        <member name="M:PayrollEngine.Data.DataRowLocalizationExtensions.GetLocalization(System.Data.DataRow,System.String,System.String,System.String)">
             <summary>Get attribute from a data row JSON value</summary>
             <param name="dataRow">The data row</param>
             <param name="column">The column name</param>
-            <param name="language">The language</param>
+            <param name="culture">The attribute culture</param>
             <param name="defaultValue">The default value</param>
             <returns>The attribute value</returns>
         </member>
@@ -2990,172 +2989,6 @@
             <param name="jsonElement">The json element</param>
             <returns>The json element value</returns>
         </member>
-        <member name="T:PayrollEngine.Language">
-            <summary>The payroll languages</summary>
-            <remarks>Do not change the language order</remarks>
-        </member>
-        <member name="F:PayrollEngine.Language.English">
-            <summary>English (Default)</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Afrikaans">
-            <summary>Afrikaans</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Arabic">
-            <summary>Arabic</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Azerbaijani">
-            <summary>Azerbaijani</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Belarusian">
-            <summary>Belarusian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Bulgarian">
-            <summary>Bulgarian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Bosnian">
-            <summary>Bosnian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Czech">
-            <summary>Czech</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Danish">
-            <summary>Danish</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.German">
-            <summary>German</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Greek">
-            <summary>Greek</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Spanish">
-            <summary>Spanish</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Estonian">
-            <summary>Estonian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Persian">
-            <summary>Persian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Finnish">
-            <summary>Finnish</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.French">
-            <summary>French</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Irish">
-            <summary>Irish</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Hebrew">
-            <summary>Hebrew</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Hindi">
-            <summary>Hindi</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Croatian">
-            <summary>Croatian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Hungarian">
-            <summary>Hungarian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Armenian">
-            <summary>Armenian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Icelandic">
-            <summary>Icelandic</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Italian">
-            <summary>Italian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Japanese">
-            <summary>Japanese</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Georgian">
-            <summary>Georgian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Korean">
-            <summary>Korean</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Luxembourgish">
-            <summary>Luxembourgish</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Lithuanian">
-            <summary>Lithuanian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Latvian">
-            <summary>Latvian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Macedonian">
-            <summary>Macedonian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Dutch">
-            <summary>Dutch</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Norwegian">
-            <summary>Norwegian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Polish">
-            <summary>Polish</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Portuguese">
-            <summary>Portuguese</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Romanian">
-            <summary>Romanian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Russian">
-            <summary>Russian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Slovak">
-            <summary>Slovak</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Slovenian">
-            <summary>Slovenian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Albanian">
-            <summary>Albanian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Serbian">
-            <summary>Serbian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Swedish">
-            <summary>Swedish</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Thai">
-            <summary>Thai</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Turkish">
-            <summary>Turkish</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Ukrainian">
-            <summary>Ukrainian</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Uzbek">
-            <summary>Uzbek</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Vietnamese">
-            <summary>Vietnamese</summary>
-        </member>
-        <member name="F:PayrollEngine.Language.Chinese">
-            <summary>Chinese</summary>
-        </member>
-        <member name="T:PayrollEngine.LanguageExtensions">
-            <summary>Extensions for <see cref="T:PayrollEngine.Language"/></summary>
-        </member>
-        <member name="F:PayrollEngine.LanguageExtensions.LanguageCodes">
-            <summary>The ISO 639-1 language code</summary>
-        </member>
-        <member name="M:PayrollEngine.LanguageExtensions.GetLocalization(PayrollEngine.Language,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
-            <summary>Gets the localized text</summary>
-            <param name="language">The language</param>
-            <param name="localizations">The localizations</param>
-            <param name="defaultValue">The default value</param>
-            <returns>The localized text, the default value in case of absent language</returns>
-        </member>
-        <member name="M:PayrollEngine.LanguageExtensions.LanguageCode(PayrollEngine.Language)">
-            <summary>Get the ISO 639-1 language code</summary>
-            <param name="language">The value type</param>
-            <returns>The ISO 639-1 language code</returns>
-        </member>
         <member name="T:PayrollEngine.ListExtensions">
             <summary>Extensions for <see cref="T:System.Collections.Generic.IList`1"/></summary>
         </member>
@@ -4473,6 +4306,13 @@
         </member>
         <member name="T:PayrollEngine.StringExtensions">
             <summary>Extensions for <see cref="T:System.String"/></summary>
+        </member>
+        <member name="M:PayrollEngine.StringExtensions.GetLocalization(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>Gets the localized text</summary>
+            <param name="culture">The culture name</param>
+            <param name="localizations">The localizations</param>
+            <param name="defaultValue">The default value</param>
+            <returns>The localized text, the default value in case of absent language</returns>
         </member>
         <member name="M:PayrollEngine.StringExtensions.FirstCharacterToLower(System.String)">
             <summary>Ensures first string character is lower</summary>

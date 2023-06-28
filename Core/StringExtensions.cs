@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -8,6 +10,45 @@ namespace PayrollEngine;
 /// <summary>Extensions for <see cref="string"/></summary>
 public static class StringExtensions
 {
+
+    #region Localization
+
+    /// <summary>Gets the localized text</summary>
+    /// <param name="culture">The culture name</param>
+    /// <param name="localizations">The localizations</param>
+    /// <param name="defaultValue">The default value</param>
+    /// <returns>The localized text, the default value in case of absent language</returns>
+    public static string GetLocalization(this string culture, Dictionary<string, string> localizations, string defaultValue = null)
+    {
+        if (localizations == null)
+        {
+            return defaultValue;
+        }
+
+        // culture
+        culture ??= CultureInfo.CurrentCulture.Name;
+
+        // direct localization
+        if (localizations.TryGetValue(culture, out var localization))
+        {
+            return localization;
+        }
+
+        // base language localization
+        var index = culture.IndexOf('-');
+        if (index <= 0)
+        {
+            return defaultValue;
+        }
+        var baseCulture = culture.Substring(0, index);
+        if (localizations.TryGetValue(baseCulture, out var baseLocalization))
+        {
+            return baseLocalization;
+        }
+        return defaultValue;
+    }
+
+    #endregion
 
     #region Modification
 
@@ -308,5 +349,6 @@ public static class StringExtensions
         System.Net.WebUtility.HtmlDecode(value);
 
     #endregion
+
 
 }

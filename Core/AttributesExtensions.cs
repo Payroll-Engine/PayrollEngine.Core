@@ -17,23 +17,23 @@ public static class AttributesExtensions
     /// </summary>
     /// <param name="attributes">The attributes dictionary</param>
     /// <param name="name">The attribute name</param>
-    /// <param name="language">The attribute language</param>
+    /// <param name="culture">The attribute culture</param>
     /// <returns>True if attribute exists</returns>
     public static bool HasAttribute(this IDictionary<string, object> attributes, string name,
-        Language? language = null) =>
-        attributes != null && attributes.ContainsKey(GetAttributeKey(attributes, name, language));
+        string culture = null) =>
+        attributes != null && attributes.ContainsKey(GetAttributeKey(attributes, name, culture));
 
     /// <summary>
     /// Get member value
     /// </summary>
     /// <param name="attributes">The attributes dictionary</param>
     /// <param name="defaultValue">The default value</param>
-    /// <param name="language">The attribute language</param>
+    /// <param name="culture">The attribute culture</param>
     /// <param name="memberName">The member name</param>
     /// <returns>The member value</returns>
     public static T GetMemberAttributeValue<T>(this IDictionary<string, object> attributes,
-       T defaultValue = default, Language? language = null, [CallerMemberName] string memberName = "") =>
-        GetAttributeValue(attributes, memberName, defaultValue: defaultValue, language: language);
+       T defaultValue = default, string culture = null, [CallerMemberName] string memberName = "") =>
+        GetAttributeValue(attributes, memberName, defaultValue: defaultValue, culture: culture);
 
     /// <summary>
     /// Get attribute value
@@ -41,10 +41,10 @@ public static class AttributesExtensions
     /// <param name="attributes">The attributes dictionary</param>
     /// <param name="name">The attribute name</param>
     /// <param name="defaultValue">The default value</param>
-    /// <param name="language">The attribute language</param>
+    /// <param name="culture">The attribute culture</param>
     /// <returns>The attribute value</returns>
     public static T GetAttributeValue<T>(this IDictionary<string, object> attributes,
-        string name, T defaultValue = default, Language? language = null)
+        string name, T defaultValue = default, string culture = null)
     {
         // empty attributes
         if (attributes == null)
@@ -53,7 +53,7 @@ public static class AttributesExtensions
         }
 
         // empty value
-        var key = GetAttributeKey(attributes, name, language);
+        var key = GetAttributeKey(attributes, name, culture);
         if (!attributes.ContainsKey(key))
         {
             return defaultValue;
@@ -105,10 +105,10 @@ public static class AttributesExtensions
     /// <param name="attributes">The attributes dictionary</param>
     /// <param name="name">The attribute name</param>
     /// <param name="value">The attribute value</param>
-    /// <param name="language">The attribute language</param>
+    /// <param name="culture">The attribute culture</param>
     /// <returns>True for an existing attribute</returns>
     public static bool TryGetAttributeValue<T>(this IDictionary<string, object> attributes,
-        string name, out T value, Language? language = null)
+        string name, out T value, string culture = null)
     {
         if (!HasAttribute(attributes, name))
         {
@@ -116,7 +116,7 @@ public static class AttributesExtensions
             return false;
         }
 
-        value = GetAttributeValue<T>(attributes, name, language: language);
+        value = GetAttributeValue<T>(attributes, name, culture: culture);
         return true;
     }
 
@@ -125,58 +125,61 @@ public static class AttributesExtensions
     /// </summary>
     /// <param name="attributes">The attributes dictionary</param>
     /// <param name="name">The attribute name</param>
-    /// <param name="language">The attribute language</param>
+    /// <param name="culture">The attribute culture</param>
     /// <returns>The string value</returns>
     public static string GetStringAttributeValue(this IDictionary<string, object> attributes,
-        string name, Language? language = null) =>
-        GetAttributeValue<string>(attributes, name, language: language);
+        string name, string culture = null) =>
+        GetAttributeValue<string>(attributes, name, culture: culture);
 
     /// <summary>
     /// Get a date attribute value
     /// </summary>
     /// <param name="attributes">The attributes dictionary</param>
     /// <param name="name">The attribute name</param>
-    /// <param name="language">The attribute language</param>
     /// <param name="culture">The attribute culture</param>
     /// <returns>The date value</returns>
     public static DateTime? GetDateTimeAttributeValue(this IDictionary<string, object> attributes,
-        string name, Language? language = null, CultureInfo culture = null) =>
-        DateTime.TryParse(GetAttributeValue<string>(attributes, name, language: language),
-            culture ?? CultureInfo.CurrentCulture,
-            out var dateTime) ? dateTime : null;
+        string name, CultureInfo culture = null)
+    {
+        culture ??= CultureInfo.CurrentCulture;
+        return DateTime.TryParse(GetAttributeValue<string>(attributes, name, culture: culture.Name), culture,
+            out var dateTime)
+            ? dateTime
+            : null;
+    }
 
     /// <summary>
     /// Get a boolean attribute value
     /// </summary>
     /// <param name="attributes">The attributes dictionary</param>
     /// <param name="name">The attribute name</param>
-    /// <param name="language">The attribute language</param>
+    /// <param name="culture">The attribute culture</param>
     /// <returns>The boolean value</returns>
     public static bool? GetBooleanAttributeValue(this IDictionary<string, object> attributes,
-        string name, Language? language = null) =>
-        TryGetAttributeValue(attributes, name, out bool value, language) ? value : null;
+        string name, string culture = null) =>
+        TryGetAttributeValue(attributes, name, out bool value, culture) ? value : null;
 
     /// <summary>
     /// Get a integer attribute value
     /// </summary>
     /// <param name="attributes">The attributes dictionary</param>
     /// <param name="name">The attribute name</param>
-    /// <param name="language">The attribute language</param>
+    /// <param name="culture">The attribute culture</param>
     /// <returns>The integer value</returns>
     public static int? GetIntegerAttributeValue(this IDictionary<string, object> attributes,
-        string name, Language? language = null) =>
-        TryGetAttributeValue(attributes, name, out int value, language) ? value : null;
+        string name, string culture = null) =>
+        TryGetAttributeValue(attributes, name, out int value, culture) ? value : null;
 
     /// <summary>
     /// Get a decimal attribute value
     /// </summary>
     /// <param name="attributes">The attributes dictionary</param>
     /// <param name="name">The attribute name</param>
-    /// <param name="language">The attribute language</param>
+    /// <param name="culture">The attribute culture</param>
     /// <returns>The decimal value</returns>
     public static decimal? GetDecimalAttributeValue(this IDictionary<string, object> attributes,
-        string name, Language? language = null) =>
-        TryGetAttributeValue(attributes, name, out decimal value, language) ? value : null;
+        string name, string culture = null) =>
+        TryGetAttributeValue(attributes, name, out decimal value, culture) ? value : null;
 
     /// <summary>
     /// Get an enum attribute value
@@ -184,10 +187,10 @@ public static class AttributesExtensions
     /// <typeparam name="T">Enum type</typeparam>
     /// <param name="attributes">Attribute dictionary</param>
     /// <param name="name">Name of attribute to extract enum from</param>
-    /// <param name="language">The attribute language</param>
+    /// <param name="culture">The attribute culture</param>
     /// <returns>Enum representation of string input</returns>
     public static T? GetEnumAttributeValue<T>(this Dictionary<string, object> attributes,
-        string name, Language? language = null)
+        string name, string culture = null)
         where T : struct
     {
         // check for valid type
@@ -197,7 +200,7 @@ public static class AttributesExtensions
             throw new PayrollException("Can not get enum value from non-Enum type");
         }
 
-        if (attributes.TryGetAttributeValue(name, out string attributeValue, language) &&
+        if (attributes.TryGetAttributeValue(name, out string attributeValue, culture) &&
             Enum.TryParse(type, attributeValue, true, out var attributeType))
         {
             return (T)attributeType;
@@ -211,12 +214,12 @@ public static class AttributesExtensions
     /// </summary>
     /// <param name="attributes">The attributes dictionary</param>
     /// <param name="value">The value</param>
-    /// <param name="language">The attribute language</param>
+    /// <param name="culture">The attribute culture</param>
     /// <param name="memberName">The member name</param>
     /// <returns>The member value</returns>
     public static void SetMemberAttributeValue<T>(this IDictionary<string, object> attributes,
-        T value, Language? language = null, [CallerMemberName] string memberName = "") =>
-        SetAttributeValue(attributes, memberName, value, language);
+        T value, string culture = null, [CallerMemberName] string memberName = "") =>
+        SetAttributeValue(attributes, memberName, value, culture);
 
     /// <summary>
     /// Set an attribute value
@@ -224,11 +227,11 @@ public static class AttributesExtensions
     /// <param name="attributes">The attributes dictionary</param>
     /// <param name="name">The attribute name</param>
     /// <param name="value">The value</param>
-    /// <param name="language">The attribute language</param>
+    /// <param name="culture">The attribute culture</param>
     public static void SetAttributeValue<T>(this IDictionary<string, object> attributes,
-        string name, T value, Language? language = null)
+        string name, T value, string culture = null)
     {
-        attributes[GetAttributeKey(attributes, name, language)] = value;
+        attributes[GetAttributeKey(attributes, name, culture)] = value;
     }
 
     /// <summary>
@@ -236,18 +239,18 @@ public static class AttributesExtensions
     /// </summary>
     /// <param name="attributes">The attributes dictionary</param>
     /// <param name="name">The attribute name</param>
-    /// <param name="language">The attribute language</param>
+    /// <param name="culture">The attribute culture</param>
     /// <returns>The attribute key</returns>
     private static string GetAttributeKey(this IDictionary<string, object> attributes,
-        string name, Language? language = null)
+        string name, string culture = null)
     {
-        if (language == null)
+        if (culture == null)
         {
             return name;
         }
 
         // language attribute key
-        var languageKey = $"{name}.{language.Value.LanguageCode()}";
+        var languageKey = $"{name}.{culture}";
         if (attributes.ContainsKey(languageKey))
         {
             return languageKey;
