@@ -285,6 +285,12 @@
         <member name="T:PayrollEngine.CalendarTimeUnitExtensions">
             <summary>Extensions for <see cref="T:PayrollEngine.CalendarTimeUnit"/></summary>
         </member>
+        <member name="M:PayrollEngine.CalendarTimeUnitExtensions.PeriodCount(PayrollEngine.CalendarTimeUnit,PayrollEngine.CalendarTimeUnit)">
+            <summary>Get the count of periods within the cycle</summary>
+            <param name="cycleUnit">The payroll cycle unit</param>
+            <param name="periodUnit">The payroll period unit</param>
+            <returns>True for a valid cycle/period combination</returns>
+        </member>
         <member name="M:PayrollEngine.CalendarTimeUnitExtensions.IsValidTimeUnit(PayrollEngine.CalendarTimeUnit,PayrollEngine.CalendarTimeUnit)">
             <summary>Test for valid time unit combination</summary>
             <param name="cycleUnit">The payroll cycle unit</param>
