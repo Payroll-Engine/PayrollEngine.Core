@@ -84,23 +84,28 @@ public static class DataTableItemExtensions
             return dataRow;
         }
 
-        // collect row data
-        var rowValues = new object[propertyValues.Count];
-        for (var i = 0; i < propertyValues.Count; i++)
+        // collect row item array
+        var rowItems = new object[dataTable.Columns.Count];
+        foreach (var propertyValue in propertyValues)
         {
-            var property = propertyValues[i].Property;
-            var value = propertyValues[i].Value;
+            var index = dataTable.Columns.IndexOf(propertyValue.Property.Name);
+            // ignore unknown column properties
+            if (index < 0)
+            {
+                continue;
+            }
 
-            // json value
-            if (value != null && property.PropertyType.IsSerializedType())
+            // value
+            var value = propertyValue.Value;
+            if (value != null && propertyValue.Property.PropertyType.IsSerializedType())
             {
                 value = JsonSerializer.Serialize(value);
             }
-            rowValues[i] = value;
+            rowItems[index] = value;
         }
 
         // values row
-        dataRow.ItemArray = rowValues;
+        dataRow.ItemArray = rowItems;
         dataTable.Rows.Add(dataRow);
 
         return dataRow;
