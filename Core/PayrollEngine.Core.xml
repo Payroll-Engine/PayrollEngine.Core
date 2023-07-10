@@ -614,17 +614,20 @@
         <member name="T:PayrollEngine.CollectType">
             <summary>The collect type</summary>
         </member>
-        <member name="F:PayrollEngine.CollectType.Sum">
+        <member name="F:PayrollEngine.CollectType.Summary">
             <summary>Values summary</summary>
         </member>
-        <member name="F:PayrollEngine.CollectType.Min">
+        <member name="F:PayrollEngine.CollectType.Minimum">
             <summary>Minimum value</summary>
         </member>
-        <member name="F:PayrollEngine.CollectType.Max">
+        <member name="F:PayrollEngine.CollectType.Maximum">
             <summary>Maximum value</summary>
         </member>
         <member name="F:PayrollEngine.CollectType.Average">
             <summary>Values average</summary>
+        </member>
+        <member name="F:PayrollEngine.CollectType.Range">
+            <summary>Values range: maximum - minimum</summary>
         </member>
         <member name="F:PayrollEngine.CollectType.Count">
             <summary>Values count</summary>

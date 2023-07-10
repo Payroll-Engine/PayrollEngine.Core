@@ -7,17 +7,20 @@ namespace PayrollEngine;
 public enum CollectType
 {
     /// <summary>Values summary</summary>
-    Sum = 0,
+    Summary = 0,
 
     /// <summary>Minimum value</summary>
-    Min = 1,
+    Minimum = 1,
 
     /// <summary>Maximum value</summary>
-    Max = 2,
+    Maximum = 2,
 
     /// <summary>Values average</summary>
     Average = 3,
 
+    /// <summary>Values range: maximum - minimum</summary>
+    Range = 4,
+
     /// <summary>Values count</summary>
-    Count = 4
+    Count = 5
 }
