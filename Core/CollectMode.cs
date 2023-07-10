@@ -2,11 +2,11 @@
 
 namespace PayrollEngine;
 
-/// <summary>The collect type</summary>
+/// <summary>The collect mode</summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum CollectType
+public enum CollectMode
 {
-    /// <summary>Values summary</summary>
+    /// <summary>Summary of values</summary>
     Summary = 0,
 
     /// <summary>Minimum value</summary>
@@ -15,7 +15,7 @@ public enum CollectType
     /// <summary>Maximum value</summary>
     Maximum = 2,
 
-    /// <summary>Values average</summary>
+    /// <summary>Average of values</summary>
     Average = 3,
 
     /// <summary>Values range: maximum - minimum</summary>

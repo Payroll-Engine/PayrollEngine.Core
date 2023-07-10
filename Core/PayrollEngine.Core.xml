@@ -611,25 +611,25 @@
             <typeparam name="T">The object type</typeparam>
             <returns>The serialized JSON text</returns>
         </member>
-        <member name="T:PayrollEngine.CollectType">
-            <summary>The collect type</summary>
+        <member name="T:PayrollEngine.CollectMode">
+            <summary>The collect mode</summary>
         </member>
-        <member name="F:PayrollEngine.CollectType.Summary">
-            <summary>Values summary</summary>
+        <member name="F:PayrollEngine.CollectMode.Summary">
+            <summary>Summary of values</summary>
         </member>
-        <member name="F:PayrollEngine.CollectType.Minimum">
+        <member name="F:PayrollEngine.CollectMode.Minimum">
             <summary>Minimum value</summary>
         </member>
-        <member name="F:PayrollEngine.CollectType.Maximum">
+        <member name="F:PayrollEngine.CollectMode.Maximum">
             <summary>Maximum value</summary>
         </member>
-        <member name="F:PayrollEngine.CollectType.Average">
-            <summary>Values average</summary>
+        <member name="F:PayrollEngine.CollectMode.Average">
+            <summary>Average of values</summary>
         </member>
-        <member name="F:PayrollEngine.CollectType.Range">
+        <member name="F:PayrollEngine.CollectMode.Range">
             <summary>Values range: maximum - minimum</summary>
         </member>
-        <member name="F:PayrollEngine.CollectType.Count">
+        <member name="F:PayrollEngine.CollectMode.Count">
             <summary>Values count</summary>
         </member>
         <member name="T:PayrollEngine.CompareTool">
