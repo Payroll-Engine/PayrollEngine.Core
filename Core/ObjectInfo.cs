@@ -192,55 +192,58 @@ public static class ObjectInfo
             // value
             object value;
 
-            // test for string dictionary
-            var isDictionary = false;
-            if (property.PropertyType.IsGenericType &&
-                property.PropertyType.GetGenericTypeDefinition() == typeof(Dictionary<,>))
+            // child expression
+            if (!string.IsNullOrWhiteSpace(childExpression))
             {
-                var keyType = property.PropertyType.GetGenericArguments()[0];
-                var valueType = property.PropertyType.GetGenericArguments()[1];
-                isDictionary = keyType == typeof(string) && valueType == typeof(object);
-            }
-
-            // dictionary 
-            if (isDictionary)
-            {
-                // test child expression and string/object dictionary
-                if (string.IsNullOrWhiteSpace(childExpression) ||
-                    property.GetValue(item, null) is not IDictionary<string, object> dictionary)
+                // test for string dictionary
+                var isDictionary = false;
+                if (property.PropertyType.IsGenericType &&
+                    property.PropertyType.GetGenericTypeDefinition() == typeof(Dictionary<,>))
                 {
-                    return null;
+                    var keyType = property.PropertyType.GetGenericArguments()[0];
+                    var valueType = property.PropertyType.GetGenericArguments()[1];
+                    isDictionary = keyType == typeof(string) && valueType == typeof(object);
                 }
 
-                // missing dictionary value
-                if (!dictionary.ContainsKey(childExpression))
+                // dictionary 
+                if (isDictionary)
                 {
+                    // test child expression and string/object dictionary
+                    if (string.IsNullOrWhiteSpace(childExpression) ||
+                        property.GetValue(item, null) is not IDictionary<string, object> dictionary)
+                    {
+                        return null;
+                    }
+
                     // missing dictionary value
+                    if (!dictionary.ContainsKey(childExpression))
+                    {
+                        // missing dictionary value
+                        return new PropertyValue
+                        {
+                            Property = property,
+                            Value = null,
+                            DictionaryKey = childExpression
+                        };
+                    }
+
+                    // dictionary value
+                    value = dictionary[childExpression];
+                    if (value is JsonElement jsonElement)
+                    {
+                        value = jsonElement.GetValue();
+                    }
                     return new PropertyValue
                     {
                         Property = property,
-                        Value = null,
+                        Value = value,
                         DictionaryKey = childExpression
                     };
                 }
-
-                // dictionary value
-                value = dictionary[childExpression];
-                if (value is JsonElement jsonElement)
-                {
-                    value = jsonElement.GetValue();
-                }
-                return new PropertyValue
-                {
-                    Property = property,
-                    Value = value,
-                    DictionaryKey = childExpression
-                };
             }
 
-            // plain property
+            // final property
             value = property.GetValue(item, null);
-
             if (value == null)
             {
                 return null;

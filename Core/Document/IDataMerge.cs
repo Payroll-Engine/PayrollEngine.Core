@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.IO;
 
 namespace PayrollEngine.Document;
@@ -15,12 +16,15 @@ public interface IDataMerge
     /// <param name="dataSet">The data set</param>
     /// <param name="documentType">Type of the document</param>
     /// <param name="metadata">The document metadata</param>
+    /// <param name="parameters">The merge parameters</param>
     /// <returns>The merged document stream</returns>
     MemoryStream Merge(Stream templateStream, DataSet dataSet, DocumentType documentType,
-        DocumentMetadata metadata);
+        DocumentMetadata metadata, IDictionary<string, object> parameters = null);
 
     /// <summary>Merge to excel stream</summary>
     /// <param name="dataSet">The source data</param>
     /// <param name="metadata">The document meta data</param>
-    MemoryStream ExcelMerge(DataSet dataSet, DocumentMetadata metadata);
+    /// <param name="parameters">The merge parameters</param>
+    MemoryStream ExcelMerge(DataSet dataSet, DocumentMetadata metadata,
+        IDictionary<string, object> parameters = null);
 }

@@ -2319,18 +2319,20 @@
             <summary>Test if document type is mergeable</summary>
             <param name="documentType">Type of the document</param>
         </member>
-        <member name="M:PayrollEngine.Document.IDataMerge.Merge(System.IO.Stream,System.Data.DataSet,PayrollEngine.Document.DocumentType,PayrollEngine.Document.DocumentMetadata)">
+        <member name="M:PayrollEngine.Document.IDataMerge.Merge(System.IO.Stream,System.Data.DataSet,PayrollEngine.Document.DocumentType,PayrollEngine.Document.DocumentMetadata,System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>Merge a document from a stream to a stream</summary>
             <param name="templateStream">Name of the template file</param>
             <param name="dataSet">The data set</param>
             <param name="documentType">Type of the document</param>
             <param name="metadata">The document metadata</param>
+            <param name="parameters">The merge parameters</param>
             <returns>The merged document stream</returns>
         </member>
-        <member name="M:PayrollEngine.Document.IDataMerge.ExcelMerge(System.Data.DataSet,PayrollEngine.Document.DocumentMetadata)">
+        <member name="M:PayrollEngine.Document.IDataMerge.ExcelMerge(System.Data.DataSet,PayrollEngine.Document.DocumentMetadata,System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>Merge to excel stream</summary>
             <param name="dataSet">The source data</param>
             <param name="metadata">The document meta data</param>
+            <param name="parameters">The merge parameters</param>
         </member>
         <member name="T:PayrollEngine.EnumerableExtensions">
             <summary>Extensions for <see cref="T:System.Collections.Generic.IEnumerable`1"/></summary>
