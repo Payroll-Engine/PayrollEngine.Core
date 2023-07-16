@@ -8,7 +8,13 @@ public static class SystemSpecification
     public static readonly string ApplicationName = "Payroll Engine API";
 
     /// <summary>Environment variable name, containing the Payroll database connection string</summary>
-    public static readonly string DatabaseConnectionString = "PayrollEngineDatabase";
+    public static readonly string DatabaseConnectionVariable = "PayrollEngineDatabase";
+
+    /// <summary>Environment variable name for the payroll backend url</summary>
+    public static readonly string BackendUrlVariable = "PayrollEngineBackendUrl";
+
+    /// <summary>Environment variable name for the payroll backend port</summary>
+    public static readonly string BackendPortVariable = "PayrollEngineBackendPort";
 
     /// <summary>Prefix for text attribute fields</summary>
     public static readonly string TextAttributePrefix = "TA_";

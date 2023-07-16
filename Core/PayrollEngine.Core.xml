@@ -4278,8 +4278,14 @@
         <member name="F:PayrollEngine.SystemSpecification.ApplicationName">
             <summary>Application name, use to mark the application/producer in office documents</summary>
         </member>
-        <member name="F:PayrollEngine.SystemSpecification.DatabaseConnectionString">
+        <member name="F:PayrollEngine.SystemSpecification.DatabaseConnectionVariable">
             <summary>Environment variable name, containing the Payroll database connection string</summary>
+        </member>
+        <member name="F:PayrollEngine.SystemSpecification.BackendUrlVariable">
+            <summary>Environment variable name for the payroll backend url</summary>
+        </member>
+        <member name="F:PayrollEngine.SystemSpecification.BackendPortVariable">
+            <summary>Environment variable name for the payroll backend port</summary>
         </member>
         <member name="F:PayrollEngine.SystemSpecification.TextAttributePrefix">
             <summary>Prefix for text attribute fields</summary>
