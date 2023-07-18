@@ -691,6 +691,9 @@
             <param name="configuration">The assembly</param>
             <returns>The configuration object</returns>
         </member>
+        <member name="M:PayrollEngine.ConfigurationExtensions.GetConnectionStringAsync(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>Get the database connection string</summary>
+        </member>
         <member name="T:PayrollEngine.ContentType">
             <summary>Content types</summary>
         </member>
@@ -3990,6 +3993,24 @@
             <param name="value">The value to convert</param>
             <param name="options">The <see cref="T:System.Text.Json.JsonSerializerOptions"/> being used</param>
         </member>
+        <member name="T:PayrollEngine.SharedConfiguration">
+            <summary>
+            Payroll engine shared configuration, <see cref="F:PayrollEngine.SystemSpecification.PayrollConfigurationVariable"/>
+            </summary>
+        </member>
+        <member name="M:PayrollEngine.SharedConfiguration.ReadAsync">
+            <summary>
+            Read the shared configuration
+            </summary>
+            <returns>Dictionary with key=field name, value=field value as string</returns>
+        </member>
+        <member name="M:PayrollEngine.SharedConfiguration.ReadValueAsync(System.String)">
+            <summary>
+            Read a shared configuration value
+            </summary>
+            <param name="fieldName">The field name</param>
+            <returns>The field value as string</returns>
+        </member>
         <member name="T:PayrollEngine.SortDirection">
             <summary>Specifies the direction in which to sort a list of items</summary>
         </member>
@@ -4278,14 +4299,11 @@
         <member name="F:PayrollEngine.SystemSpecification.ApplicationName">
             <summary>Application name, use to mark the application/producer in office documents</summary>
         </member>
-        <member name="F:PayrollEngine.SystemSpecification.DatabaseConnectionVariable">
-            <summary>Environment variable name, containing the Payroll database connection string</summary>
+        <member name="F:PayrollEngine.SystemSpecification.PayrollConfigurationVariable">
+            <summary>Shared settings environment variable name, containing the json file name</summary>
         </member>
-        <member name="F:PayrollEngine.SystemSpecification.BackendUrlVariable">
-            <summary>Environment variable name for the payroll backend url</summary>
-        </member>
-        <member name="F:PayrollEngine.SystemSpecification.BackendPortVariable">
-            <summary>Environment variable name for the payroll backend port</summary>
+        <member name="F:PayrollEngine.SystemSpecification.DatabaseConnectionSetting">
+            <summary>Setting name, containing the Payroll database connection string</summary>
         </member>
         <member name="F:PayrollEngine.SystemSpecification.TextAttributePrefix">
             <summary>Prefix for text attribute fields</summary>
