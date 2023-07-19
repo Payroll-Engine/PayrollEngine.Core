@@ -3102,6 +3102,41 @@
         <member name="F:PayrollEngine.OverrideType.Inactive">
             <summary>Inactive override</summary>
         </member>
+        <member name="T:PayrollEngine.PasswordChangeRequest">
+            <summary>
+            Password change request
+            Use cases:
+            - set initial password: new=required, existing=ignored
+            - change existing password: new=required, existing=required
+            - reset password: new=null, existing=required
+            </summary>
+        </member>
+        <member name="P:PayrollEngine.PasswordChangeRequest.NewPassword">
+            <summary>
+            The new password
+            </summary>
+        </member>
+        <member name="P:PayrollEngine.PasswordChangeRequest.ExistingPassword">
+            <summary>
+            The existing password
+            </summary>
+        </member>
+        <member name="M:PayrollEngine.PasswordChangeRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:PayrollEngine.PasswordChangeRequest"/> class
+            </summary>
+        </member>
+        <member name="M:PayrollEngine.PasswordChangeRequest.#ctor(PayrollEngine.PasswordChangeRequest)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PayrollEngine.PasswordChangeRequest"/> class
+            </summary>
+            <param name="copySource">The copy source.</param>
+        </member>
+        <member name="M:PayrollEngine.PasswordChangeRequest.Equals(PayrollEngine.PasswordChangeRequest)">
+            <summary>Compare two objects</summary>
+            <param name="compare">The object to compare with this</param>
+            <returns>True for objects with the same data</returns>
+        </member>
         <member name="T:PayrollEngine.PayrollException">
             <summary>Payroll exception</summary>
         </member>
