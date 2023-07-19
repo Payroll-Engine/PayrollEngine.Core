@@ -12,6 +12,9 @@ public enum UserType
     /// <summary>User with employee self service</summary>
     Employee = 1,
 
-    /// <summary>User who can manage all users</summary>
-    Supervisor = 2
+    /// <summary>User who can manage users</summary>
+    Administrator = 2,
+
+    /// <summary>User with access to any feature</summary>
+    Supervisor = 3
 }
