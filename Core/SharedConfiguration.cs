@@ -37,7 +37,23 @@ namespace PayrollEngine
         /// </summary>
         /// <param name="fieldName">The field name</param>
         /// <returns>The field value as string</returns>
-        public static async Task<string> ReadValueAsync(string fieldName) =>
-            (await ReadAsync()).TryGetValue(fieldName, out var value) ? value : null;
+        public static async Task<string> ReadValueAsync(string fieldName)
+        {
+            var config = await ReadAsync();
+
+            // direct match
+            if (config.TryGetValue(fieldName, out var value))
+            {
+                return value;
+            }
+
+            // try camel case
+            fieldName = fieldName.FirstCharacterToLower();
+            if (config.TryGetValue(fieldName, out value))
+            {
+                return value;
+            }
+            return null;
+        }
     }
 }

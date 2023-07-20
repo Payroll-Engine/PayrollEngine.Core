@@ -18,7 +18,7 @@ public static class ConfigurationExtensions
     }
 
     /// <summary>Get the database connection string</summary>
-    public static async Task<string> GetConnectionStringAsync(this IConfiguration configuration)
+    public static async Task<string> GetSharedConnectionStringAsync(this IConfiguration configuration)
     {
         // priority 1: application configuration
         var appConnectionString = configuration.GetConnectionString(SystemSpecification.DatabaseConnectionSetting);
