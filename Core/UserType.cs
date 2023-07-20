@@ -7,7 +7,7 @@ namespace PayrollEngine;
 public enum UserType
 {
     /// <summary>Regular user</summary>
-    Regular = 0,
+    User = 0,
 
     /// <summary>User with employee self service</summary>
     Employee = 1,

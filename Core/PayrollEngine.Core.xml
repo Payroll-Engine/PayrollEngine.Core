@@ -4467,7 +4467,7 @@
         <member name="T:PayrollEngine.UserType">
             <summary>The type of the user</summary>
         </member>
-        <member name="F:PayrollEngine.UserType.Regular">
+        <member name="F:PayrollEngine.UserType.User">
             <summary>Regular user</summary>
         </member>
         <member name="F:PayrollEngine.UserType.Employee">
