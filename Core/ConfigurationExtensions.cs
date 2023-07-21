@@ -20,16 +20,22 @@ public static class ConfigurationExtensions
     /// <summary>Get the database connection string</summary>
     public static async Task<string> GetSharedConnectionStringAsync(this IConfiguration configuration)
     {
-        // priority 1: application configuration
-        var appConnectionString = configuration.GetConnectionString(SystemSpecification.DatabaseConnectionSetting);
+        string connectionString;
 
-        // priority 2: shared configuration
+        // priority 1: shared configuration
         var sharedConfigFileName = Environment.GetEnvironmentVariable(SystemSpecification.PayrollConfigurationVariable);
-        if (string.IsNullOrWhiteSpace(sharedConfigFileName) || !File.Exists(sharedConfigFileName))
+        if (!string.IsNullOrWhiteSpace(sharedConfigFileName) && File.Exists(sharedConfigFileName))
         {
-            return appConnectionString;
+            var sharedConfiguration = await SharedConfiguration.ReadAsync();
+            connectionString = SharedConfiguration.GetSharedValue(sharedConfiguration, SystemSpecification.SharedDatabaseConnectionString);
+            if (!string.IsNullOrWhiteSpace(connectionString))
+            {
+                return connectionString;
+            }
         }
-        var sharedConnectionString = await SharedConfiguration.ReadValueAsync(SystemSpecification.DatabaseConnectionSetting);
-        return sharedConnectionString ?? appConnectionString;
+
+        // priority 2: application configuration
+        connectionString = configuration.GetConnectionString(SystemSpecification.ConfigurationDatabaseConnectionString);
+        return connectionString;
     }
 }

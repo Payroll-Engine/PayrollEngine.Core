@@ -31,28 +31,27 @@ namespace PayrollEngine
             {
                 return new();
             }
+
         }
+
         /// <summary>
-        /// Read a shared configuration value
+        /// Get shared configuration value
         /// </summary>
-        /// <param name="fieldName">The field name</param>
-        /// <returns>The field value as string</returns>
-        public static async Task<string> ReadValueAsync(string fieldName)
+        public static string GetSharedValue(Dictionary<string, string> sharedConfiguration, string name)
         {
-            var config = await ReadAsync();
-
-            // direct match
-            if (config.TryGetValue(fieldName, out var value))
+            // primary name
+            if (sharedConfiguration.TryGetValue(name, out var value))
             {
                 return value;
             }
 
-            // try camel case
-            fieldName = fieldName.FirstCharacterToLower();
-            if (config.TryGetValue(fieldName, out value))
+            // alternative name
+            name = name.FirstCharacterToLower();
+            if (sharedConfiguration.TryGetValue(name, out value))
             {
                 return value;
             }
+
             return null;
         }
     }

@@ -4039,12 +4039,10 @@
             </summary>
             <returns>Dictionary with key=field name, value=field value as string</returns>
         </member>
-        <member name="M:PayrollEngine.SharedConfiguration.ReadValueAsync(System.String)">
+        <member name="M:PayrollEngine.SharedConfiguration.GetSharedValue(System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
             <summary>
-            Read a shared configuration value
+            Get shared configuration value
             </summary>
-            <param name="fieldName">The field name</param>
-            <returns>The field value as string</returns>
         </member>
         <member name="T:PayrollEngine.SortDirection">
             <summary>Specifies the direction in which to sort a list of items</summary>
@@ -4337,8 +4335,11 @@
         <member name="F:PayrollEngine.SystemSpecification.PayrollConfigurationVariable">
             <summary>Shared settings environment variable name, containing the json file name</summary>
         </member>
-        <member name="F:PayrollEngine.SystemSpecification.DatabaseConnectionSetting">
-            <summary>Setting name, containing the Payroll database connection string</summary>
+        <member name="F:PayrollEngine.SystemSpecification.ConfigurationDatabaseConnectionString">
+            <summary>Configuration setting name, containing the payroll database connection string</summary>
+        </member>
+        <member name="F:PayrollEngine.SystemSpecification.SharedDatabaseConnectionString">
+            <summary>Shared setting name, containing the payroll database connection string</summary>
         </member>
         <member name="F:PayrollEngine.SystemSpecification.TextAttributePrefix">
             <summary>Prefix for text attribute fields</summary>

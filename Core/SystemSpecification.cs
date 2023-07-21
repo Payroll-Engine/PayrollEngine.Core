@@ -10,8 +10,11 @@ public static class SystemSpecification
     /// <summary>Shared settings environment variable name, containing the json file name</summary>
     public static readonly string PayrollConfigurationVariable = "PayrollConfiguration";
 
-    /// <summary>Setting name, containing the Payroll database connection string</summary>
-    public static readonly string DatabaseConnectionSetting = "DatabaseConnection";
+    /// <summary>Configuration setting name, containing the payroll database connection string</summary>
+    public static readonly string ConfigurationDatabaseConnectionString = "PayrollDatabaseConnection";
+
+    /// <summary>Shared setting name, containing the payroll database connection string</summary>
+    public static readonly string SharedDatabaseConnectionString = "DatabaseConnection";
 
     /// <summary>Prefix for text attribute fields</summary>
     public static readonly string TextAttributePrefix = "TA_";
