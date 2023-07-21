@@ -46,7 +46,7 @@ namespace PayrollEngine
             }
 
             // alternative name
-            name = name.FirstCharacterToLower();
+            name = char.IsUpper(name[0]) ? name.FirstCharacterToLower() : name.FirstCharacterToUpper();
             if (sharedConfiguration.TryGetValue(name, out value))
             {
                 return value;

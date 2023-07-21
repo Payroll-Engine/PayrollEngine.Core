@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 
@@ -62,7 +61,7 @@ public static class StringExtensions
     /// <param name="value">The string value</param>
     /// <returns>String starting uppercase</returns>
     public static string FirstCharacterToUpper(this string value) =>
-        value.First().ToString().ToUpper() + value.Substring(1);
+        value[0].ToString().ToUpper() + value.Substring(1);
 
     /// <summary>Ensures a start prefix</summary>
     /// <param name="source">The source value</param>
