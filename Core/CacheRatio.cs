@@ -2,7 +2,6 @@
 
 namespace PayrollEngine;
 
-/// <exclude />
 /// <summary>Calculates and logs the cache ratio</summary>
 public class CacheRatio
 {

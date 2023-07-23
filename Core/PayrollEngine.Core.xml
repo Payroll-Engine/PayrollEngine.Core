@@ -213,7 +213,6 @@
             <returns>The attribute key</returns>
         </member>
         <member name="T:PayrollEngine.CacheRatio">
-            <exclude />
             <summary>Calculates and logs the cache ratio</summary>
         </member>
         <member name="P:PayrollEngine.CacheRatio.Name">
@@ -2937,7 +2936,6 @@
             <summary>If you have a pager, it goes off when one of these occurs/// </summary>
         </member>
         <member name="T:PayrollEngine.LogStopwatch">
-            <exclude />
             <summary>
             A log stopwatch
             </summary>

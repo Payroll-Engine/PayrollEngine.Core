@@ -4,7 +4,6 @@ using System.Diagnostics;
 
 namespace PayrollEngine;
 
-/// <exclude />
 /// <summary>
 /// A log stopwatch
 /// </summary>
