@@ -3150,40 +3150,6 @@
         <member name="M:PayrollEngine.PayrollException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <inheritdoc/>
         </member>
-        <member name="T:PayrollEngine.PayrollHttpConfiguration">
-            <summary>The Payroll HTTP configuration</summary>
-        </member>
-        <member name="M:PayrollEngine.PayrollHttpConfiguration.#ctor">
-            <summary>Default constructor</summary>
-        </member>
-        <member name="M:PayrollEngine.PayrollHttpConfiguration.#ctor(System.String,System.Int32)">
-            <summary>New instance of the Payroll Engine http client with unknown server certificate, timeout is 100 seconds.
-            See https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient.timeout
-            </summary>
-            <param name="baseUrl">The Uri the request is sent to</param>
-            <param name="port">The backend port</param>
-        </member>
-        <member name="M:PayrollEngine.PayrollHttpConfiguration.#ctor(System.String,System.Int32,System.TimeSpan)">
-            <summary>New instance of Payroll Engine http client with unknown server certificate and request timeout</summary>
-            <param name="baseUrl">The Uri the request is sent to</param>
-            <param name="port">The backend port</param>
-            <param name="requestTimeout">The request timeout</param>
-        </member>
-        <member name="F:PayrollEngine.PayrollHttpConfiguration.DefaultTimeout">
-            <summary>The default API request timeout</summary>
-        </member>
-        <member name="P:PayrollEngine.PayrollHttpConfiguration.BaseUrl">
-            <summary>The API base url</summary>
-        </member>
-        <member name="P:PayrollEngine.PayrollHttpConfiguration.Port">
-            <summary>The API port</summary>
-        </member>
-        <member name="P:PayrollEngine.PayrollHttpConfiguration.Timeout">
-            <summary>The API request timeout</summary>
-        </member>
-        <member name="M:PayrollEngine.PayrollHttpConfiguration.ToString">
-            <summary>Returns a <see cref="T:System.String" /> that represents this instance</summary>
-        </member>
         <member name="T:PayrollEngine.PayrollMapException">
             <summary>A payroll mapping exception</summary>
         </member>
