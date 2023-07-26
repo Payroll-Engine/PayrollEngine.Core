@@ -1,16 +1,15 @@
 <h1>Payroll Engine Core</h1>
 
 The Payroll Engine core library, used by any other component:
-- Exceptions
-- Logger abstraction
-- Document abstraction for reports
+- Payroll exceptions
+- Logger abstraction `ILogger`
+- Document abstraction for reports `IDataMerge`
 - Value conversion
-- Shared types
-- Shared type extensions
+- Common types and extension methods
 - JSON and CSV serialization
-- ADO.NET DataSets extensions
-- program configuration
+- Payroll `DataSet` convertible to the ADO.NET `DataSet`
+- Program Configuration
 
 ## Build
 Supported runtime environment variables:
-- *PayrollEnginePackageDir* - the NuGet package target direcotry (optional)
+- *PayrollEnginePackageDir* - the NuGet package destination directory (optional)
