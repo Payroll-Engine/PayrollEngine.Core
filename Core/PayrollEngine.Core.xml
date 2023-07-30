@@ -3887,6 +3887,15 @@
         <member name="T:PayrollEngine.Serialization.JsonSerializer">
             <summary>Extensions for System.Text.Json.JsonSerializer</summary>
         </member>
+        <member name="M:PayrollEngine.Serialization.JsonSerializer.DeserializeFromFileAsync``1(System.String)">
+            <summary>Deserialize a type from file</summary>
+            <param name="fileName">The file name</param>
+        </member>
+        <member name="M:PayrollEngine.Serialization.JsonSerializer.DeserializeFromResourceAsync``1(System.Type,System.String)">
+            <summary>Deserialize an embedded resource</summary>
+            <param name="type">Type within the resource assembly</param>
+            <param name="resourceName">The resource name</param>
+        </member>
         <member name="M:PayrollEngine.Serialization.JsonSerializer.SerializeList``1(System.Collections.Generic.IList{``0})">
             <summary>Serialize object list</summary>
             <param name="value">The list</param>

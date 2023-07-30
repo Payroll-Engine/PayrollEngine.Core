@@ -1,11 +1,75 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PayrollEngine.Serialization;
 
 /// <summary>Extensions for System.Text.Json.JsonSerializer</summary>
 public static class JsonSerializer
 {
+
+    #region File
+
+    /// <summary>Deserialize a type from file</summary>
+    /// <param name="fileName">The file name</param>
+    public static async Task<T> DeserializeFromFileAsync<T>(string fileName)
+    {
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            throw new ArgumentException(nameof(fileName));
+        }
+
+        // import file
+        if (!File.Exists(fileName))
+        {
+            throw new PayrollException($"Missing json file {fileName}");
+        }
+        var json = await File.ReadAllTextAsync(fileName);
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            throw new PayrollException($"Invalid import file {fileName}");
+        }
+
+        // import from JSON
+        var result = DefaultJsonSerializer.Deserialize<T>(json);
+        return result;
+    }
+
+    #endregion
+
+    #region Resource
+
+    /// <summary>Deserialize an embedded resource</summary>
+    /// <param name="type">Type within the resource assembly</param>
+    /// <param name="resourceName">The resource name</param>
+    public static async Task<T> DeserializeFromResourceAsync<T>(Type type, string resourceName)
+    {
+        if (type == null)
+        {
+            throw new ArgumentNullException(nameof(type));
+        }
+        if (string.IsNullOrWhiteSpace(resourceName))
+        {
+            throw new ArgumentException(nameof(resourceName));
+        }
+
+        var assembly = type.Assembly;
+        await using Stream stream = assembly.GetManifestResourceStream(type.Namespace + resourceName.EnsureStart("."));
+        if (stream == null)
+        {
+            throw new PayrollException($"Invalid resource {resourceName} in assembly {assembly.FullName}");
+        }
+        using var reader = new StreamReader(stream);
+        var json = await reader.ReadToEndAsync();
+
+        var result = DefaultJsonSerializer.Deserialize<T>(json);
+        return result;
+    }
+
+    #endregion
+
     #region List
 
     /// <summary>Serialize object list</summary>
