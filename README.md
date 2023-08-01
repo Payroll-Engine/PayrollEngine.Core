@@ -1,4 +1,4 @@
-<h1>Payroll Engine Core</h1>
+# Payroll Engine Core
 
 The Payroll Engine core library, used by any other component:
 - Payroll exceptions
