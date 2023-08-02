@@ -1,5 +1,5 @@
 # Payroll Engine Core
-👉 This repository is part of the [Payroll Engine](https://github.com/Payroll-Engine/PayrollEngine/wiki).
+👉 This library is part of the [Payroll Engine](https://github.com/Payroll-Engine/PayrollEngine/wiki).
 
 The Payroll Engine core library, used by any other component:
 - Payroll exceptions
