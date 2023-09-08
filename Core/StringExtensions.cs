@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
+using System.Threading;
 
 namespace PayrollEngine;
 
@@ -25,25 +26,55 @@ public static class StringExtensions
         }
 
         // culture
-        culture ??= CultureInfo.CurrentCulture.Name;
+        culture ??= Thread.CurrentThread.CurrentUICulture.Name;
+        culture = culture.Trim();
 
-        // direct localization
-        if (localizations.TryGetValue(culture, out var localization))
+        // specific language localization (e.g. en-US)
+        var cultureName = localizations.Keys.FirstOrDefault(
+            x => string.Equals(x, culture, StringComparison.OrdinalIgnoreCase));
+        if (!string.IsNullOrEmpty(cultureName))
         {
-            return localization;
+            var localizationValue = localizations[cultureName];
+            if (localizationValue == null)
+            {
+                return defaultValue;
+            }
+            return localizationValue;
         }
 
-        // base language localization
+        // neutral language
         var index = culture.IndexOf('-');
-        if (index <= 0)
+        if (index <= 0 && culture.Length == 2)
         {
-            return defaultValue;
+            // search for first country specific language
+            var specificCulture = localizations.Keys.FirstOrDefault(
+                x => x.StartsWith(culture, StringComparison.OrdinalIgnoreCase));
+            if (specificCulture == null)
+            {
+                return defaultValue;
+            }
+            var localizationValue = localizations[specificCulture];
+            if (localizationValue == null)
+            {
+                return defaultValue;
+            }
+            return localizationValue;
         }
-        var baseCulture = culture.Substring(0, index);
-        if (localizations.TryGetValue(baseCulture, out var baseLocalization))
+
+        // neutral language localization (e.g. en, de)
+        var neutralCulture = culture.Substring(0, index);
+        cultureName = localizations.Keys.FirstOrDefault(
+            x => string.Equals(x, neutralCulture, StringComparison.OrdinalIgnoreCase));
+        if (!string.IsNullOrEmpty(cultureName))
         {
-            return baseLocalization;
+            var localizationValue = localizations[cultureName];
+            if (localizationValue == null)
+            {
+                return defaultValue;
+            }
+            return localizationValue;
         }
+
         return defaultValue;
     }
 

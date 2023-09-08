@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using System.Threading;
 
 namespace PayrollEngine;
 
@@ -141,7 +142,7 @@ public static class AttributesExtensions
     public static DateTime? GetDateTimeAttributeValue(this IDictionary<string, object> attributes,
         string name, CultureInfo culture = null)
     {
-        culture ??= CultureInfo.CurrentCulture;
+        culture ??= Thread.CurrentThread.CurrentUICulture;
         return DateTime.TryParse(GetAttributeValue<string>(attributes, name, culture: culture.Name), culture,
             out var dateTime)
             ? dateTime

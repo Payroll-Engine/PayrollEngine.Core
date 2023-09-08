@@ -95,13 +95,13 @@ public class DataTable : IEquatable<DataTable>
 
                 var type = Columns[i].GetValueType();
 
-                object value;
+                object value = null;
                 // string/datetime escaping
                 if (type != null && (type == typeof(string) || type == typeof(DateTime)))
                 {
                     value = Regex.Unescape(rawValue.Trim('"'));
                 }
-                else
+                else if (!string.IsNullOrWhiteSpace(rawValue))
                 {
                     value = type == null ?
                         // serialize unknown types to json string
