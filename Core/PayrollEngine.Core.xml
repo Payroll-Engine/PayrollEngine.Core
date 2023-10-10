@@ -4263,35 +4263,41 @@
             <param name="value">The string value</param>
             <returns>True if the string represents a json object</returns>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.JsonToValue(System.String,PayrollEngine.ValueType)">
+        <member name="M:PayrollEngine.StringJsonExtensions.JsonToValue(System.String,PayrollEngine.ValueType,System.Globalization.CultureInfo)">
             <summary>Convert a string to case value</summary>
             <param name="value">The string to convert</param>
             <param name="valueType">Target type</param>
+            <param name="culture">The culture</param>
             <returns>The converted value</returns>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.JsonToInteger(System.String)">
+        <member name="M:PayrollEngine.StringJsonExtensions.JsonToInteger(System.String,System.Globalization.CultureInfo)">
             <summary>Converts a json string to an integer value</summary>
             <param name="json">The json representation</param>
+            <param name="culture">The culture</param>
             <returns>The integer value</returns>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.JsonToDecimal(System.String)">
+        <member name="M:PayrollEngine.StringJsonExtensions.JsonToDecimal(System.String,System.Globalization.CultureInfo)">
             <summary>Converts a json string to an decimal value</summary>
             <param name="json">The json representation</param>
+            <param name="culture">The culture</param>
             <returns>The decimal value</returns>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.JsonToString(System.String)">
+        <member name="M:PayrollEngine.StringJsonExtensions.JsonToString(System.String,System.Globalization.CultureInfo)">
             <summary>Converts a json string to a string value</summary>
             <param name="json">The json representation</param>
+            <param name="culture">The culture</param>
             <returns>The string value</returns>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.JsonToDateTime(System.String)">
+        <member name="M:PayrollEngine.StringJsonExtensions.JsonToDateTime(System.String,System.Globalization.CultureInfo)">
             <summary>Converts a json string to a date value</summary>
             <param name="json">The json representation</param>
+            <param name="culture">The culture</param>
             <returns>The date value</returns>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.JsonToBoolean(System.String)">
+        <member name="M:PayrollEngine.StringJsonExtensions.JsonToBoolean(System.String,System.Globalization.CultureInfo)">
             <summary>Converts a json string to a boolean value</summary>
             <param name="json">The json representation</param>
+            <param name="culture">The culture</param>
             <returns>The boolean value</returns>
         </member>
         <member name="M:PayrollEngine.StringJsonExtensions.JsonPrettify(System.String)">
@@ -4477,10 +4483,11 @@
         <member name="T:PayrollEngine.ValueConvert">
             <summary>Convert a value</summary>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.InvertValue(System.String,PayrollEngine.ValueType)">
+        <member name="M:PayrollEngine.ValueConvert.InvertValue(System.String,PayrollEngine.ValueType,System.Globalization.CultureInfo)">
             <summary>Invert numeric json value</summary>
             <param name="json">The json to convert</param>
             <param name="valueType">The value type</param>
+            <param name="culture">The culture</param>
             <returns>Inverted json value</returns>
         </member>
         <member name="M:PayrollEngine.ValueConvert.TryToJson(System.Object,System.String@)">
@@ -4494,48 +4501,56 @@
             <param name="value">The value</param>
             <returns>The JSON representation of the value</returns>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.TryToValue(System.String,PayrollEngine.ValueType,System.Object@)">
+        <member name="M:PayrollEngine.ValueConvert.TryToValue(System.String,PayrollEngine.ValueType,System.Globalization.CultureInfo,System.Object@)">
             <summary>Try to convert JSON string to value</summary>
             <param name="json">The JSON representation</param>
             <param name="valueType">The value type</param>
+            <param name="culture">The culture</param>
             <param name="value">The value</param>
             <returns>True for a valid JSON conversion</returns>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.ToNumber(System.String,PayrollEngine.ValueType)">
+        <member name="M:PayrollEngine.ValueConvert.ToNumber(System.String,PayrollEngine.ValueType,System.Globalization.CultureInfo)">
             <summary>Convert JSON string to a number value</summary>
             <param name="json">The JSON representation</param>
             <param name="valueType">The value type</param>
+            <param name="culture">The culture</param>
             <returns>Numeric value or null</returns>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.ToValue(System.String,PayrollEngine.ValueType)">
+        <member name="M:PayrollEngine.ValueConvert.ToValue(System.String,PayrollEngine.ValueType,System.Globalization.CultureInfo)">
             <summary>Converts JSON string to value</summary>
             <param name="json">The JSON representation</param>
             <param name="valueType">The value type</param>
+            <param name="culture">The culture</param>
             <returns>The value</returns>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.ToInteger(System.String)">
+        <member name="M:PayrollEngine.ValueConvert.ToInteger(System.String,System.Globalization.CultureInfo)">
             <summary>Converts a JSON string to an integer value</summary>
             <param name="json">The JSON representation</param>
+            <param name="culture">The culture</param>
             <returns>The integer value</returns>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.ToDecimal(System.String)">
+        <member name="M:PayrollEngine.ValueConvert.ToDecimal(System.String,System.Globalization.CultureInfo)">
             <summary>Converts a JSON string to an decimal value</summary>
             <param name="json">The JSON representation</param>
+            <param name="culture">The culture</param>
             <returns>The decimal value</returns>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.ToString(System.String)">
+        <member name="M:PayrollEngine.ValueConvert.ToString(System.String,System.Globalization.CultureInfo)">
             <summary>Converts a JSON string to a string value</summary>
             <param name="json">The JSON representation</param>
+            <param name="culture">The culture</param>
             <returns>The string value</returns>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.ToDateTime(System.String)">
+        <member name="M:PayrollEngine.ValueConvert.ToDateTime(System.String,System.Globalization.CultureInfo)">
             <summary>Converts a JSON string to a date time value</summary>
             <param name="json">The JSON representation</param>
+            <param name="culture">The culture</param>
             <returns>The date value</returns>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.ToBoolean(System.String)">
+        <member name="M:PayrollEngine.ValueConvert.ToBoolean(System.String,System.Globalization.CultureInfo)">
             <summary>Converts a JSON string to a boolean value</summary>
             <param name="json">The JSON representation</param>
+            <param name="culture">The culture</param>
             <returns>The boolean value</returns>
         </member>
         <member name="T:PayrollEngine.ValueScope">

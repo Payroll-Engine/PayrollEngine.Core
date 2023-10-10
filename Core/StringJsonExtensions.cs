@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text.Json;
 
 namespace PayrollEngine;
@@ -41,39 +42,45 @@ public static class StringJsonExtensions
     /// <summary>Convert a string to case value</summary>
     /// <param name="value">The string to convert</param>
     /// <param name="valueType">Target type</param>
+    /// <param name="culture">The culture</param>
     /// <returns>The converted value</returns>
-    public static object JsonToValue(this string value, ValueType valueType) =>
-        ValueConvert.ToValue(value, valueType);
+    public static object JsonToValue(this string value, ValueType valueType, CultureInfo culture) =>
+        ValueConvert.ToValue(value, valueType, culture);
 
     /// <summary>Converts a json string to an integer value</summary>
     /// <param name="json">The json representation</param>
+    /// <param name="culture">The culture</param>
     /// <returns>The integer value</returns>
-    public static int JsonToInteger(this string json) =>
-        ValueConvert.ToInteger(json);
+    public static int JsonToInteger(this string json, CultureInfo culture) =>
+        ValueConvert.ToInteger(json, culture);
 
     /// <summary>Converts a json string to an decimal value</summary>
     /// <param name="json">The json representation</param>
+    /// <param name="culture">The culture</param>
     /// <returns>The decimal value</returns>
-    public static decimal JsonToDecimal(this string json) =>
-        ValueConvert.ToDecimal(json);
+    public static decimal JsonToDecimal(this string json, CultureInfo culture) =>
+        ValueConvert.ToDecimal(json, culture);
 
     /// <summary>Converts a json string to a string value</summary>
     /// <param name="json">The json representation</param>
+    /// <param name="culture">The culture</param>
     /// <returns>The string value</returns>
-    public static string JsonToString(this string json) =>
-        ValueConvert.ToString(json);
+    public static string JsonToString(this string json, CultureInfo culture) =>
+        ValueConvert.ToString(json, culture);
 
     /// <summary>Converts a json string to a date value</summary>
     /// <param name="json">The json representation</param>
+    /// <param name="culture">The culture</param>
     /// <returns>The date value</returns>
-    public static DateTime JsonToDateTime(this string json) =>
-        ValueConvert.ToDateTime(json);
+    public static DateTime JsonToDateTime(this string json, CultureInfo culture) =>
+        ValueConvert.ToDateTime(json, culture);
 
     /// <summary>Converts a json string to a boolean value</summary>
     /// <param name="json">The json representation</param>
+    /// <param name="culture">The culture</param>
     /// <returns>The boolean value</returns>
-    public static bool JsonToBoolean(this string json) =>
-        ValueConvert.ToBoolean(json);
+    public static bool JsonToBoolean(this string json, CultureInfo culture) =>
+        ValueConvert.ToBoolean(json, culture);
 
     /// <summary>Prettify json string</summary>
     /// <param name="json">The json representation</param>
