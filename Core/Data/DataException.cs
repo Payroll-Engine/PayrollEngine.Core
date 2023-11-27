@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace PayrollEngine.Data;
 
@@ -20,12 +19,6 @@ public class DataException : Exception
     /// <inheritdoc/>
     public DataException(string message, Exception innerException) :
         base(message, innerException)
-    {
-    }
-
-    /// <inheritdoc/>
-    protected DataException(SerializationInfo info, StreamingContext context) :
-        base(info, context)
     {
     }
 }

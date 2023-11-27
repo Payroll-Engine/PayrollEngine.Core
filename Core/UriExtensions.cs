@@ -75,7 +75,10 @@ public static class UriExtensions
             // others
             stringValue = value.ToString();
         }
-        return QueryHelpers.AddQueryString(uri, name, stringValue);
+
+        return string.IsNullOrWhiteSpace(stringValue) ?
+            uri :
+            QueryHelpers.AddQueryString(uri, name, stringValue);
     }
 
     /// <summary>Append the given query key and value to the URI</summary>

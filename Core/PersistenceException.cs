@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace PayrollEngine;
 
@@ -26,16 +25,5 @@ public class PersistenceException : PayrollException
         base(message, innerException)
     {
         ErrorType = errorType;
-    }
-
-    /// <inheritdoc/>
-    protected PersistenceException(SerializationInfo info, StreamingContext context) :
-        base(info, context)
-    {
-        var errorType = info.GetInt32("ErrorType");
-        if (Enum.IsDefined(typeof(PersistenceErrorType), errorType))
-        {
-            ErrorType = (PersistenceErrorType)errorType;
-        }
     }
 }

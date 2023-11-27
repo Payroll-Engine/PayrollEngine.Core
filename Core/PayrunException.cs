@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace PayrollEngine;
 
@@ -20,12 +19,6 @@ public class PayrunException : PayrollException
     /// <inheritdoc/>
     public PayrunException(string message, Exception innerException) :
         base(message, innerException)
-    {
-    }
-
-    /// <inheritdoc/>
-    protected PayrunException(SerializationInfo info, StreamingContext context) :
-        base(info, context)
     {
     }
 }

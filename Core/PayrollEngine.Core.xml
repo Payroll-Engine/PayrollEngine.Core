@@ -819,9 +819,6 @@
         <member name="M:PayrollEngine.Data.DataException.#ctor(System.String,System.Exception)">
             <inheritdoc/>
         </member>
-        <member name="M:PayrollEngine.Data.DataException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <inheritdoc/>
-        </member>
         <member name="T:PayrollEngine.Data.DataRelation">
             <summary>
             Represents a data relation in a DataTable
@@ -3147,9 +3144,6 @@
         <member name="M:PayrollEngine.PayrollException.#ctor(System.String,System.Exception)">
             <inheritdoc/>
         </member>
-        <member name="M:PayrollEngine.PayrollException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <inheritdoc/>
-        </member>
         <member name="T:PayrollEngine.PayrollMapException">
             <summary>A payroll mapping exception</summary>
         </member>
@@ -3162,9 +3156,6 @@
         <member name="M:PayrollEngine.PayrollMapException.#ctor(System.String,System.Exception)">
             <inheritdoc/>
         </member>
-        <member name="M:PayrollEngine.PayrollMapException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <inheritdoc/>
-        </member>
         <member name="T:PayrollEngine.PayrunException">
             <summary>Payrun exception</summary>
         </member>
@@ -3175,9 +3166,6 @@
             <inheritdoc/>
         </member>
         <member name="M:PayrollEngine.PayrunException.#ctor(System.String,System.Exception)">
-            <inheritdoc/>
-        </member>
-        <member name="M:PayrollEngine.PayrunException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <inheritdoc/>
         </member>
         <member name="T:PayrollEngine.PayrunExecutionPhase">
@@ -3327,9 +3315,6 @@
         <member name="M:PayrollEngine.PersistenceException.#ctor(System.String,PayrollEngine.PersistenceErrorType,System.Exception)">
             <inheritdoc/>
         </member>
-        <member name="M:PayrollEngine.PersistenceException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <inheritdoc/>
-        </member>
         <member name="T:PayrollEngine.ProgramConfiguration`1">
             <summary>Access to the program configuration</summary>
         </member>
@@ -3463,9 +3448,6 @@
             <inheritdoc/>
         </member>
         <member name="M:PayrollEngine.QueryException.#ctor(System.String,System.Exception)">
-            <inheritdoc/>
-        </member>
-        <member name="M:PayrollEngine.QueryException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <inheritdoc/>
         </member>
         <member name="T:PayrollEngine.QueryExtensions">

@@ -9,7 +9,7 @@ public static class ScriptingSpecification
     public static readonly Version ScriptingVersion = new(1, 0, 0);
 
     /// <summary>The c# language version, string represents the Microsoft.CodeAnalysis.CSharp.LanguageVersion enum</summary>
-    public static readonly string CSharpLanguageVersion = "CSharp11";
+    public static readonly string CSharpLanguageVersion = "CSharp12";
 
     /// <summary>Tags start marker</summary>
     public static readonly string TagsStartMarker = "/*";
