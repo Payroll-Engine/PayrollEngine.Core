@@ -26,15 +26,14 @@ public static class DictionaryExtensions
     {
         if (string.IsNullOrWhiteSpace(key))
         {
-            throw new ArgumentException(nameof(key));
+            throw new ArgumentException(null, nameof(key));
         }
 
-        if (source == null || !source.ContainsKey(key))
+        if (source == null || !source.TryGetValue(key, out var value))
         {
             return defaultValue;
         }
 
-        var value = source[key];
         if (value is JsonElement jsonElement)
         {
             value = jsonElement.GetValue();
@@ -63,10 +62,7 @@ public static class DictionaryExtensions
     /// <param name="target">The copy target</param>
     public static void CopyTo<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> source, Dictionary<TKey, TValue> target)
     {
-        if (target == null)
-        {
-            throw new ArgumentNullException(nameof(target));
-        }
+        ArgumentNullException.ThrowIfNull(target);
         if (source == null)
         {
             return;

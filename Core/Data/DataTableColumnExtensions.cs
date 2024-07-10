@@ -31,7 +31,7 @@ public static class DataTableColumnExtensions
     {
         if (string.IsNullOrWhiteSpace(columnName))
         {
-            throw new ArgumentException(nameof(columnName));
+            throw new ArgumentException(null, nameof(columnName));
         }
 
         if (expression == null)

@@ -29,7 +29,7 @@ public static class DateTimeExtensions
     /// <param name="moment">The moment to test</param>
     /// <param name="start">The period start</param>
     /// <param name="end">The period end</param>
-    /// <returns>True if the moment is within the start end end date</returns>
+    /// <returns>True if the moment is within the start end date</returns>
     public static bool IsWithin(this DateTime moment, DateTime start, DateTime end) =>
         Date.IsWithin(start, end, moment);
 

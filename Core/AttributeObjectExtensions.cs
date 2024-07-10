@@ -54,7 +54,7 @@ public static class AttributeObjectExtensions
     {
         if (string.IsNullOrWhiteSpace(key))
         {
-            throw new ArgumentException(nameof(key));
+            throw new ArgumentException(null, nameof(key));
         }
 
         // remove

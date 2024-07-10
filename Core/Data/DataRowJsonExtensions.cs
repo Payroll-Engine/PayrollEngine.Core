@@ -26,12 +26,9 @@ namespace PayrollEngine.Data
         {
             if (string.IsNullOrWhiteSpace(column))
             {
-                throw new ArgumentException(nameof(column));
+                throw new ArgumentException(null, nameof(column));
             }
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
 
             if (dataRow[column] is not string json)
             {
@@ -59,13 +56,10 @@ namespace PayrollEngine.Data
         /// <param name="value">The value to set</param>
         public static void SetJsonValue(this System.Data.DataRow dataRow, Type type, string column, object value)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
             if (string.IsNullOrWhiteSpace(column))
             {
-                throw new ArgumentException(nameof(column));
+                throw new ArgumentException(null, nameof(column));
             }
             if (value == null)
             {

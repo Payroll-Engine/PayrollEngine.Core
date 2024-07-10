@@ -26,7 +26,7 @@ public static class ObjectInfo
         {
             if (!Properties.ContainsKey(type))
             {
-                Properties[type] = new(type.GetInstanceProperties());
+                Properties[type] = [..type.GetInstanceProperties()];
             }
             return Properties[type];
         }
@@ -105,10 +105,7 @@ public static class ObjectInfo
     /// <returns>The property value</returns>
     public static object GetPropertyValue(this object obj, string name)
     {
-        if (obj == null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
         var property = GetProperty(obj.GetType(), name);
         return property?.GetValue(obj);
     }
@@ -122,10 +119,7 @@ public static class ObjectInfo
     /// <returns>The property value</returns>
     public static T GetPropertyValue<T>(this object obj, string name, T defaultValue = default)
     {
-        if (obj == null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
         var property = GetProperty(obj.GetType(), name);
         var value = property?.GetValue(obj);
         return value != null ? (T)Convert.ChangeType(value, typeof(T)) : defaultValue;
@@ -139,10 +133,7 @@ public static class ObjectInfo
     /// <param name="value">The value to set</param>
     public static void SetPropertyValue(this object obj, string name, object value)
     {
-        if (obj == null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
+        ArgumentNullException.ThrowIfNull(obj);
         var property = GetProperty(obj.GetType(), name);
         if (property != null)
         {
@@ -216,7 +207,7 @@ public static class ObjectInfo
                     }
 
                     // missing dictionary value
-                    if (!dictionary.ContainsKey(childExpression))
+                    if (!dictionary.TryGetValue(childExpression, out var value1))
                     {
                         // missing dictionary value
                         return new PropertyValue
@@ -228,7 +219,7 @@ public static class ObjectInfo
                     }
 
                     // dictionary value
-                    value = dictionary[childExpression];
+                    value = value1;
                     if (value is JsonElement jsonElement)
                     {
                         value = jsonElement.GetValue();

@@ -19,10 +19,7 @@ public static class CsvSerializer
     public static void ToFile(string fileName, IEnumerable<IList<string>> rows,
         Encoding encoding = null, char columnSeparator = ',')
     {
-        if (rows == null)
-        {
-            throw new ArgumentNullException(nameof(rows));
-        }
+        ArgumentNullException.ThrowIfNull(rows);
 
         // default encoding
         encoding ??= Encoding.UTF8;
@@ -53,7 +50,7 @@ public static class CsvSerializer
     {
         if (string.IsNullOrWhiteSpace(fileName))
         {
-            throw new ArgumentException(nameof(fileName));
+            throw new ArgumentException(null, nameof(fileName));
         }
 
         // default encoding
@@ -73,10 +70,7 @@ public static class CsvSerializer
     public static IEnumerable<IList<string>> FromStream(Stream stream,
         bool ignoreFirstLine = false, char columnSeparator = ',')
     {
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
+        ArgumentNullException.ThrowIfNull(stream);
 
         using StreamReader reader = new(stream);
         foreach (var item in FromReaderAsync(reader, ignoreFirstLine, columnSeparator))
@@ -93,10 +87,7 @@ public static class CsvSerializer
     public static IEnumerable<IList<string>> FromReaderAsync(TextReader reader,
         bool ignoreFirstLine = false, char columnSeparator = ',')
     {
-        if (reader == null)
-        {
-            throw new ArgumentNullException(nameof(reader));
-        }
+        ArgumentNullException.ThrowIfNull(reader);
         if (ignoreFirstLine)
         {
             reader.ReadLine();
@@ -194,7 +185,7 @@ public static class CsvSerializer
             }
         }
 
-        // potential error: I don't want to skip on a empty column in the last record if a caller really expects it to be there
+        // potential error: I don't want to skip on an empty column in the last record if a caller really expects it to be there
         if (curValue.Length > 0)
         {
             result.Add(curValue.ToString());

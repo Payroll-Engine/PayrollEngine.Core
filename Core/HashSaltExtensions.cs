@@ -21,7 +21,7 @@ public static class HashSaltExtensions
     {
         if (string.IsNullOrWhiteSpace(password))
         {
-            throw new ArgumentException(nameof(password));
+            throw new ArgumentException(null, nameof(password));
         }
 
         // generate salt
@@ -42,12 +42,9 @@ public static class HashSaltExtensions
     {
         if (string.IsNullOrWhiteSpace(password))
         {
-            throw new ArgumentException(nameof(password));
+            throw new ArgumentException(null, nameof(password));
         }
-        if (salt == null)
-        {
-            throw new ArgumentNullException(nameof(salt));
-        }
+        ArgumentNullException.ThrowIfNull(salt);
 
         // generate hash
         var pbkdf2 = new Rfc2898DeriveBytes(password, salt, Iterations, HashAlgorithmName.SHA1);
@@ -62,13 +59,10 @@ public static class HashSaltExtensions
     /// <returns>True for valid password</returns>
     public static bool VerifyPassword(this HashSalt hashSalt, string verifyPassword)
     {
-        if (hashSalt == null)
-        {
-            throw new ArgumentNullException(nameof(hashSalt));
-        }
+        ArgumentNullException.ThrowIfNull(hashSalt);
         if (string.IsNullOrWhiteSpace(verifyPassword))
         {
-            throw new ArgumentException(nameof(verifyPassword));
+            throw new ArgumentException(null, nameof(verifyPassword));
         }
 
         var testEncrypted = ToHashSalt(verifyPassword, hashSalt.Salt);

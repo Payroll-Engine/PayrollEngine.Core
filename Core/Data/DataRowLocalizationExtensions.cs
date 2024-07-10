@@ -39,10 +39,7 @@ namespace PayrollEngine.Data
         public static string GetLocalizedValue(this System.Data.DataRow dataRow, string valueColumn, string localizationColumn,
             string culture)
         {
-            if (dataRow == null)
-            {
-                throw new ArgumentNullException(nameof(dataRow));
-            }
+            ArgumentNullException.ThrowIfNull(dataRow);
 
             var value = dataRow.GetValue<string>(valueColumn);
 

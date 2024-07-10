@@ -17,7 +17,7 @@ public static class StreamExtensions
     {
         if (string.IsNullOrWhiteSpace(targetFileName))
         {
-            throw new ArgumentException(nameof(targetFileName));
+            throw new ArgumentException(null, nameof(targetFileName));
         }
 
         if (File.Exists(targetFileName))
@@ -28,7 +28,5 @@ public static class StreamExtensions
         await using var fileStream = File.Create(targetFileName);
         await fileStream.CopyToAsync(stream);
         await stream.CopyToAsync(fileStream);
-        await fileStream.DisposeAsync();
     }
-
 }

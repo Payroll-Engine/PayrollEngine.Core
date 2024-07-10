@@ -45,7 +45,7 @@ public static class CaseFieldDateTypeExtensions
         };
     }
 
-    /// <summary>Test if a end date matches the case field date type</summary>
+    /// <summary>Test if end date matches the case field date type</summary>
     /// <param name="dateType">The case field date type</param>
     /// <param name="value">The value to test</param>
     /// <returns>Tru if the end date matches the case field date type</returns>

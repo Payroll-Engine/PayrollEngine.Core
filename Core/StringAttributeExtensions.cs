@@ -65,7 +65,7 @@ public static class StringAttributeExtensions
     {
         if (string.IsNullOrWhiteSpace(attribute))
         {
-            throw new ArgumentException(nameof(attribute));
+            throw new ArgumentException(null, nameof(attribute));
         }
         return attribute.EnsureStart(prefix);
     }

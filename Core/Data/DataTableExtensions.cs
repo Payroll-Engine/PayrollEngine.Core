@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 
 namespace PayrollEngine.Data;
@@ -19,7 +18,7 @@ public static class DataTableExtensions
         if (table != null)
         {
             var column = table.Columns[columnName];
-            table.PrimaryKey = new[] { column };
+            table.PrimaryKey = [column];
         }
     }
 
@@ -29,7 +28,7 @@ public static class DataTableExtensions
     {
         if (table != null)
         {
-            table.PrimaryKey = Array.Empty<System.Data.DataColumn>();
+            table.PrimaryKey = [];
         }
     }
 

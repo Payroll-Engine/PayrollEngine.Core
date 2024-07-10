@@ -29,7 +29,7 @@ public class CaseValueReference
     {
         if (string.IsNullOrWhiteSpace(reference))
         {
-            throw new ArgumentException(nameof(reference));
+            throw new ArgumentException(null, nameof(reference));
         }
         if (reference.Count(x => x == CaseFieldSlotSeparator) > 1)
         {
@@ -58,7 +58,7 @@ public class CaseValueReference
     {
         if (string.IsNullOrWhiteSpace(caseFieldName))
         {
-            throw new ArgumentException(nameof(caseFieldName));
+            throw new ArgumentException(null, nameof(caseFieldName));
         }
         if (caseFieldName.Contains(CaseFieldSlotSeparator))
         {

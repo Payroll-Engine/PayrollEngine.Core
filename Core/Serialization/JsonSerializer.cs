@@ -18,7 +18,7 @@ public static class JsonSerializer
     {
         if (string.IsNullOrWhiteSpace(fileName))
         {
-            throw new ArgumentException(nameof(fileName));
+            throw new ArgumentException(null, nameof(fileName));
         }
 
         // import file
@@ -46,13 +46,10 @@ public static class JsonSerializer
     /// <param name="resourceName">The resource name</param>
     public static async Task<T> DeserializeFromResourceAsync<T>(Type type, string resourceName)
     {
-        if (type == null)
-        {
-            throw new ArgumentNullException(nameof(type));
-        }
+        ArgumentNullException.ThrowIfNull(type);
         if (string.IsNullOrWhiteSpace(resourceName))
         {
-            throw new ArgumentException(nameof(resourceName));
+            throw new ArgumentException(null, nameof(resourceName));
         }
 
         var assembly = type.Assembly;

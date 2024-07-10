@@ -57,10 +57,7 @@ public class DataTable : IEquatable<DataTable>
     /// <returns>The row raw data</returns>
     public IEnumerable<object> GetRawValues(DataRow row)
     {
-        if (row == null)
-        {
-            throw new ArgumentNullException(nameof(row));
-        }
+        ArgumentNullException.ThrowIfNull(row);
         if (!Rows.Contains(row))
         {
             throw new ArgumentException("Invalid table row");
@@ -126,10 +123,7 @@ public class DataTable : IEquatable<DataTable>
     /// <param name="rawValues">The values to set</param>
     public void AddRow(IEnumerable<object> rawValues)
     {
-        if (rawValues == null)
-        {
-            throw new ArgumentNullException(nameof(rawValues));
-        }
+        ArgumentNullException.ThrowIfNull(rawValues);
         var row = new DataRow();
         Rows.Add(row);
         SetRawValues(row, rawValues);
@@ -140,14 +134,8 @@ public class DataTable : IEquatable<DataTable>
     /// <param name="rawValues">The raw values to set</param>
     public void SetRawValues(DataRow row, IEnumerable<object> rawValues)
     {
-        if (row == null)
-        {
-            throw new ArgumentNullException(nameof(row));
-        }
-        if (rawValues == null)
-        {
-            throw new ArgumentNullException(nameof(rawValues));
-        }
+        ArgumentNullException.ThrowIfNull(row);
+        ArgumentNullException.ThrowIfNull(rawValues);
         if (!Rows.Contains(row))
         {
             throw new ArgumentException("Invalid table row");
@@ -163,7 +151,7 @@ public class DataTable : IEquatable<DataTable>
         }
 
         // convert json values to raw values
-        row.Values ??= new();
+        row.Values ??= [];
         for (var i = 0; i < Columns.Count; i++)
         {
             var column = Columns[i];

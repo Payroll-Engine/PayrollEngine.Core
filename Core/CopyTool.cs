@@ -15,17 +15,11 @@ public static class CopyTool
     public static void CopyObjectProperties(object source, object target,
         IEnumerable<Type> ignoreAttributes = null)
     {
-        if (source == null)
-        {
-            throw new ArgumentNullException(nameof(source));
-        }
-        if (target == null)
-        {
-            throw new ArgumentNullException(nameof(target));
-        }
+        ArgumentNullException.ThrowIfNull(source);
+        ArgumentNullException.ThrowIfNull(target);
         if (source.GetType() != target.GetType())
         {
-            throw new ArgumentException(nameof(target));
+            throw new ArgumentException(null, nameof(target));
         }
         var properties = TypeTool.GetTypeProperties(source.GetType());
         var ignoreTypes = GetIgnoreTypes(ignoreAttributes);
@@ -51,14 +45,8 @@ public static class CopyTool
     /// <param name="ignoreAttributes">The property attribute to ignore</param>
     public static void CopyProperties<T>(T source, T target, IEnumerable<Type> ignoreAttributes = null) where T : class
     {
-        if (source == null)
-        {
-            throw new ArgumentNullException(nameof(source));
-        }
-        if (target == null)
-        {
-            throw new ArgumentNullException(nameof(target));
-        }
+        ArgumentNullException.ThrowIfNull(source);
+        ArgumentNullException.ThrowIfNull(target);
 
         var properties = TypeTool.GetTypeProperties(typeof(T));
         var ignoreTypes = GetIgnoreTypes(ignoreAttributes);
@@ -81,7 +69,7 @@ public static class CopyTool
 
     private static List<Type> GetIgnoreTypes(IEnumerable<Type> ignoreAttributes = null)
     {
-        var ignoreTypes = ignoreAttributes != null ? ignoreAttributes.ToList() : new List<Type>();
+        var ignoreTypes = ignoreAttributes != null ? ignoreAttributes.ToList() : [];
         if (!ignoreTypes.Any())
         {
             ignoreTypes.Add(typeof(System.ComponentModel.DataAnnotations.Schema.NotMappedAttribute));

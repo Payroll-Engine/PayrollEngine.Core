@@ -21,22 +21,13 @@ public static class DataTableAttributeExtensions
     public static System.Data.DataTable GetAttributeTable(this System.Data.DataTable dataTable, string attributesTableName,
         string relationSourceColumn, string relationTargetColumn)
     {
-        if (dataTable == null)
-        {
-            throw new ArgumentNullException(nameof(dataTable));
-        }
+        ArgumentNullException.ThrowIfNull(dataTable);
         if (string.IsNullOrWhiteSpace(attributesTableName))
         {
-            throw new ArgumentException(nameof(attributesTableName));
+            throw new ArgumentException(null, nameof(attributesTableName));
         }
-        if (relationSourceColumn == null)
-        {
-            throw new ArgumentNullException(nameof(relationSourceColumn));
-        }
-        if (relationTargetColumn == null)
-        {
-            throw new ArgumentNullException(nameof(relationTargetColumn));
-        }
+        ArgumentNullException.ThrowIfNull(relationSourceColumn);
+        ArgumentNullException.ThrowIfNull(relationTargetColumn);
 
         // column
         System.Data.DataTable attributesTable = new(attributesTableName);

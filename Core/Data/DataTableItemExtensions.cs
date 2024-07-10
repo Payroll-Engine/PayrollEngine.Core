@@ -25,14 +25,8 @@ public static class DataTableItemExtensions
     public static void AppendItems(this System.Data.DataTable dataTable, IEnumerable items,
         IList<string> properties = null)
     {
-        if (dataTable == null)
-        {
-            throw new ArgumentNullException(nameof(dataTable));
-        }
-        if (items == null)
-        {
-            throw new ArgumentNullException(nameof(items));
-        }
+        ArgumentNullException.ThrowIfNull(dataTable);
+        ArgumentNullException.ThrowIfNull(items);
 
         foreach (var item in items)
         {
@@ -54,14 +48,8 @@ public static class DataTableItemExtensions
     public static System.Data.DataRow AppendItem(this System.Data.DataTable dataTable, object item,
         IList<string> properties = null)
     {
-        if (dataTable == null)
-        {
-            throw new ArgumentNullException(nameof(dataTable));
-        }
-        if (item == null)
-        {
-            throw new ArgumentNullException(nameof(item));
-        }
+        ArgumentNullException.ThrowIfNull(dataTable);
+        ArgumentNullException.ThrowIfNull(item);
 
         // properties
         var itemProperties = ObjectInfo.GetProperties(item.GetType());

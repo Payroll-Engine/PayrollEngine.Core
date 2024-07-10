@@ -113,7 +113,7 @@ public static class DataSetExtensions
         };
 
         // tables
-        payrollDataSet.Tables ??= new();
+        payrollDataSet.Tables ??= [];
         foreach (System.Data.DataTable table in dataSet.Tables)
         {
             // table
@@ -124,7 +124,7 @@ public static class DataSetExtensions
             payrollDataSet.Tables.Add(payrollTable);
 
             // columns
-            payrollTable.Columns ??= new();
+            payrollTable.Columns ??= [];
             foreach (System.Data.DataColumn column in table.Columns)
             {
                 Type columnType = column.DataType;
@@ -146,7 +146,7 @@ public static class DataSetExtensions
             }
 
             // rows
-            payrollTable.Rows ??= new();
+            payrollTable.Rows ??= [];
             foreach (var row in table.AsEnumerable())
             {
                 if (row.ItemArray.Length != table.Columns.Count)
@@ -167,7 +167,7 @@ public static class DataSetExtensions
     {
         if (dataSet.Relations.Count > 0)
         {
-            payrollDataSet.Relations ??= new();
+            payrollDataSet.Relations ??= [];
             foreach (System.Data.DataRelation relation in dataSet.Relations)
             {
                 var payrollRelation = new DataRelation

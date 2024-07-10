@@ -2,7 +2,7 @@
 
 namespace PayrollEngine;
 
-/// <summary>The cancellation type of a case</summary>
+/// <summary>The case cancellation type</summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum CaseCancellationType
 {

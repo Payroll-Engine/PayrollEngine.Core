@@ -26,10 +26,7 @@ public static class ListExtensions
     /// <returns>The added values</returns>
     public static List<TValue> AddNew<TValue>(this IList<TValue> source, IEnumerable<TValue> values)
     {
-        if (values == null)
-        {
-            throw new ArgumentNullException(nameof(values));
-        }
+        ArgumentNullException.ThrowIfNull(values);
 
         var addedValues = new List<TValue>();
         foreach (var value in values)

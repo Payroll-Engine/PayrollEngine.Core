@@ -272,10 +272,10 @@ public static class CompareTool
                 .Any(t => t == typeof(IEquatable<>));
             if (leftEquatable.Equals(rightEquatable))
             {
-                MethodInfo method = leftType.GetMethod(nameof(IEquatable<object>.Equals), new[] { rightType });
+                MethodInfo method = leftType.GetMethod(nameof(IEquatable<object>.Equals), [rightType]);
                 if (method != null)
                 {
-                    var equals = method.Invoke(leftValue, new[] { rightValue });
+                    var equals = method.Invoke(leftValue, [rightValue]);
                     {
                         return equals != null && (bool)equals;
                     }

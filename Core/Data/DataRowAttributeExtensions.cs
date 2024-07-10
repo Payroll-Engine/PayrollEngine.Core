@@ -56,16 +56,15 @@ namespace PayrollEngine.Data
         {
             if (string.IsNullOrWhiteSpace(attribute))
             {
-                throw new ArgumentException(nameof(attribute));
+                throw new ArgumentException(null, nameof(attribute));
             }
 
             var attributes = GetAttributes(dataRow, column);
-            if (!attributes.ContainsKey(attribute))
+            if (!attributes.TryGetValue(attribute, out var value))
             {
                 return defaultValue;
             }
 
-            var value = attributes[attribute];
             if (value is JsonElement jsonElement)
             {
                 value = jsonElement.GetValue();

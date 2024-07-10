@@ -41,7 +41,7 @@ public static class TypeExtensions
     }
 
     /// <summary>
-    /// Check if value has an nullable underlying type.
+    /// Check if value has a nullable underlying type.
     /// </summary>
     /// <param name="type">Type to be checked</param>
     /// <returns>Type is nullable or not</returns>

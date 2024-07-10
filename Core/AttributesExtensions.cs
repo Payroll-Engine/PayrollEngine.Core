@@ -55,12 +55,11 @@ public static class AttributesExtensions
 
         // empty value
         var key = GetAttributeKey(attributes, name, culture);
-        if (!attributes.ContainsKey(key))
+        if (!attributes.TryGetValue(key, out var value))
         {
             return defaultValue;
         }
 
-        var value = attributes[key];
         // undefined default
         if (value == null)
         {

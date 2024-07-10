@@ -16,7 +16,7 @@ public static class AssemblyExtensions
     {
         if (string.IsNullOrWhiteSpace(resourceName))
         {
-            throw new ArgumentException(nameof(resourceName));
+            throw new ArgumentException(null, nameof(resourceName));
         }
 
         using Stream resourceStream = assembly.GetManifestResourceStream(resourceName);
@@ -41,10 +41,7 @@ public static class AssemblyExtensions
     /// <returns>The resource codes</returns>
     public static IEnumerable<string> GetEmbeddedFiles(this Assembly assembly, IEnumerable<string> resourceNames)
     {
-        if (resourceNames == null)
-        {
-            throw new ArgumentNullException(nameof(resourceNames));
-        }
+        ArgumentNullException.ThrowIfNull(resourceNames);
 
         var codes = new List<string>();
         foreach (var resourceName in resourceNames)

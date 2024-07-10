@@ -16,7 +16,7 @@ public static class EnumerableExtensions
     /// <param name="source">The copy source</param>
     /// <returns>A new list with the source items</returns>
     public static List<TValue> Copy<TValue>(this IEnumerable<TValue> source) =>
-        source == null ? null : new List<TValue>(source);
+        source == null ? null : [..source];
 
     /// <summary>Get the duplicated values.
     /// See https://stackoverflow.com/a/3811482

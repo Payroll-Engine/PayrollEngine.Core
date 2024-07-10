@@ -56,10 +56,7 @@ public static class QueryFactory
     /// <returns>New equals filter query</returns>
     public static Query NewEqualFilterQuery(IDictionary<string, object> values)
     {
-        if (values == null)
-        {
-            throw new ArgumentNullException(nameof(values));
-        }
+        ArgumentNullException.ThrowIfNull(values);
         if (!values.Any())
         {
             throw new ArgumentException("Missing filter conditions", nameof(values));

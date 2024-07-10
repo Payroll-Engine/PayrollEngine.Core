@@ -321,7 +321,7 @@
             before the designated first day of the week. The value is 2</summary>
         </member>
         <member name="T:PayrollEngine.CaseCancellationType">
-            <summary>The cancellation type of a case</summary>
+            <summary>The case cancellation type</summary>
         </member>
         <member name="F:PayrollEngine.CaseCancellationType.None">
             <summary>No cancellation support</summary>
@@ -438,7 +438,7 @@
             <returns>Tru if the start date matches the case field date type</returns>
         </member>
         <member name="M:PayrollEngine.CaseFieldDateTypeExtensions.IsEndMatching(PayrollEngine.CaseFieldDateType,System.DateTime)">
-            <summary>Test if a end date matches the case field date type</summary>
+            <summary>Test if end date matches the case field date type</summary>
             <param name="dateType">The case field date type</param>
             <param name="value">The value to test</param>
             <returns>Tru if the end date matches the case field date type</returns>
@@ -471,7 +471,7 @@
             <summary>Dates is representing a month</summary>
         </member>
         <member name="T:PayrollEngine.CaseIssueType">
-            <summary>The type of a case issue</summary>
+            <summary>The case issue type</summary>
         </member>
         <member name="F:PayrollEngine.CaseIssueType.Unknown">
             <summary>Unknown issue</summary>
@@ -510,7 +510,7 @@
             <summary>Invalid month (0..11)</summary>
         </member>
         <member name="T:PayrollEngine.CaseType">
-            <summary>The type of a case</summary>
+            <summary>The case type</summary>
         </member>
         <member name="F:PayrollEngine.CaseType.Global">
             <summary>Global case</summary>
@@ -1999,7 +1999,7 @@
             <param name="moment">The moment to test</param>
             <param name="start">The period start</param>
             <param name="end">The period end</param>
-            <returns>True if the moment is within the start end end date</returns>
+            <returns>True if the moment is within the start end date</returns>
         </member>
         <member name="M:PayrollEngine.DateTimeExtensions.IsUtc(System.DateTime)">
             <summary>Test if the date is in UTC</summary>
@@ -3221,67 +3221,67 @@
             <summary>Extensions for <see cref="T:PayrollEngine.PayrunJobStatus"/></summary>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsDraft(PayrollEngine.PayrunJobStatus)">
-            <summary>Test if the payrun job is in a draft state</summary>
+            <summary>Test if the payrun job is in draft state</summary>
             <param name="jobStatus">The payrun job status</param>
-            <returns>True, if the state is a draft state</returns>
+            <returns>True, if the state is in draft state</returns>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsRelease(PayrollEngine.PayrunJobStatus)">
-            <summary>Test if the payrun job is in a release state</summary>
+            <summary>Test if the payrun job is in release state</summary>
             <param name="jobStatus">The payrun job status</param>
-            <returns>True, if the state is a release state</returns>
+            <returns>True, if the state is in release state</returns>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsProcess(PayrollEngine.PayrunJobStatus)">
-            <summary>Test if the payrun job is in a process state</summary>
+            <summary>Test if the payrun job is in process state</summary>
             <param name="jobStatus">The payrun job status</param>
-            <returns>True, if the state is a process state</returns>
+            <returns>True, if the state is in process state</returns>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsComplete(PayrollEngine.PayrunJobStatus)">
-            <summary>Test if the payrun job is in a complete state</summary>
+            <summary>Test if the payrun job is in complete state</summary>
             <param name="jobStatus">The payrun job status</param>
-            <returns>True, if the state is a complete state</returns>
+            <returns>True, if the state is in complete state</returns>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsForecast(PayrollEngine.PayrunJobStatus)">
-            <summary>Test if the payrun job is in a forecast state</summary>
+            <summary>Test if the payrun job is in forecast state</summary>
             <param name="jobStatus">The payrun job status</param>
-            <returns>True, if the state is a forecast state</returns>
+            <returns>True, if the state is in forecast state</returns>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsAbort(PayrollEngine.PayrunJobStatus)">
-            <summary>Test if the payrun job is in a abort state</summary>
+            <summary>Test if the payrun job is in abort state</summary>
             <param name="jobStatus">The payrun job status</param>
-            <returns>True, if the state is a abort state</returns>
+            <returns>True, if the state is in abort state</returns>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsCancel(PayrollEngine.PayrunJobStatus)">
-            <summary>Test if the payrun job is in a cancel state</summary>
+            <summary>Test if the payrun job is in cancel state</summary>
             <param name="jobStatus">The payrun job status</param>
-            <returns>True, if the state is a cancel state</returns>
+            <returns>True, if the state is in cancel state</returns>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsWorking(PayrollEngine.PayrunJobStatus)">
-            <summary>Test if the payrun job is in a working state</summary>
+            <summary>Test if the payrun job is in working state</summary>
             <param name="jobStatus">The payrun job status</param>
-            <returns>True, if the state is a working state</returns>
+            <returns>True, if the state is in working state</returns>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsLegal(PayrollEngine.PayrunJobStatus)">
-            <summary>Test if the payrun job is in a working state</summary>
+            <summary>Test if the payrun job is in working state</summary>
             <param name="jobStatus">The payrun job status</param>
-            <returns>True, if the state is a working state</returns>
+            <returns>True, if the state is in working state</returns>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsFinal(PayrollEngine.PayrunJobStatus)">
-            <summary>Test if the payrun job is in a final state</summary>
+            <summary>Test if the payrun job is in final state</summary>
             <param name="jobStatus">The payrun job status</param>
-            <returns>True, if the state is a final state</returns>
+            <returns>True, if the state is in final state</returns>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsWebhookProcessChange(PayrollEngine.PayrunJobStatus,PayrollEngine.PayrunJobStatus)">
             <summary>Test if the payrun job state change is handled by the webhook start message, change from final to transmit</summary>
             <param name="oldJobStatus">The source payrun job status</param>
             <param name="newJobStatus">The target payrun job status</param>
-            <returns>True, if the state is a final state</returns>
+            <returns>True, if the state is in final state</returns>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsWebhookFinishChange(PayrollEngine.PayrunJobStatus,PayrollEngine.PayrunJobStatus)">
             <summary>Test if the payrun job state change is handled by the webhook finished message,
             change from process to complete or failed/// </summary>
             <param name="oldJobStatus">The source payrun job status</param>
             <param name="newJobStatus">The target payrun job status</param>
-            <returns>True, if the state is a final state</returns>
+            <returns>True, if the state is in final state</returns>
         </member>
         <member name="M:PayrollEngine.PayrunJobStatusExtensions.IsValidStateChange(PayrollEngine.PayrunJobStatus,PayrollEngine.PayrunJobStatus)">
             <summary> Test if the state change is valid.
@@ -3912,7 +3912,7 @@
         </member>
         <member name="M:PayrollEngine.Serialization.NamedDictionaryConverter.CanConvert(System.Type)">
             <summary>Determines whether the type can be converted</summary>
-            <param name="typeToConvert">The type is checked as to whether it can be converted</param>
+            <param name="typeToConvert">The type is checked to whether it can be converted</param>
             <returns>True if the type can be converted</returns>
         </member>
         <member name="M:PayrollEngine.Serialization.NamedDictionaryConverter.CreateConverter(System.Type,System.Text.Json.JsonSerializerOptions)">
@@ -3965,7 +3965,7 @@
         </member>
         <member name="M:PayrollEngine.Serialization.StringNullableEnumConverter`1.CanConvert(System.Type)">
             <summary>Determines whether the type can be converted</summary>
-            <param name="typeToConvert">The type is checked as to whether it can be converted</param>
+            <param name="typeToConvert">The type is checked to whether it can be converted</param>
             <returns>True if the type can be converted</returns>
         </member>
         <member name="M:PayrollEngine.Serialization.StringNullableEnumConverter`1.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
@@ -4354,7 +4354,7 @@
         </member>
         <member name="M:PayrollEngine.TypeExtensions.IsNullable(System.Type)">
             <summary>
-            Check if value has an nullable underlying type.
+            Check if value has a nullable underlying type.
             </summary>
             <param name="type">Type to be checked</param>
             <returns>Type is nullable or not</returns>
@@ -4433,7 +4433,7 @@
             <summary>Regular user</summary>
         </member>
         <member name="F:PayrollEngine.UserType.Employee">
-            <summary>User with employee self service</summary>
+            <summary>User with employee self-service</summary>
         </member>
         <member name="F:PayrollEngine.UserType.Administrator">
             <summary>User who can manage users</summary>
@@ -4605,7 +4605,7 @@
         </member>
         <member name="M:PayrollEngine.ValueTypeExtensions.GetDefaultValue(PayrollEngine.ValueType)">
             <summary>
-            Gets the default type of a value type
+            Gets the default value of a value type
             </summary>
             <param name="valueType">The value type</param>
             <returns>The value</returns>
@@ -4631,7 +4631,7 @@
             <returns>True for number value types</returns>
         </member>
         <member name="M:PayrollEngine.ValueTypeExtensions.IsInteger(PayrollEngine.ValueType)">
-            <summary>Test if value type is a integer</summary>
+            <summary>Test if value type is an integer</summary>
             <param name="valueType">The value type</param>
             <returns>True for integer value types</returns>
         </member>

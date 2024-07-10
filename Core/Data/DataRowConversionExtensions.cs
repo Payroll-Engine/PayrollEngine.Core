@@ -20,18 +20,9 @@ namespace PayrollEngine.Data
             Func<T, string> columnName, Func<T, object> itemValue,
             Func<T, Type> columnType = null, Func<T, object> defaultValue = null)
         {
-            if (items == null)
-            {
-                throw new ArgumentNullException(nameof(items));
-            }
-            if (columnName == null)
-            {
-                throw new ArgumentNullException(nameof(columnName));
-            }
-            if (itemValue == null)
-            {
-                throw new ArgumentNullException(nameof(itemValue));
-            }
+            ArgumentNullException.ThrowIfNull(items);
+            ArgumentNullException.ThrowIfNull(columnName);
+            ArgumentNullException.ThrowIfNull(itemValue);
 
             foreach (var item in items)
             {
@@ -93,10 +84,7 @@ namespace PayrollEngine.Data
             Func<TKey, string> columnName = null, Func<TValue, object> itemValue = null,
             Func<TKey, Type> columnType = null, Func<TKey, object> defaultValue = null)
         {
-            if (items == null)
-            {
-                throw new ArgumentNullException(nameof(items));
-            }
+            ArgumentNullException.ThrowIfNull(items);
 
             foreach (var item in items)
             {
@@ -165,10 +153,7 @@ namespace PayrollEngine.Data
             Func<System.Data.DataColumn, string> columnName = null, Func<object, object> itemValue = null,
             Func<System.Data.DataColumn, Type> columnType = null, Func<System.Data.DataColumn, object> defaultValue = null)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
+            ArgumentNullException.ThrowIfNull(source);
 
             foreach (System.Data.DataColumn sourceColumn in source.Table.Columns)
             {

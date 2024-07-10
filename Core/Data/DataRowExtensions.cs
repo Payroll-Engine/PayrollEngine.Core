@@ -66,13 +66,10 @@ namespace PayrollEngine.Data
         /// <returns>The data row value</returns>
         public static T GetValue<T>(this System.Data.DataRow dataRow, string column, T defaultValue = default)
         {
-            if (dataRow == null)
-            {
-                throw new ArgumentNullException(nameof(dataRow));
-            }
+            ArgumentNullException.ThrowIfNull(dataRow);
             if (string.IsNullOrWhiteSpace(column))
             {
-                throw new ArgumentException(nameof(column));
+                throw new ArgumentException(null, nameof(column));
             }
 
             var value = dataRow[column];
@@ -119,7 +116,7 @@ namespace PayrollEngine.Data
         {
             if (string.IsNullOrWhiteSpace(column))
             {
-                throw new ArgumentException(nameof(column));
+                throw new ArgumentException(null, nameof(column));
             }
 
             type ??= typeof(string);
@@ -192,13 +189,10 @@ namespace PayrollEngine.Data
         /// <returns>The data rows value</returns>
         public static List<T> GetValues<T>(this IEnumerable<System.Data.DataRow> dataRows, string column, T defaultValue = default)
         {
-            if (dataRows == null)
-            {
-                throw new ArgumentNullException(nameof(dataRows));
-            }
+            ArgumentNullException.ThrowIfNull(dataRows);
             if (string.IsNullOrWhiteSpace(column))
             {
-                throw new ArgumentException(nameof(column));
+                throw new ArgumentException(null, nameof(column));
             }
 
             var values = new List<T>();
@@ -215,29 +209,26 @@ namespace PayrollEngine.Data
         /// <returns>The list</returns>
         public static List<T> GetListValue<T>(this System.Data.DataRow dataRow, string column)
         {
-            if (dataRow == null)
-            {
-                throw new ArgumentNullException(nameof(dataRow));
-            }
+            ArgumentNullException.ThrowIfNull(dataRow);
             if (string.IsNullOrWhiteSpace(column))
             {
-                throw new ArgumentException(nameof(column));
+                throw new ArgumentException(null, nameof(column));
             }
 
             var value = dataRow[column];
             if (value is null or DBNull)
             {
-                return new();
+                return [];
             }
             if (value is IEnumerable<T> enumerable)
             {
-                return new(enumerable);
+                return [.. enumerable];
             }
             if (value is string json)
             {
                 if (string.IsNullOrWhiteSpace(json))
                 {
-                    return new();
+                    return [];
                 }
                 return JsonSerializer.Deserialize<List<T>>(json);
             }
@@ -251,13 +242,10 @@ namespace PayrollEngine.Data
         /// <returns>The dictionary</returns>
         public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(this System.Data.DataRow dataRow, string column)
         {
-            if (dataRow == null)
-            {
-                throw new ArgumentNullException(nameof(dataRow));
-            }
+            ArgumentNullException.ThrowIfNull(dataRow);
             if (string.IsNullOrWhiteSpace(column))
             {
-                throw new ArgumentException(nameof(column));
+                throw new ArgumentException(null, nameof(column));
             }
 
             var value = dataRow[column];

@@ -9,7 +9,7 @@ public enum UserType
     /// <summary>Regular user</summary>
     User = 0,
 
-    /// <summary>User with employee self service</summary>
+    /// <summary>User with employee self-service</summary>
     Employee = 1,
 
     /// <summary>User who can manage users</summary>

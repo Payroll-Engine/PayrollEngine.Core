@@ -56,7 +56,7 @@ public static class ValueTypeExtensions
     }
 
     /// <summary>
-    /// Gets the default type of a value type
+    /// Gets the default value of a value type
     /// </summary>
     /// <param name="valueType">The value type</param>
     /// <returns>The value</returns>
@@ -99,7 +99,7 @@ public static class ValueTypeExtensions
     public static bool IsNumber(this ValueType valueType) =>
         IsInteger(valueType) || IsDecimal(valueType);
 
-    /// <summary>Test if value type is a integer</summary>
+    /// <summary>Test if value type is an integer</summary>
     /// <param name="valueType">The value type</param>
     /// <returns>True for integer value types</returns>
     public static bool IsInteger(this ValueType valueType) =>

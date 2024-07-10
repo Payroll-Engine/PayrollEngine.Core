@@ -39,7 +39,7 @@ public static class DataTableConversionExtensions
                 dataTable = new(name);
 
                 // columns
-                dataTable.Columns ??= new();
+                dataTable.Columns ??= [];
                 properties = ObjectInfo.GetProperties(item.GetType());
                 foreach (var property in properties)
                 {
@@ -49,7 +49,7 @@ public static class DataTableConversionExtensions
                 }
 
                 // rows
-                dataTable.Rows ??= new();
+                dataTable.Rows ??= [];
             }
 
             var rowValues = new object[properties.Count];
@@ -82,7 +82,7 @@ public static class DataTableConversionExtensions
         };
 
         // columns
-        payrollTable.Columns ??= new();
+        payrollTable.Columns ??= [];
         foreach (System.Data.DataColumn column in dataTable.Columns)
         {
             Type columnType = column.DataType;
@@ -104,7 +104,7 @@ public static class DataTableConversionExtensions
         }
 
         // rows
-        payrollTable.Rows ??= new();
+        payrollTable.Rows ??= [];
         foreach (var row in dataTable.AsEnumerable())
         {
             if (row.ItemArray.Length != dataTable.Columns.Count)
@@ -180,7 +180,7 @@ public static class DataTableConversionExtensions
                     // primary key
                     if (primaryKey != null && string.Equals(property.Name, primaryKey))
                     {
-                        dataTable.PrimaryKey = new[] { dataColumn };
+                        dataTable.PrimaryKey = [dataColumn];
                     }
                 }
             }
