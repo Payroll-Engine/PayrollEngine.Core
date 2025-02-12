@@ -63,7 +63,7 @@ public class StringNullableEnumConverter<T> : JsonConverter<T>
         if (!Enum.TryParse(enumType, value, ignoreCase: false, out var result)
             && !Enum.TryParse(enumType, value, ignoreCase: true, out result))
         {
-            throw new JsonException($"Unable to convert \"{value}\" to Enum \"{enumType}\"");
+            throw new JsonException($"Unable to convert \"{value}\" to Enum \"{enumType}\".");
         }
 
         return (T)result;

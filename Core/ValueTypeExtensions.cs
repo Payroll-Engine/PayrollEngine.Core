@@ -35,7 +35,7 @@ public static class ValueTypeExtensions
         {
             return typeof(DBNull);
         }
-        throw new PayrollException($"Unknown value type {valueType}");
+        throw new PayrollException($"Unknown value type {valueType}.");
     }
 
     /// <summary>Get the base value type (JSON type)</summary>
@@ -64,11 +64,11 @@ public static class ValueTypeExtensions
     {
         return valueType.GetSystemType().Name switch
         {
-            nameof(Int32) => default(int),
-            nameof(Decimal) => default(decimal),
+            nameof(Int32) => 0,
+            nameof(Decimal) => 0,
             nameof(String) => string.Empty,
             nameof(DateTime) => default(DateTime),
-            nameof(Boolean) => default(bool),
+            nameof(Boolean) => false,
             _ => null
         };
     }

@@ -59,7 +59,7 @@ public static class QueryFactory
         ArgumentNullException.ThrowIfNull(values);
         if (!values.Any())
         {
-            throw new ArgumentException("Missing filter conditions", nameof(values));
+            throw new ArgumentException("Missing filter conditions.", nameof(values));
         }
 
         var buffer = new StringBuilder();
@@ -67,7 +67,7 @@ public static class QueryFactory
         {
             if (string.IsNullOrWhiteSpace(value.Key))
             {
-                throw new PayrollException($"Missing filter column name for value {value.Value}");
+                throw new PayrollException($"Missing filter column name for value {value.Value}.");
             }
 
             // following condition

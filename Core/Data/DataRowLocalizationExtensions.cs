@@ -66,7 +66,7 @@ namespace PayrollEngine.Data
         /// <param name="culture">The attribute culture</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The attribute value</returns>
-        public static string GetLocalization(this System.Data.DataRow dataRow, string column, string culture, string defaultValue = default) =>
+        public static string GetLocalization(this System.Data.DataRow dataRow, string column, string culture, string defaultValue = null) =>
             culture.GetLocalization(GetLocalizations(dataRow, column), defaultValue);
 
     }

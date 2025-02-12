@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace PayrollEngine.Serialization;
 
@@ -24,12 +24,12 @@ public static class JsonSerializer
         // import file
         if (!File.Exists(fileName))
         {
-            throw new PayrollException($"Missing json file {fileName}");
+            throw new PayrollException($"Missing json file {fileName}.");
         }
         var json = await File.ReadAllTextAsync(fileName);
         if (string.IsNullOrWhiteSpace(json))
         {
-            throw new PayrollException($"Invalid import file {fileName}");
+            throw new PayrollException($"Invalid import file {fileName}.");
         }
 
         // import from JSON
@@ -56,7 +56,7 @@ public static class JsonSerializer
         await using Stream stream = assembly.GetManifestResourceStream(type.Namespace + resourceName.EnsureStart("."));
         if (stream == null)
         {
-            throw new PayrollException($"Invalid resource {resourceName} in assembly {assembly.FullName}");
+            throw new PayrollException($"Invalid resource {resourceName} in assembly {assembly.FullName}.");
         }
         using var reader = new StreamReader(stream);
         var json = await reader.ReadToEndAsync();
@@ -94,7 +94,7 @@ public static class JsonSerializer
         values != null && values.Any() ? System.Text.Json.JsonSerializer.Serialize(values) : null;
 
     /// <summary>Serialize a string/object dictionary.
-    /// replace MS JsonSerializer.Deserialize&lt;Dictionary&lt;string,object&gt;&gt;()
+    /// replace MS JsonSerializer.Deserialize&lt;Dictionary&lt;string,object&gt;&gt;
     /// it deserializes the json { "myKey": 86 } into the dictionary item
     /// key: myKey
     /// value: ValueKind = Number : "86"

@@ -260,7 +260,7 @@ public static class StringExtensions
     /// <param name="separator">The word separator</param>
     /// <returns>Camel case text sentence</returns>
     public static string ToCamelSentence(this string source,
-        CharacterCase wordCase = CharacterCase.ToLower, string separator = " ") =>
+        CharacterCase wordCase = CharacterCase.ToLower, char separator = ' ') =>
         ToSentence(source, CharacterCase.ToLower, wordCase, separator);
 
     /// <summary>Change to pascal case sentence</summary>
@@ -269,7 +269,7 @@ public static class StringExtensions
     /// <param name="separator">The word separator</param>
     /// <returns>Camel case text sentence</returns>
     public static string ToPascalSentence(this string source,
-        CharacterCase wordCase = CharacterCase.ToLower, string separator = " ") =>
+        CharacterCase wordCase = CharacterCase.ToLower, char separator = ' ') =>
         ToSentence(source, CharacterCase.ToUpper, wordCase, separator);
 
     /// <summary>Change text sentence</summary>
@@ -282,7 +282,7 @@ public static class StringExtensions
     public static string ToSentence(this string source,
         CharacterCase startCase = CharacterCase.Keep,
         CharacterCase wordCase = CharacterCase.Keep,
-        string separator = " ")
+        char separator = ' ')
     {
         if (string.IsNullOrWhiteSpace(source))
         {
@@ -294,22 +294,34 @@ public static class StringExtensions
         buffer.Append(ChangeCase(source[0], startCase));
 
         // march through the rest of it
+        var newWord = false;
         for (var i = 1; i < source.Length; i++)
         {
-            // any time we hit an uppercase OR number, it's a new word
-            if (char.IsUpper(source[i]) || char.IsDigit(source[i]))
+            var c = source[i];
+            // new word
+            if (newWord)
             {
-                if (separator != null)
-                {
-                    buffer.Append(separator);
-                }
-                buffer.Append(ChangeCase(source[i], wordCase));
+                buffer.Append(ChangeCase(c, wordCase));
+            }
+            // any time we hit an uppercase OR number, it's a new word
+            else if (char.IsUpper(c) || char.IsDigit(c))
+            {
+                buffer.Append(separator);
+                buffer.Append(ChangeCase(c, wordCase));
+            }
+            // word separator
+            else if (c == separator)
+            {
+                newWord = true;
+                buffer.Append(c);
+                continue;
             }
             else
             {
                 // add regularly
-                buffer.Append(source[i]);
+                buffer.Append(c);
             }
+            newWord = false;
         }
 
         return buffer.ToString();
@@ -366,13 +378,13 @@ public static class StringExtensions
 
     #region Html
 
-    /// <summary>Encode string to html, single quotation marks and double quotation marks are included as \' and \"</summary>
+    /// <summary>Encode string to html, single quotation marks and double quotation marks are included as ' and "</summary>
     /// <param name="value">The string value</param>
     /// <returns>Encoded Html value</returns>
     public static string HtmlEncode(this string value) =>
         JavaScriptEncoder.Default.Encode(value);
 
-    /// <summary>Encode string to html, single quotation marks and double quotation marks are included as \' and \"</summary>
+    /// <summary>Encode string to html, single quotation marks and double quotation marks are included as ' and "</summary>
     /// <param name="value">The string value</param>
     /// <returns>Encoded Html value</returns>
     public static string HtmlDecode(this string value) =>

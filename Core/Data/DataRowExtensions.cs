@@ -49,7 +49,7 @@ namespace PayrollEngine.Data
         {
             if (!typeof(T).IsEnum)
             {
-                throw new PayrollException($"Invalid enum value type: {typeof(T)}");
+                throw new PayrollException($"Invalid enum value type: {typeof(T)}.");
             }
             var valueText = GetValue(dataRow, column, defaultValue.ToString());
             if (string.IsNullOrWhiteSpace(valueText) || !Enum.TryParse(valueText, true, out T enumValue))
@@ -94,7 +94,7 @@ namespace PayrollEngine.Data
             }
             catch (Exception exception)
             {
-                throw new PayrollException($"Error in column {column}: convert value {value} to type {typeof(T)}", exception);
+                throw new PayrollException($"Error in column {column}: convert value {value} to type {typeof(T)}.", exception);
             }
         }
 
@@ -233,7 +233,7 @@ namespace PayrollEngine.Data
                 return JsonSerializer.Deserialize<List<T>>(json);
             }
 
-            throw new ArgumentException($"{value} from column {column} is not a JSON list", nameof(column));
+            throw new ArgumentException($"{value} from column {column} is not a JSON list.", nameof(column));
         }
 
         /// <summary>Get data row JSON value as dictionary</summary>
@@ -256,7 +256,7 @@ namespace PayrollEngine.Data
                 string json => string.IsNullOrWhiteSpace(json)
                     ? new()
                     : JsonSerializer.Deserialize<Dictionary<TKey, TValue>>(json),
-                _ => throw new ArgumentException($"{value} from column {column} is not a JSON dictionary", nameof(column))
+                _ => throw new ArgumentException($"{value} from column {column} is not a JSON dictionary.", nameof(column))
             };
         }
 

@@ -161,6 +161,7 @@ public static class CompareTool
         }
         // compare content: contains key and same value
         // https://stackoverflow.com/questions/3804367/testing-for-equality-between-dictionaries-in-c-sharp
+        // ReSharper disable once UsageOfDefaultStructEquality
         var equals = left.Count == right.Count && !left.Except(right).Any();
         return equals;
     }

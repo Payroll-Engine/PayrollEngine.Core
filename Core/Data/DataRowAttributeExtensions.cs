@@ -43,7 +43,7 @@ namespace PayrollEngine.Data
         /// <param name="attribute">The attribute name</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The attribute value</returns>
-        public static object GetAttribute(this System.Data.DataRow dataRow, string attribute, object defaultValue = default) =>
+        public static object GetAttribute(this System.Data.DataRow dataRow, string attribute, object defaultValue = null) =>
             GetAttribute(dataRow, nameof(IAttributeObject.Attributes), attribute, defaultValue);
 
         /// <summary>Get attribute from a data row json value</summary>
@@ -52,7 +52,7 @@ namespace PayrollEngine.Data
         /// <param name="attribute">The attribute name</param>
         /// <param name="defaultValue">The default value</param>
         /// <returns>The attribute value</returns>
-        public static object GetAttribute(this System.Data.DataRow dataRow, string column, string attribute, object defaultValue = default)
+        public static object GetAttribute(this System.Data.DataRow dataRow, string column, string attribute, object defaultValue = null)
         {
             if (string.IsNullOrWhiteSpace(attribute))
             {

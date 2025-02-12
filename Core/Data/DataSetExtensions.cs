@@ -70,22 +70,22 @@ public static class DataSetExtensions
                 var parentTable = systemDataSet.Tables[relation.ParentTable];
                 if (parentTable == null)
                 {
-                    throw new PayrollException($"Missing relation parent table {relation.ParentTable}");
+                    throw new PayrollException($"Missing relation parent table {relation.ParentTable}.");
                 }
                 var parentColumn = parentTable.Columns[relation.ParentColumn];
                 if (parentColumn == null)
                 {
-                    throw new PayrollException($"Missing relation parent column {relation.ParentTable}.{relation.ParentColumn}");
+                    throw new PayrollException($"Missing relation parent column {relation.ParentTable}.{relation.ParentColumn}.");
                 }
                 var childTable = systemDataSet.Tables[relation.ChildTable];
                 if (childTable == null)
                 {
-                    throw new PayrollException($"Missing relation child table {relation.ChildTable}");
+                    throw new PayrollException($"Missing relation child table {relation.ChildTable}.");
                 }
                 var childColumn = childTable.Columns[relation.ChildColumn];
                 if (childColumn == null)
                 {
-                    throw new PayrollException($"Missing relation parent column {relation.ChildTable}.{relation.ChildColumn}");
+                    throw new PayrollException($"Missing relation parent column {relation.ChildTable}.{relation.ChildColumn}.");
                 }
                 systemDataSet.Relations.Add(relation.Name, parentColumn, childColumn);
             }
@@ -151,7 +151,7 @@ public static class DataSetExtensions
             {
                 if (row.ItemArray.Length != table.Columns.Count)
                 {
-                    throw new PayrollException($"Row value count ({row.ItemArray.Length} is not matching the column count ({table.Columns.Count})");
+                    throw new PayrollException($"Row value count ({row.ItemArray.Length} is not matching the column count ({table.Columns.Count}).");
                 }
                 payrollTable.AddRow(row.ItemArray);
             }

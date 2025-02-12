@@ -204,7 +204,7 @@ namespace PayrollEngine.Data
                 if (targetColumn.DataType != sourceColumn.DataType)
                 {
                     throw new PayrollException($"Mismatching types in column {sourceColumn.ColumnName}:" +
-                                               $" source: {sourceColumn.DataType.Name}, target: {targetColumn.DataType.Name}");
+                                               $" source: {sourceColumn.DataType.Name}, target: {targetColumn.DataType.Name}.");
                 }
 
                 // item/row value

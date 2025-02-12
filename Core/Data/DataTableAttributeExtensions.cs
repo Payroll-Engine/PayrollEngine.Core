@@ -93,7 +93,7 @@ public static class DataTableAttributeExtensions
             {
                 // check for compatible column type
                 throw new PayrollException(
-                    $"Mismatching attribute column type {attributeValueColumn.DataType} conflicts with {valueType}");
+                    $"Mismatching attribute column type {attributeValueColumn.DataType} conflicts with {valueType}.");
             }
         }
     }
@@ -108,7 +108,7 @@ public static class DataTableAttributeExtensions
         var relationTarget = dataRow[relationTargetColumn];
         if (relationTarget.GetType() != typeof(int))
         {
-            throw new PayrollException($"Invalid attribute relation target value {relationTarget}");
+            throw new PayrollException($"Invalid attribute relation target value {relationTarget}.");
         }
 
         attributeRow[relationSourceColumn] = relationTarget;

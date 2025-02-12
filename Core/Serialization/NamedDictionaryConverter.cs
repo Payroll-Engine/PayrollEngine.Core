@@ -36,7 +36,7 @@ public class NamedDictionaryConverter : JsonConverterFactory
         var keyType = typeToConvert.GetGenericArguments()[0];
         if (keyType != typeof(string))
         {
-            throw new ArgumentException("Named dictionary key must be string");
+            throw new ArgumentException("Named dictionary key must be string.");
         }
         var valueType = typeToConvert.GetGenericArguments()[1];
 

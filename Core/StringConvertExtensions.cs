@@ -18,13 +18,13 @@ public static class StringConvertExtensions
     {
         if (string.IsNullOrWhiteSpace(reference))
         {
-            return default;
+            return null;
         }
 
         var relatedCases = reference.Split(RelatedCaseSeparator, StringSplitOptions.RemoveEmptyEntries);
         if (relatedCases.Length != 2)
         {
-            throw new ArgumentException($"invalid case relation {reference}, please use 'sourceCaseName:targetCaseName')");
+            throw new ArgumentException($"invalid case relation {reference}, please use 'sourceCaseName:targetCaseName').");
         }
         return new(relatedCases[0], relatedCases[1]);
     }
@@ -37,11 +37,11 @@ public static class StringConvertExtensions
     {
         if (string.IsNullOrWhiteSpace(sourceCaseName))
         {
-            return default;
+            return null;
         }
         if (string.IsNullOrWhiteSpace(targetCaseName))
         {
-            return default;
+            return null;
         }
         return $"{sourceCaseName}{RelatedCaseSeparator}{targetCaseName}";
     }
@@ -53,13 +53,13 @@ public static class StringConvertExtensions
     {
         if (string.IsNullOrWhiteSpace(reference))
         {
-            return default;
+            return null;
         }
 
         var caseFieldSlot = reference.Split(CaseFieldSlotSeparator, StringSplitOptions.RemoveEmptyEntries);
         if (caseFieldSlot.Length != 2)
         {
-            throw new ArgumentException($"invalid case field slot {reference}, please use 'caseName:slotName')");
+            throw new ArgumentException($"invalid case field slot {reference}, please use 'caseName:slotName').");
         }
         return new(caseFieldSlot[0], caseFieldSlot[1]);
     }
@@ -72,11 +72,11 @@ public static class StringConvertExtensions
     {
         if (string.IsNullOrWhiteSpace(caseName))
         {
-            return default;
+            return null;
         }
         if (string.IsNullOrWhiteSpace(slotName))
         {
-            return default;
+            return null;
         }
         return $"{caseName}{CaseFieldSlotSeparator}{slotName}";
     }

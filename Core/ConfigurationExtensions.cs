@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 
 namespace PayrollEngine;
 
@@ -11,31 +9,43 @@ public static class ConfigurationExtensions
     /// <summary>Get configuration object by type name</summary>
     /// <param name="configuration">The assembly</param>
     /// <returns>The configuration object</returns>
-    public static T GetConfiguration<T>(this IConfiguration configuration) where T : class
+    public static T GetConfiguration<T>(this IConfiguration configuration) where T : class =>
+        GetConfiguration<T>(configuration, typeof(T).Name);
+
+    /// <summary>Get configuration object by type name</summary>
+    /// <param name="configuration">The assembly</param>
+    /// <param name="name">Configuration name</param>
+    /// <returns>The configuration object</returns>
+    public static T GetConfiguration<T>(this IConfiguration configuration, string name) where T : class
     {
-        IConfigurationSection configurationSection = configuration.GetSection(typeof(T).Name);
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new ArgumentException(nameof(name));
+        }
+        IConfigurationSection configurationSection = configuration.GetSection(name);
         return configurationSection.Get<T>();
     }
 
     /// <summary>Get the database connection string</summary>
-    public static async Task<string> GetSharedConnectionStringAsync(this IConfiguration configuration)
+    /// <param name="configuration">The assembly</param>
+    public static string GetDatabaseConnectionString(this IConfiguration configuration)
     {
-        string connectionString;
-
-        // priority 1: shared configuration
-        var sharedConfigFileName = Environment.GetEnvironmentVariable(SystemSpecification.PayrollConfigurationVariable);
-        if (!string.IsNullOrWhiteSpace(sharedConfigFileName) && File.Exists(sharedConfigFileName))
+        // priority 1: from the environment variable
+        var connectionString = Environment.GetEnvironmentVariable(SystemSpecification.PayrollDatabaseConnection);
+        if (!string.IsNullOrWhiteSpace(connectionString))
         {
-            var sharedConfiguration = await SharedConfiguration.ReadAsync();
-            connectionString = SharedConfiguration.GetSharedValue(sharedConfiguration, SystemSpecification.SharedDatabaseConnectionString);
-            if (!string.IsNullOrWhiteSpace(connectionString))
-            {
-                return connectionString;
-            }
+            Log.Trace($"Database connection string source: environment variable {SystemSpecification.PayrollDatabaseConnection}.");
+            return connectionString;
         }
 
-        // priority 2: application configuration
-        connectionString = configuration.GetConnectionString(SystemSpecification.ConfigurationDatabaseConnectionString);
-        return connectionString;
+        // priority 2: from the application configuration file appsettings.json (section connection strings)
+        connectionString = configuration.GetConnectionString(SystemSpecification.PayrollDatabaseConnection);
+        if (!string.IsNullOrWhiteSpace(connectionString))
+        {
+            Log.Trace("Database connection string source: application configuration (section PayrollDatabaseConnection).");
+            return connectionString;
+        }
+
+        return null;
     }
 }

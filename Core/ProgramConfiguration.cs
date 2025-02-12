@@ -59,7 +59,7 @@ public class ProgramConfiguration<TApp> where TApp : class
         var section = Configuration.GetSection(key);
         if (section == null)
         {
-            throw new ArgumentException($"Unknown configuration section {key}");
+            throw new ArgumentException($"Unknown configuration section {key}.");
         }
         return section.Get<T>();
     }

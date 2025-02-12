@@ -19,7 +19,7 @@ public static class AttributeObjectExtensions
     /// <param name="defaultValue">The default value</param>
     /// <returns>The dictionary value</returns>
     public static object GetAttribute(this IAttributeObject attributeObject, string key,
-        object defaultValue = default) =>
+        object defaultValue = null) =>
         attributeObject.Attributes == null ?
             defaultValue :
             attributeObject.Attributes.GetValue(key, defaultValue);

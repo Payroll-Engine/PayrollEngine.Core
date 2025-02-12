@@ -690,8 +690,15 @@
             <param name="configuration">The assembly</param>
             <returns>The configuration object</returns>
         </member>
-        <member name="M:PayrollEngine.ConfigurationExtensions.GetSharedConnectionStringAsync(Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:PayrollEngine.ConfigurationExtensions.GetConfiguration``1(Microsoft.Extensions.Configuration.IConfiguration,System.String)">
+            <summary>Get configuration object by type name</summary>
+            <param name="configuration">The assembly</param>
+            <param name="name">Configuration name</param>
+            <returns>The configuration object</returns>
+        </member>
+        <member name="M:PayrollEngine.ConfigurationExtensions.GetDatabaseConnectionString(Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>Get the database connection string</summary>
+            <param name="configuration">The assembly</param>
         </member>
         <member name="T:PayrollEngine.ContentType">
             <summary>Content types</summary>
@@ -2710,6 +2717,9 @@
         <member name="F:PayrollEngine.IO.FileExtensions.PdfDocument">
             <summary>Pdf document</summary>
         </member>
+        <member name="F:PayrollEngine.IO.FileExtensions.PayrollEngineCommand">
+            <summary>Payroll Engine command file</summary>
+        </member>
         <member name="T:PayrollEngine.IO.FileTool">
             <summary>File tools</summary>
         </member>
@@ -2720,6 +2730,12 @@
         <member name="M:PayrollEngine.IO.FileTool.TimeStamp(System.DateTime)">
             <summary>Get the file time stamp name</summary>
             <param name="moment">The time moment</param>
+            <returns>The file name</returns>
+        </member>
+        <member name="M:PayrollEngine.IO.FileTool.ToValidFileName(System.String,System.Char)">
+            <summary>Ensure valid file name</summary>
+            <param name="fileName">The file name </param>
+            <param name="replacement">Invalid character replacement</param>
             <returns>The file name</returns>
         </member>
         <member name="T:PayrollEngine.IPayrollPeriod">
@@ -3895,7 +3911,7 @@
         </member>
         <member name="M:PayrollEngine.Serialization.JsonSerializer.DeserializeNamedDictionary``1(System.String)">
             <summary>Serialize a string/object dictionary.
-            replace MS JsonSerializer.Deserialize&lt;Dictionary&lt;string,object&gt;&gt;()
+            replace MS JsonSerializer.Deserialize&lt;Dictionary&lt;string,object&gt;&gt;
             it deserializes the json { "myKey": 86 } into the dictionary item
             key: myKey
             value: ValueKind = Number : "86"
@@ -3982,22 +3998,6 @@
             <param name="writer">The <see cref="T:System.Text.Json.Utf8JsonWriter"/> to write to</param>
             <param name="value">The value to convert</param>
             <param name="options">The <see cref="T:System.Text.Json.JsonSerializerOptions"/> being used</param>
-        </member>
-        <member name="T:PayrollEngine.SharedConfiguration">
-            <summary>
-            Payroll engine shared configuration, <see cref="F:PayrollEngine.SystemSpecification.PayrollConfigurationVariable"/>
-            </summary>
-        </member>
-        <member name="M:PayrollEngine.SharedConfiguration.ReadAsync">
-            <summary>
-            Read the shared configuration
-            </summary>
-            <returns>Dictionary with key=field name, value=field value as string</returns>
-        </member>
-        <member name="M:PayrollEngine.SharedConfiguration.GetSharedValue(System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
-            <summary>
-            Get shared configuration value
-            </summary>
         </member>
         <member name="T:PayrollEngine.SortDirection">
             <summary>Specifies the direction in which to sort a list of items</summary>
@@ -4164,21 +4164,21 @@
             <param name="source">The source value</param>
             <returns>The source value without special characters</returns>
         </member>
-        <member name="M:PayrollEngine.StringExtensions.ToCamelSentence(System.String,PayrollEngine.CharacterCase,System.String)">
+        <member name="M:PayrollEngine.StringExtensions.ToCamelSentence(System.String,PayrollEngine.CharacterCase,System.Char)">
             <summary>Change to camel case sentence</summary>
             <param name="source">The source value</param>
             <param name="wordCase">The word start character casing</param>
             <param name="separator">The word separator</param>
             <returns>Camel case text sentence</returns>
         </member>
-        <member name="M:PayrollEngine.StringExtensions.ToPascalSentence(System.String,PayrollEngine.CharacterCase,System.String)">
+        <member name="M:PayrollEngine.StringExtensions.ToPascalSentence(System.String,PayrollEngine.CharacterCase,System.Char)">
             <summary>Change to pascal case sentence</summary>
             <param name="source">The source value</param>
             <param name="wordCase">The word start character casing</param>
             <param name="separator">The word separator</param>
             <returns>Camel case text sentence</returns>
         </member>
-        <member name="M:PayrollEngine.StringExtensions.ToSentence(System.String,PayrollEngine.CharacterCase,PayrollEngine.CharacterCase,System.String)">
+        <member name="M:PayrollEngine.StringExtensions.ToSentence(System.String,PayrollEngine.CharacterCase,PayrollEngine.CharacterCase,System.Char)">
             <summary>Change text sentence</summary>
             <remarks>source: https://stackoverflow.com/a/51310790/15659039 </remarks>
             <param name="source">The source value</param>
@@ -4202,12 +4202,12 @@
             <returns>Truncated case text sentence</returns>
         </member>
         <member name="M:PayrollEngine.StringExtensions.HtmlEncode(System.String)">
-            <summary>Encode string to html, single quotation marks and double quotation marks are included as \' and \"</summary>
+            <summary>Encode string to html, single quotation marks and double quotation marks are included as ' and "</summary>
             <param name="value">The string value</param>
             <returns>Encoded Html value</returns>
         </member>
         <member name="M:PayrollEngine.StringExtensions.HtmlDecode(System.String)">
-            <summary>Encode string to html, single quotation marks and double quotation marks are included as \' and \"</summary>
+            <summary>Encode string to html, single quotation marks and double quotation marks are included as ' and "</summary>
             <param name="value">The string value</param>
             <returns>Encoded Html value</returns>
         </member>
@@ -4293,14 +4293,17 @@
         <member name="F:PayrollEngine.SystemSpecification.ApplicationName">
             <summary>Application name, use to mark the application/producer in office documents</summary>
         </member>
-        <member name="F:PayrollEngine.SystemSpecification.PayrollConfigurationVariable">
-            <summary>Shared settings environment variable name, containing the json file name</summary>
+        <member name="F:PayrollEngine.SystemSpecification.PayrollApiConfiguration">
+            <summary>Api connection settings environment variable name, containing the json file name</summary>
         </member>
-        <member name="F:PayrollEngine.SystemSpecification.ConfigurationDatabaseConnectionString">
+        <member name="F:PayrollEngine.SystemSpecification.PayrollApiConnection">
+            <summary>Api connection settings environment variable name, containing the payroll configuration</summary>
+        </member>
+        <member name="F:PayrollEngine.SystemSpecification.PayrollApiKey">
+            <summary>Api key variable name, containing the backend api key</summary>
+        </member>
+        <member name="F:PayrollEngine.SystemSpecification.PayrollDatabaseConnection">
             <summary>Configuration setting name, containing the payroll database connection string</summary>
-        </member>
-        <member name="F:PayrollEngine.SystemSpecification.SharedDatabaseConnectionString">
-            <summary>Shared setting name, containing the payroll database connection string</summary>
         </member>
         <member name="F:PayrollEngine.SystemSpecification.TextAttributePrefix">
             <summary>Prefix for text attribute fields</summary>
@@ -4425,6 +4428,26 @@
             <param name="name">The name of the query key</param>
             <param name="value">The date time value</param>
             <returns>The combined result</returns>
+        </member>
+        <member name="T:PayrollEngine.UserPassword">
+            <summary>
+            User password tool
+            </summary>
+        </member>
+        <member name="M:PayrollEngine.UserPassword.IsValid(System.String)">
+            <summary>
+            Test for valid user password
+            </summary>
+            <remarks>password rules: 1 digit, 1 lowercase, 1 uppercase, 1 special character and minimum 8 characters</remarks>
+            <param name="test"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PayrollEngine.UserPassword.VerifyPassword(System.String,System.Byte[],System.String)">
+            <summary>Verify an encrypted password</summary>
+            <param name="password">The existing password</param>
+            <param name="hashSalt">The hash salt to use</param>
+            <param name="verifyPassword">The password to verify</param>
+            <returns>True for valid password</returns>
         </member>
         <member name="T:PayrollEngine.UserType">
             <summary>The type of the user</summary>

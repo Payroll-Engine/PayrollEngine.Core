@@ -32,7 +32,7 @@ public static class DataTableRowExtensions
     {
         if (!IsSingleRow(table))
         {
-            throw new PayrollException($"Table {table.TableName} is not single, count={table.Rows.Count}");
+            throw new PayrollException($"Table {table.TableName} is not single, count={table.Rows.Count}.");
         }
         return table.Rows[0];
     }

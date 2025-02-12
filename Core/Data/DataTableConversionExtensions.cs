@@ -109,7 +109,7 @@ public static class DataTableConversionExtensions
         {
             if (row.ItemArray.Length != dataTable.Columns.Count)
             {
-                throw new PayrollException($"Row value count ({row.ItemArray.Length} is not matching the column count ({dataTable.Columns.Count})");
+                throw new PayrollException($"Row value count ({row.ItemArray.Length} is not matching the column count ({dataTable.Columns.Count}).");
             }
             payrollTable.AddRow(row.ItemArray);
         }
@@ -231,7 +231,7 @@ public static class DataTableConversionExtensions
         {
             if (row.Values.Count != dataTable.Columns.Count)
             {
-                throw new PayrollException($"Row value count ({row.Values.Count} is not matching the column count ({dataTable.Columns.Count})");
+                throw new PayrollException($"Row value count ({row.Values.Count} is not matching the column count ({dataTable.Columns.Count}).");
             }
             System.Data.DataRow dataRow = systemTable.NewRow();
             systemTable.Rows.Add(dataRow);

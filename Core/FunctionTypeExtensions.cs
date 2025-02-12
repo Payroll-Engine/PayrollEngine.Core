@@ -13,10 +13,10 @@ public static class FunctionTypeExtensions
     {
         if (functionTypes == null)
         {
-            return default;
+            return 0;
         }
 
-        var bitmask = (long)default;
+        var bitmask = (long)0;
         foreach (var functionType in functionTypes)
         {
             bitmask |= (long)functionType;
@@ -29,9 +29,9 @@ public static class FunctionTypeExtensions
     /// <returns>The function types</returns>
     public static List<FunctionType> ToFunctionTypes(this long bitmask)
     {
-        if (bitmask == default)
+        if (bitmask == 0)
         {
-            return default;
+            return null;
         }
 
         var functionTypes = new List<FunctionType>();

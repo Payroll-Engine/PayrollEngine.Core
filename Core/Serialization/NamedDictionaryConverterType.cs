@@ -53,7 +53,7 @@ public sealed class NamedDictionaryConverterType<TKey, TValue> :
 
             if (!(reader.GetString() is TKey key))
             {
-                throw new ArgumentException("Named dictionary key must be string");
+                throw new ArgumentException("Named dictionary key must be string.");
             }
 
             // value

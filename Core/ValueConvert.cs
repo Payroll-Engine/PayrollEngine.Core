@@ -49,7 +49,7 @@ public static class ValueConvert
         }
         catch
         {
-            json = default;
+            json = null;
             return false;
         }
     }
@@ -79,7 +79,7 @@ public static class ValueConvert
         }
         catch
         {
-            value = default;
+            value = null;
             return false;
         }
     }
@@ -128,7 +128,7 @@ public static class ValueConvert
     /// <returns>The integer value</returns>
     public static int ToInteger(string json, CultureInfo culture)
     {
-        return string.IsNullOrWhiteSpace(json) ? default : JsonSerializer.Deserialize<int>(json.ToString(culture));
+        return string.IsNullOrWhiteSpace(json) ? 0 : JsonSerializer.Deserialize<int>(json.ToString(culture));
     }
 
     /// <summary>Converts a JSON string to an decimal value</summary>
@@ -136,14 +136,14 @@ public static class ValueConvert
     /// <param name="culture">The culture</param>
     /// <returns>The decimal value</returns>
     public static decimal ToDecimal(string json, CultureInfo culture) =>
-        string.IsNullOrWhiteSpace(json) ? default : JsonSerializer.Deserialize<decimal>(json.ToString(culture));
+        string.IsNullOrWhiteSpace(json) ? 0 : JsonSerializer.Deserialize<decimal>(json.ToString(culture));
 
     /// <summary>Converts a JSON string to a string value</summary>
     /// <param name="json">The JSON representation</param>
     /// <param name="culture">The culture</param>
     /// <returns>The string value</returns>
     public static string ToString(string json, CultureInfo culture) =>
-        string.IsNullOrWhiteSpace(json) ? default :
+        string.IsNullOrWhiteSpace(json) ? null :
         json.StartsWith('"') ? JsonSerializer.Deserialize<string>(json.ToString(culture)) : json.ToString(culture);
 
     /// <summary>Converts a JSON string to a date time value</summary>

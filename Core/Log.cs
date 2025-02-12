@@ -23,7 +23,7 @@ public static class Log
     {
         if (Logger == null)
         {
-            throw new PayrollException("Missing logger");
+            throw new PayrollException("Missing logger.");
         }
         return Logger;
     }

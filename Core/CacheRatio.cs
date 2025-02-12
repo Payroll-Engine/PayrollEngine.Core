@@ -29,7 +29,7 @@ public class CacheRatio
     {
         if (string.IsNullOrWhiteSpace(name))
         {
-            throw new ArgumentException("Invalid stopwatch name", nameof(name));
+            throw new ArgumentException("Invalid stopwatch name.", nameof(name));
         }
 
         Name = name;

@@ -7,14 +7,17 @@ public static class SystemSpecification
     /// <summary>Application name, use to mark the application/producer in office documents</summary>
     public static readonly string ApplicationName = "Payroll Engine API";
 
-    /// <summary>Shared settings environment variable name, containing the json file name</summary>
-    public static readonly string PayrollConfigurationVariable = "PayrollConfiguration";
+    /// <summary>Api connection settings environment variable name, containing the json file name</summary>
+    public static readonly string PayrollApiConfiguration = "PayrollApiConfiguration";
+
+    /// <summary>Api connection settings environment variable name, containing the payroll configuration</summary>
+    public static readonly string PayrollApiConnection = "PayrollApiConnection";
+
+    /// <summary>Api key variable name, containing the backend api key</summary>
+    public static readonly string PayrollApiKey = "PayrollApiKey";
 
     /// <summary>Configuration setting name, containing the payroll database connection string</summary>
-    public static readonly string ConfigurationDatabaseConnectionString = "PayrollDatabaseConnection";
-
-    /// <summary>Shared setting name, containing the payroll database connection string</summary>
-    public static readonly string SharedDatabaseConnectionString = "DatabaseConnection";
+    public static readonly string PayrollDatabaseConnection = "PayrollDatabaseConnection";
 
     /// <summary>Prefix for text attribute fields</summary>
     public static readonly string TextAttributePrefix = "TA_";

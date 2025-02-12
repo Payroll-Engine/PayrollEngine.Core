@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text.Json;
+using System.Threading;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace PayrollEngine;
 
@@ -12,7 +13,7 @@ namespace PayrollEngine;
 public static class ObjectInfo
 {
     private static readonly Dictionary<Type, List<PropertyInfo>> Properties = new();
-    private static readonly object Locker = new();
+    private static readonly Lock Locker = new();
 
     /// <summary>
     /// Get object properties

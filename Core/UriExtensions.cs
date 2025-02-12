@@ -17,7 +17,7 @@ public static class UriExtensions
         var lastSegment = uri.OriginalString.Split('/').Last();
         if (!int.TryParse(lastSegment, out var id) || id <= 0)
         {
-            throw new PayrollException($"Invalid Uri {uri} for object id");
+            throw new PayrollException($"Invalid Uri {uri} for object id.");
         }
         return id;
     }

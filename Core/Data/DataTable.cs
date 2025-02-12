@@ -60,15 +60,15 @@ public class DataTable : IEquatable<DataTable>
         ArgumentNullException.ThrowIfNull(row);
         if (!Rows.Contains(row))
         {
-            throw new ArgumentException("Invalid table row");
+            throw new ArgumentException("Invalid table row.");
         }
         if (Columns == null || row.Values == null)
         {
-            throw new DataException("Invalid data row size");
+            throw new DataException("Invalid data row size.");
         }
         if (Columns.Count != row.Values.Count)
         {
-            throw new DataException("Invalid data row value count");
+            throw new DataException("Invalid data row value count.");
         }
 
         // convert raw values to json values
@@ -86,7 +86,7 @@ public class DataTable : IEquatable<DataTable>
                 var rawValue = row.Values[i];
                 if (rawValue == null)
                 {
-                    rawValues.Add(default);
+                    rawValues.Add(null);
                     continue;
                 }
 
@@ -138,16 +138,16 @@ public class DataTable : IEquatable<DataTable>
         ArgumentNullException.ThrowIfNull(rawValues);
         if (!Rows.Contains(row))
         {
-            throw new ArgumentException("Invalid table row");
+            throw new ArgumentException("Invalid table row.");
         }
         if (Columns == null || rawValues == null)
         {
-            throw new DataException("Invalid data row size");
+            throw new DataException("Invalid data row size.");
         }
         var rawValueList = rawValues.ToList();
         if (Columns.Count != rawValueList.Count)
         {
-            throw new DataException("Invalid data row value count");
+            throw new DataException("Invalid data row value count.");
         }
 
         // convert json values to raw values
@@ -160,7 +160,7 @@ public class DataTable : IEquatable<DataTable>
             // null
             if (rawValue == null || rawValue is DBNull)
             {
-                row.Values.Add(default);
+                row.Values.Add(null);
                 continue;
             }
 

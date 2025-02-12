@@ -197,7 +197,7 @@ public static class AttributesExtensions
         var type = typeof(T);
         if (!type.IsEnum)
         {
-            throw new PayrollException("Can not get enum value from non-Enum type");
+            throw new PayrollException("Can not get enum value from non-Enum type.");
         }
 
         if (attributes.TryGetAttributeValue(name, out string attributeValue, culture) &&

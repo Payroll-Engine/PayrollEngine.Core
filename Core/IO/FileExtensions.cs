@@ -20,4 +20,7 @@ public static class FileExtensions
 
     /// <summary>Pdf document</summary>
     public static readonly string PdfDocument = ".pdf";
+
+    /// <summary>Payroll Engine command file</summary>
+    public static readonly string PayrollEngineCommand = ".pecmd";
 }

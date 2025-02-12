@@ -31,21 +31,21 @@ public static class DecimalExtensions
     /// <param name="stepSize">The step size used to truncate</param>
     /// <returns>The result of d rounded toward zero, to the nearest whole number within the step size</returns>
     public static decimal Truncate(this decimal value, int stepSize) =>
-        value == default ? default : value - (value % stepSize);
+        value == 0 ? 0 : value - (value % stepSize);
 
     /// <summary>Rounds a decimal value up</summary>
     /// <param name="value">The decimal value to round</param>
     /// <param name="stepSize">The round step size</param>
     /// <returns>The up-rounded value</returns>
     public static decimal RoundUp(this decimal value, decimal stepSize) =>
-        value == default || stepSize == 0 ? value : Math.Ceiling(value / stepSize) * stepSize;
+        value == 0 || stepSize == 0 ? value : Math.Ceiling(value / stepSize) * stepSize;
 
     /// <summary>Rounds a decimal value down</summary>
     /// <param name="value">The decimal value to round</param>
     /// <param name="stepSize">The round step size</param>
     /// <returns>The rounded value</returns>
     public static decimal RoundDown(this decimal value, decimal stepSize) =>
-        value == default || stepSize == 0 ? value : Math.Floor(value / stepSize) * stepSize;
+        value == 0 || stepSize == 0 ? value : Math.Floor(value / stepSize) * stepSize;
 
     /// <summary>Rounds a decimal value wit predefined rounding type</summary>
     /// <param name="value">The decimal value to round</param>
@@ -106,7 +106,7 @@ public static class DecimalExtensions
     /// <param name="divisor">The divisor factor</param>
     /// <returns>The rounded value to one-tenth</returns>
     public static decimal RoundPartOfOne(this decimal value, int divisor) =>
-        value == default ? default : Math.Round(value * divisor, MidpointRounding.AwayFromZero) / divisor;
+        value == 0 ? 0 : Math.Round(value * divisor, MidpointRounding.AwayFromZero) / divisor;
 
     /// <summary>Round a decimal value using the payroll system precision</summary>
     /// <param name="value">The decimal value to round</param>

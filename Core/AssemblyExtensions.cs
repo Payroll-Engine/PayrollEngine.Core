@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace PayrollEngine;
 
@@ -22,7 +22,7 @@ public static class AssemblyExtensions
         using Stream resourceStream = assembly.GetManifestResourceStream(resourceName);
         if (resourceStream == null)
         {
-            throw new PayrollException($"Resource {resourceName} is not available");
+            throw new PayrollException($"Resource {resourceName} is not available.");
         }
 
         using StreamReader reader = new(resourceStream);
@@ -49,14 +49,14 @@ public static class AssemblyExtensions
             using Stream resourceStream = assembly.GetManifestResourceStream(resourceName);
             if (resourceStream == null)
             {
-                throw new PayrollException($"Resource {resourceName} is not available");
+                throw new PayrollException($"Resource {resourceName} is not available.");
             }
 
             using StreamReader reader = new(resourceStream);
             var code = reader.ReadToEnd();
             if (string.IsNullOrWhiteSpace(code))
             {
-                throw new PayrollException($"Empty code in embedded resource {resourceName}");
+                throw new PayrollException($"Empty code in embedded resource {resourceName}.");
             }
             codes.Add(code);
         }
