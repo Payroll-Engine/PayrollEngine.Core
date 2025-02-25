@@ -41,7 +41,8 @@ public static class CaseFieldDateTypeExtensions
             CaseFieldDateType.Year =>
                 // first day of year
                 value.Month == 1 && value.Day == 1,
-            _ => false
+            // support unknown case field data type
+            _ => true
         };
     }
 
@@ -83,7 +84,8 @@ public static class CaseFieldDateTypeExtensions
             CaseFieldDateType.Year =>
                 // last day of year
                 value.Month == (int)Month.December && value.Day == daysInMonth,
-            _ => false
+            // support unknown case field data type
+            _ => true
         };
     }
 }

@@ -428,6 +428,30 @@
         <member name="F:PayrollEngine.CaseFieldDateType.Year">
             <summary>Year</summary>
         </member>
+        <member name="F:PayrollEngine.CaseFieldDateType.PeriodStart">
+            <summary>Period start</summary>
+        </member>
+        <member name="F:PayrollEngine.CaseFieldDateType.PeriodStartDate">
+            <summary>Period start date</summary>
+        </member>
+        <member name="F:PayrollEngine.CaseFieldDateType.PeriodEnd">
+            <summary>Period end</summary>
+        </member>
+        <member name="F:PayrollEngine.CaseFieldDateType.PeriodEndDate">
+            <summary>Period end date</summary>
+        </member>
+        <member name="F:PayrollEngine.CaseFieldDateType.CycleStart">
+            <summary>Cycle start</summary>
+        </member>
+        <member name="F:PayrollEngine.CaseFieldDateType.CycleStartDate">
+            <summary>Cycle start date</summary>
+        </member>
+        <member name="F:PayrollEngine.CaseFieldDateType.CycleEnd">
+            <summary>Cycle end</summary>
+        </member>
+        <member name="F:PayrollEngine.CaseFieldDateType.CycleEndDate">
+            <summary>Cycle end date</summary>
+        </member>
         <member name="T:PayrollEngine.CaseFieldDateTypeExtensions">
             <summary>Extensions for <see cref="T:PayrollEngine.CaseFieldDateType"/></summary>
         </member>

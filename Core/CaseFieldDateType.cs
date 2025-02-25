@@ -6,6 +6,9 @@ namespace PayrollEngine;
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum CaseFieldDateType
 {
+
+    #region Day
+
     /// <summary>Day</summary>
     Day = 0,
 
@@ -23,6 +26,10 @@ public enum CaseFieldDateType
     Friday = 6,
     /// <summary>Indicates Saturday</summary>
     Saturday = 7,
+
+    #endregion
+
+    #region Month
 
     /// <summary>Month</summary>
     Month = 10,
@@ -52,6 +59,39 @@ public enum CaseFieldDateType
     /// <summary>Indicates December</summary>
     December = 22,
 
+    #endregion
+
+    #region Year
+
     /// <summary>Year</summary>
-    Year = 30
+    Year = 30,
+
+    #endregion
+
+    #region Period
+
+    /// <summary>Period start</summary>
+    PeriodStart = 100,
+    /// <summary>Period start date</summary>
+    PeriodStartDate = 101,
+    /// <summary>Period end</summary>
+    PeriodEnd = 110,
+    /// <summary>Period end date</summary>
+    PeriodEndDate = 111,
+
+    #endregion
+
+    #region Cycle
+
+    /// <summary>Cycle start</summary>
+    CycleStart = 200,
+    /// <summary>Cycle start date</summary>
+    CycleStartDate = 201,
+    /// <summary>Cycle end</summary>
+    CycleEnd = 210,
+    /// <summary>Cycle end date</summary>
+    CycleEndDate = 211
+
+    #endregion
+
 }
