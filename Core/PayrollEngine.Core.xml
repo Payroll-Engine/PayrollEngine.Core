@@ -1016,22 +1016,22 @@
         <member name="T:PayrollEngine.Data.DataRowExtensions">
             <summary>Data row extension methods</summary>
         </member>
-        <member name="M:PayrollEngine.Data.DataRowExtensions.GetRowId(System.Data.DataRow)">
+        <member name="M:PayrollEngine.Data.DataRowExtensions.Id(System.Data.DataRow)">
             <summary>Get data row id</summary>
             <param name="dataRow">The data row</param>
             <returns>The data row id</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataRowExtensions.GetRowName(System.Data.DataRow)">
+        <member name="M:PayrollEngine.Data.DataRowExtensions.Name(System.Data.DataRow)">
             <summary>Get data row name</summary>
             <param name="dataRow">The data row</param>
             <returns>The data row name</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataRowExtensions.GetRowIdentifier(System.Data.DataRow)">
+        <member name="M:PayrollEngine.Data.DataRowExtensions.Identifier(System.Data.DataRow)">
             <summary>Get data row identifier</summary>
             <param name="dataRow">The data row</param>
             <returns>The data row identifier</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataRowExtensions.GetRowObjectStatus(System.Data.DataRow)">
+        <member name="M:PayrollEngine.Data.DataRowExtensions.ObjectStatus(System.Data.DataRow)">
             <summary>Get data row object status</summary>
             <param name="dataRow">The data row</param>
             <returns>The data row object status</returns>
@@ -1541,22 +1541,22 @@
             <param name="table">The table</param>
             <returns>The single row, null on table with multiple rows</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataTableRowExtensions.GetSingleRowId(System.Data.DataTable)">
+        <member name="M:PayrollEngine.Data.DataTableRowExtensions.SingleRowId(System.Data.DataTable)">
             <summary>Get single row id</summary>
             <param name="table">The table</param>
             <returns>The data row id</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataTableRowExtensions.GetSingleRowName(System.Data.DataTable)">
+        <member name="M:PayrollEngine.Data.DataTableRowExtensions.SingleRowName(System.Data.DataTable)">
             <summary>Get single row name</summary>
             <param name="table">The table</param>
             <returns>The data row name</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataTableRowExtensions.GetSingleRowIdentifier(System.Data.DataTable)">
+        <member name="M:PayrollEngine.Data.DataTableRowExtensions.SingleRowIdentifier(System.Data.DataTable)">
             <summary>Get single row identifier</summary>
             <param name="table">The table</param>
             <returns>The data row identifier</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataTableRowExtensions.GetSingleRowValue``1(System.Data.DataTable,System.String,``0)">
+        <member name="M:PayrollEngine.Data.DataTableRowExtensions.SingleRowValue``1(System.Data.DataTable,System.String,``0)">
             <summary>Get single row table value</summary>
             <param name="table">The table</param>
             <param name="column">The column name</param>
@@ -1576,10 +1576,10 @@
         <member name="T:PayrollEngine.Date">
             <summary>Date specifications and base functions</summary>
         </member>
-        <member name="P:PayrollEngine.Date.MinValue">
+        <member name="F:PayrollEngine.Date.MinValue">
             <summary>Represents the smallest possible value of a time instant</summary>
         </member>
-        <member name="P:PayrollEngine.Date.MaxValue">
+        <member name="F:PayrollEngine.Date.MaxValue">
             <summary>Represents the largest possible value of a time instant</summary>
         </member>
         <member name="P:PayrollEngine.Date.Now">
@@ -1587,6 +1587,12 @@
         </member>
         <member name="P:PayrollEngine.Date.Today">
             <summary>Gets a time instant that is set to the current day</summary>
+        </member>
+        <member name="P:PayrollEngine.Date.Tomorrow">
+            <summary>Gets a time instant that is set to the next day</summary>
+        </member>
+        <member name="P:PayrollEngine.Date.Yesterday">
+            <summary>Gets a time instant that is set to the previous day</summary>
         </member>
         <member name="M:PayrollEngine.Date.PreviousTick(System.DateTime)">
             <summary>Get the previous tick</summary>
@@ -1659,6 +1665,12 @@
         <member name="F:PayrollEngine.Date.LastMonthOfCalendarYear">
             <summary>Last month in year</summary>
         </member>
+        <member name="F:PayrollEngine.Date.MinCalendarDate">
+            <summary>Minimum calendar date</summary>
+        </member>
+        <member name="F:PayrollEngine.Date.MaxCalendarDate">
+            <summary>Maximum calendar date</summary>
+        </member>
         <member name="M:PayrollEngine.Date.DaysInMonth(System.Int32,System.Int32)">
             <summary>Returns the number of days in the specified month and year</summary>
             <param name="year">The year</param>
@@ -1711,6 +1723,17 @@
             <summary>Test if the date is the last moment of the year</summary>
             <param name="moment">Moment to test</param>
             <returns>True on the last moment of the year</returns>
+        </member>
+        <member name="M:PayrollEngine.Date.GetMonthName(System.Int32)">
+            <summary>Return the month name of the current culture</summary>
+            <param name="month">The month</param>
+            <returns>Name of the month</returns>
+        </member>
+        <member name="M:PayrollEngine.Date.GetMonthName(System.Int32,System.Globalization.CultureInfo)">
+            <summary>Return the month name</summary>
+            <param name="month">The month</param>
+            <param name="culture">The culture</param>
+            <returns>Name of the month</returns>
         </member>
         <member name="M:PayrollEngine.Date.FirstMomentOfMonth(System.Int32,System.Int32)">
             <summary>Return the first moment of a month</summary>
@@ -1781,11 +1804,27 @@
             <param name="provider">The format provider</param>
             <returns>The UTC date time string</returns>
         </member>
+        <member name="M:PayrollEngine.Date.SpecifyUtcTime(System.DateTime)">
+            <summary>
+            Convert a date into the UTC value without UTC time adaption
+            Dates (without time part) are used without time adaption
+            </summary>
+            <param name="moment">The source date time</param>
+            <returns>The UTC date time</returns>
+        </member>
         <member name="M:PayrollEngine.Date.SameSecond(System.DateTime,System.DateTime)">
             <summary>Test if two dates are within the same second</summary>
             <param name="left">The left date to compare</param>
             <param name="right">The right left date to compare</param>
             <returns></returns>
+        </member>
+        <member name="M:PayrollEngine.Date.Parse(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Parse date expression
+            </summary>
+            <param name="expression">Date expression</param>
+            <param name="culture">Culture</param>
+            <returns>Parsed date, null on invalid expression</returns>
         </member>
         <member name="T:PayrollEngine.DatePeriod">
             <summary>A date period between the start and end date</summary>
@@ -4476,17 +4515,17 @@
         <member name="T:PayrollEngine.UserType">
             <summary>The type of the user</summary>
         </member>
-        <member name="F:PayrollEngine.UserType.User">
-            <summary>Regular user</summary>
-        </member>
         <member name="F:PayrollEngine.UserType.Employee">
             <summary>User with employee self-service</summary>
         </member>
-        <member name="F:PayrollEngine.UserType.Administrator">
-            <summary>User who can manage users</summary>
+        <member name="F:PayrollEngine.UserType.User">
+            <summary>Regular payroll user</summary>
         </member>
-        <member name="F:PayrollEngine.UserType.Supervisor">
-            <summary>User with access to any feature</summary>
+        <member name="F:PayrollEngine.UserType.TenantAdministrator">
+            <summary>Tenant administrator</summary>
+        </member>
+        <member name="F:PayrollEngine.UserType.SystemAdministrator">
+            <summary>System administrator</summary>
         </member>
         <member name="T:PayrollEngine.ValueBaseType">
             <summary>The payroll value base types (JSON compatible)</summary>

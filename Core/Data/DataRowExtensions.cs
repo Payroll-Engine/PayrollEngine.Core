@@ -14,26 +14,26 @@ namespace PayrollEngine.Data
         /// <summary>Get data row id</summary>
         /// <param name="dataRow">The data row</param>
         /// <returns>The data row id</returns>
-        public static int GetRowId(this System.Data.DataRow dataRow) =>
+        public static int Id(this System.Data.DataRow dataRow) =>
             GetValue<int>(dataRow, "Id");
 
         /// <summary>Get data row name</summary>
         /// <param name="dataRow">The data row</param>
         /// <returns>The data row name</returns>
-        public static string GetRowName(this System.Data.DataRow dataRow) =>
+        public static string Name(this System.Data.DataRow dataRow) =>
             GetValue<string>(dataRow, "Name");
 
         /// <summary>Get data row identifier</summary>
         /// <param name="dataRow">The data row</param>
         /// <returns>The data row identifier</returns>
-        public static string GetRowIdentifier(this System.Data.DataRow dataRow) =>
+        public static string Identifier(this System.Data.DataRow dataRow) =>
             GetValue<string>(dataRow, "Identifier");
 
         /// <summary>Get data row object status</summary>
         /// <param name="dataRow">The data row</param>
         /// <returns>The data row object status</returns>
-        public static ObjectStatus GetRowObjectStatus(this System.Data.DataRow dataRow) =>
-            GetEnumValue(dataRow, "Status", ObjectStatus.Inactive);
+        public static ObjectStatus ObjectStatus(this System.Data.DataRow dataRow) =>
+            GetEnumValue(dataRow, "Status", PayrollEngine.ObjectStatus.Inactive);
 
         #endregion
 

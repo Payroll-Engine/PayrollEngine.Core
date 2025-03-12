@@ -238,7 +238,10 @@ public static class ObjectInfo
             value = property.GetValue(item, null);
             if (value == null)
             {
-                return null;
+                return new PropertyValue
+                {
+                    Property = property
+                };
             }
 
             // final object property

@@ -46,27 +46,27 @@ public static class DataTableRowExtensions
     /// <summary>Get single row id</summary>
     /// <param name="table">The table</param>
     /// <returns>The data row id</returns>
-    public static int GetSingleRowId(this System.Data.DataTable table) =>
-        IsSingleRow(table) ? SingleRow(table).GetRowId() : 0;
+    public static int SingleRowId(this System.Data.DataTable table) =>
+        IsSingleRow(table) ? SingleRow(table).Id() : 0;
 
     /// <summary>Get single row name</summary>
     /// <param name="table">The table</param>
     /// <returns>The data row name</returns>
-    public static string GetSingleRowName(this System.Data.DataTable table) =>
-        IsSingleRow(table) ? SingleRow(table).GetRowName() : null;
+    public static string SingleRowName(this System.Data.DataTable table) =>
+        IsSingleRow(table) ? SingleRow(table).Name() : null;
 
     /// <summary>Get single row identifier</summary>
     /// <param name="table">The table</param>
     /// <returns>The data row identifier</returns>
-    public static string GetSingleRowIdentifier(this System.Data.DataTable table) =>
-        IsSingleRow(table) ? SingleRow(table).GetRowIdentifier() : null;
+    public static string SingleRowIdentifier(this System.Data.DataTable table) =>
+        IsSingleRow(table) ? SingleRow(table).Identifier() : null;
 
     /// <summary>Get single row table value</summary>
     /// <param name="table">The table</param>
     /// <param name="column">The column name</param>
     /// <param name="defaultValue">The default value</param>
     /// <returns>The data row value</returns>
-    public static T GetSingleRowValue<T>(this System.Data.DataTable table, string column, T defaultValue = default) =>
+    public static T SingleRowValue<T>(this System.Data.DataTable table, string column, T defaultValue = default) =>
         IsSingleRow(table) ? SingleRow(table).GetValue(column, defaultValue) : defaultValue;
 
     /// <summary>Select table rows by filter</summary>

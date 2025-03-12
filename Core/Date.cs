@@ -1,23 +1,31 @@
 ﻿using System;
+using System.Globalization;
 
 namespace PayrollEngine;
 
 /// <summary>Date specifications and base functions</summary>
 public static class Date
 {
+
     #region Value
 
     /// <summary>Represents the smallest possible value of a time instant</summary>
-    public static DateTime MinValue => DateTime.MinValue.ToUtc();
+    public static readonly DateTime MinValue = DateTime.MinValue.ToUtc();
 
     /// <summary>Represents the largest possible value of a time instant</summary>
-    public static DateTime MaxValue => DateTime.MaxValue.ToUtc();
+    public static readonly DateTime MaxValue = DateTime.MaxValue.ToUtc();
 
     /// <summary>Gets a time instant that is set to the current date and time</summary>
     public static DateTime Now => DateTime.UtcNow;
 
     /// <summary>Gets a time instant that is set to the current day</summary>
     public static DateTime Today => Now.Date;
+
+    /// <summary>Gets a time instant that is set to the next day</summary>
+    private static DateTime Tomorrow => Today.AddDays(1);
+
+    /// <summary>Gets a time instant that is set to the previous day</summary>
+    private static DateTime Yesterday => Today.AddDays(-1);
 
     /// <summary>Get the previous tick</summary>
     /// <param name="dateTime">The source date time</param>
@@ -96,6 +104,12 @@ public static class Date
 
     /// <summary>Last month in year</summary>
     public static readonly int LastMonthOfCalendarYear = MonthsInYear;
+
+    /// <summary>Minimum calendar date</summary>
+    public static readonly DateTime MinCalendarDate = new(1900, 1, 1);
+
+    /// <summary>Maximum calendar date</summary>
+    public static readonly DateTime MaxCalendarDate = new(2099, 12, 31);
 
     /// <summary>Returns the number of days in the specified month and year</summary>
     /// <param name="year">The year</param>
@@ -177,6 +191,19 @@ public static class Date
 
     #region Month Periods
 
+    /// <summary>Return the month name of the current culture</summary>
+    /// <param name="month">The month</param>
+    /// <returns>Name of the month</returns>
+    public static string GetMonthName(int month) =>
+        GetMonthName(month, CultureInfo.CurrentCulture);
+
+    /// <summary>Return the month name</summary>
+    /// <param name="month">The month</param>
+    /// <param name="culture">The culture</param>
+    /// <returns>Name of the month</returns>
+    private static string GetMonthName(int month, CultureInfo culture) =>
+        culture.DateTimeFormat.GetMonthName(month);
+
     /// <summary>Return the first moment of a month</summary>
     /// <param name="year">The moment year</param>
     /// <param name="month">The moment month</param>
@@ -253,7 +280,7 @@ public static class Date
     /// <param name="end">The period end date</param>
     /// <returns>The formatted period end date</returns>
     public static string ToPeriodEndString(DateTime end) =>
-        IsMidnight(end) || IsLastMomentOfDay(end) ? $"{end.ToShortDateString()} {end.ToShortTimeString()}" : end.ToShortDateString();
+        IsMidnight(end) || IsLastMomentOfDay(end) ? end.ToShortDateString() : $"{end.ToShortDateString()} {end.ToShortTimeString()}";
 
     /// <summary>Convert a date into the UTC value.
     /// Dates (without time part) are used without time adaption/// </summary>
@@ -283,6 +310,28 @@ public static class Date
     public static string ToUtcString(DateTime dateTime, IFormatProvider provider) =>
         ToUtc(dateTime).ToString("o", provider);
 
+    /// <summary>
+    /// Convert a date into the UTC value without UTC time adaption
+    /// Dates (without time part) are used without time adaption
+    /// </summary>
+    /// <param name="moment">The source date time</param>
+    /// <returns>The UTC date time</returns>
+    public static DateTime SpecifyUtcTime(DateTime moment)
+    {
+        switch (moment.Kind)
+        {
+            case DateTimeKind.Utc:
+                // already utc
+                return moment;
+            case DateTimeKind.Unspecified:
+            case DateTimeKind.Local:
+                // specify kind
+                return DateTime.SpecifyKind(moment, DateTimeKind.Utc);
+            default:
+                throw new ArgumentOutOfRangeException(nameof(moment));
+        }
+    }
+
     #endregion
 
     #region Compare
@@ -296,4 +345,77 @@ public static class Date
         left.Hour == right.Hour && left.Minute == right.Minute && left.Second == right.Second;
 
     #endregion
+
+    #region Parser
+
+    /// <summary>
+    /// Parse date expression
+    /// </summary>
+    /// <param name="expression">Date expression</param>
+    /// <param name="culture">Culture</param>
+    /// <returns>Parsed date, null on invalid expression</returns>
+    public static DateTime? Parse(string expression, CultureInfo culture)
+    {
+        if (string.IsNullOrWhiteSpace(expression))
+        {
+            return null;
+        }
+
+        // predefined expressions
+        switch (expression.ToLower())
+        {
+            case "yesterday":
+                return Yesterday;
+            case "today":
+                return Today;
+            case "tomorrow":
+                return Tomorrow;
+            case "previousmonth":
+                var previousMonth = Today.AddMonths(-1);
+                return new(previousMonth.Year, previousMonth.Month, 1);
+            case "month":
+                var month = Today;
+                return new(month.Year, month.Month, 1);
+            case "nextmonth":
+                var nextMonth = Today.AddMonths(1);
+                return new(nextMonth.Year, nextMonth.Month, 1);
+            case "previousyear":
+                return new(Today.AddYears(-1).Year, 1, 1);
+            case "year":
+                return new(Today.Year, 1, 1);
+            case "nextyear":
+                return new(Today.AddYears(1).Year, 1, 1);
+        }
+
+        // offset
+        if (expression.StartsWith("offset:", StringComparison.InvariantCultureIgnoreCase))
+        {
+            var offset = expression.Substring("offset:".Length);
+            if (!string.IsNullOrWhiteSpace(offset))
+            {
+                var valueText = offset.Substring(0, offset.Length - 1).TrimStart('+');
+                if (int.TryParse(valueText, out var value))
+                {
+
+                    switch (offset[^1])
+                    {
+                        case 'd':
+                            return Today.AddDays(value);
+                        case 'w':
+                            return Today.AddDays(DaysInWeek * value);
+                        case 'm':
+                            return Today.AddMonths(value);
+                        case 'y':
+                            return Today.AddYears(value);
+                    }
+                }
+            }
+        }
+
+        // date time parsing
+        return ValueConvert.ToDateTime(expression, culture);
+    }
+
+    #endregion
+
 }

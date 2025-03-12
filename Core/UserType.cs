@@ -6,15 +6,15 @@ namespace PayrollEngine;
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum UserType
 {
-    /// <summary>Regular user</summary>
-    User = 0,
-
     /// <summary>User with employee self-service</summary>
-    Employee = 1,
+    Employee = 0,
 
-    /// <summary>User who can manage users</summary>
-    Administrator = 2,
+    /// <summary>Regular payroll user</summary>
+    User = 1,
 
-    /// <summary>User with access to any feature</summary>
-    Supervisor = 3
+    /// <summary>Tenant administrator</summary>
+    TenantAdministrator = 2,
+
+    /// <summary>System administrator</summary>
+    SystemAdministrator = 3
 }
