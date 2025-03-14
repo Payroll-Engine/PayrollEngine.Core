@@ -18,6 +18,6 @@ public enum DocumentType
     /// <summary>XML document</summary>
     Xml = 3,
 
-    /// <summary>Raw XML document</summary>
-    XmlRaw = 4
+    /// <summary>Json document</summary>
+    Json = 4
 }

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
+using System.Text.Json;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace PayrollEngine.Data;
 
@@ -44,26 +46,33 @@ public static class DataTableExtensions
     public static List<T> GetValues<T>(this System.Data.DataTable dataTable, string column, T defaultValue = default) =>
         dataTable.Select().GetValues(column, defaultValue);
 
-    /// <summary>Get data table rows JSON value as dictionary</summary>
+    /// <summary>Get data table as dictionary</summary>
     /// <param name="dataTable">The data table</param>
-    /// <param name="column">The column name</param>
-    /// <param name="keyField">The json object key field</param>
-    /// <param name="valueField">The json object value field</param>
-    /// <returns>The data table rows value</returns>
-    public static Dictionary<string, string> GetDictionary(this System.Data.DataTable dataTable,
-        string column, string keyField, string valueField)
+    /// <returns>List of row dictionaries</returns>
+    public static  List<Dictionary<string, object>> AsDictionary(this System.Data.DataTable dataTable)
     {
-        var values = new Dictionary<string, string>();
-        foreach (var row in dataTable.AsEnumerable())
+        var values = new List<Dictionary<string, object>>();
+        foreach (System.Data.DataRow row in dataTable.AsEnumerable())
         {
-            var objectValues = row.GetDictionary<string, string>(column);
-            if (objectValues != null && objectValues.ContainsKey(keyField) &&
-                objectValues.TryGetValue(valueField, out var value))
-            {
-                values.Add(objectValues[keyField], value);
-            }
+            values.Add(row.AsDictionary());
         }
         return values;
+    }
+
+    /// <summary>Get data table as json</summary>
+    /// <param name="dataTable">The data table</param>
+    /// <param name="namingPolicy">Naming policy (default: camel case)</param>
+    /// <param name="ignoreNull">Ignore null values (default: true)</param>
+    public static string Json(this System.Data.DataTable dataTable, JsonNamingPolicy namingPolicy = null,
+        bool ignoreNull = true)
+    {
+        return JsonSerializer.Serialize(AsDictionary(dataTable), new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = namingPolicy ?? JsonNamingPolicy.CamelCase,
+            DictionaryKeyPolicy = namingPolicy ?? JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = ignoreNull ? JsonIgnoreCondition.WhenWritingNull : default
+        });
     }
 
     #endregion

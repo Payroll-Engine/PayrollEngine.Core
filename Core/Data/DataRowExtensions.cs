@@ -1,266 +1,297 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Text.Json;
-using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
-namespace PayrollEngine.Data
+namespace PayrollEngine.Data;
+
+// duplicated in PayrollEngine.Client.Scripting.System.Data.DataRowExtensions
+/// <summary>Data row extension methods</summary>
+public static class DataRowExtensions
 {
-    // duplicated in PayrollEngine.Client.Scripting.System.Data.DataRowExtensions
-    /// <summary>Data row extension methods</summary>
-    public static class DataRowExtensions
+
+    #region Row
+
+    /// <summary>Get data row id</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <returns>The data row id</returns>
+    public static int Id(this System.Data.DataRow dataRow) =>
+        GetValue<int>(dataRow, "Id");
+
+    /// <summary>Get data row name</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <returns>The data row name</returns>
+    public static string Name(this System.Data.DataRow dataRow) =>
+        GetValue<string>(dataRow, "Name");
+
+    /// <summary>Get data row identifier</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <returns>The data row identifier</returns>
+    public static string Identifier(this System.Data.DataRow dataRow) =>
+        GetValue<string>(dataRow, "Identifier");
+
+    /// <summary>Get data row object status</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <returns>The data row object status</returns>
+    public static ObjectStatus ObjectStatus(this System.Data.DataRow dataRow) =>
+        GetEnumValue(dataRow, "Status", PayrollEngine.ObjectStatus.Inactive);
+
+    #endregion
+
+    #region Values
+
+    /// <summary>Get data row enum value</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <param name="column">The column name</param>
+    /// <param name="defaultValue">The default value</param>
+    /// <returns>The data row enum value</returns>
+    public static T GetEnumValue<T>(this System.Data.DataRow dataRow, string column, T defaultValue = default)
+        where T : struct
     {
-
-        #region Row
-
-        /// <summary>Get data row id</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <returns>The data row id</returns>
-        public static int Id(this System.Data.DataRow dataRow) =>
-            GetValue<int>(dataRow, "Id");
-
-        /// <summary>Get data row name</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <returns>The data row name</returns>
-        public static string Name(this System.Data.DataRow dataRow) =>
-            GetValue<string>(dataRow, "Name");
-
-        /// <summary>Get data row identifier</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <returns>The data row identifier</returns>
-        public static string Identifier(this System.Data.DataRow dataRow) =>
-            GetValue<string>(dataRow, "Identifier");
-
-        /// <summary>Get data row object status</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <returns>The data row object status</returns>
-        public static ObjectStatus ObjectStatus(this System.Data.DataRow dataRow) =>
-            GetEnumValue(dataRow, "Status", PayrollEngine.ObjectStatus.Inactive);
-
-        #endregion
-
-        #region Values
-
-        /// <summary>Get data row enum value</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <param name="column">The column name</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The data row enum value</returns>
-        public static T GetEnumValue<T>(this System.Data.DataRow dataRow, string column, T defaultValue = default)
-            where T : struct
+        if (!typeof(T).IsEnum)
         {
-            if (!typeof(T).IsEnum)
-            {
-                throw new PayrollException($"Invalid enum value type: {typeof(T)}.");
-            }
-            var valueText = GetValue(dataRow, column, defaultValue.ToString());
-            if (string.IsNullOrWhiteSpace(valueText) || !Enum.TryParse(valueText, true, out T enumValue))
-            {
-                return defaultValue;
-            }
-            return enumValue;
+            throw new PayrollException($"Invalid enum value type: {typeof(T)}.");
+        }
+        var valueText = GetValue(dataRow, column, defaultValue.ToString());
+        if (string.IsNullOrWhiteSpace(valueText) || !Enum.TryParse(valueText, true, out T enumValue))
+        {
+            return defaultValue;
+        }
+        return enumValue;
+    }
+
+    /// <summary>Get data row value</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <param name="column">The column name</param>
+    /// <param name="defaultValue">The default value</param>
+    /// <returns>The data row value</returns>
+    public static T GetValue<T>(this System.Data.DataRow dataRow, string column, T defaultValue = default)
+    {
+        ArgumentNullException.ThrowIfNull(dataRow);
+        if (string.IsNullOrWhiteSpace(column))
+        {
+            throw new ArgumentException(null, nameof(column));
         }
 
-        /// <summary>Get data row value</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <param name="column">The column name</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The data row value</returns>
-        public static T GetValue<T>(this System.Data.DataRow dataRow, string column, T defaultValue = default)
+        var value = dataRow[column];
+        if (value is null or DBNull)
         {
-            ArgumentNullException.ThrowIfNull(dataRow);
-            if (string.IsNullOrWhiteSpace(column))
-            {
-                throw new ArgumentException(null, nameof(column));
-            }
-
-            var value = dataRow[column];
-            if (value is null or DBNull)
-            {
-                return defaultValue;
-            }
-            if (value is T typeValue)
-            {
-                return typeValue;
-            }
-            if (value is string stringValue)
-            {
-                // json escaping
-                stringValue = stringValue.Trim('"');
-                return (T)JsonSerializer.Deserialize(stringValue, typeof(T));
-            }
-
-            try
-            {
-                return (T)Convert.ChangeType(value, typeof(T));
-            }
-            catch (Exception exception)
-            {
-                throw new PayrollException($"Error in column {column}: convert value {value} to type {typeof(T)}.", exception);
-            }
+            return defaultValue;
+        }
+        if (value is T typeValue)
+        {
+            return typeValue;
+        }
+        if (value is string stringValue)
+        {
+            // json escaping
+            stringValue = stringValue.Trim('"');
+            return (T)JsonSerializer.Deserialize(stringValue, typeof(T));
         }
 
-        /// <summary>Set data row value</summary>
-        /// <remarks>Ensures the target column</remarks>
-        /// <param name="dataRow">The data row</param>
-        /// <param name="column">The column name</param>
-        /// <param name="value">The value to set</param>
-        public static void SetValue<T>(this System.Data.DataRow dataRow, string column, T value) =>
-            SetValue(dataRow, column, value, typeof(T));
-
-        /// <summary>Set data row value</summary>
-        /// <remarks>Ensures the target column</remarks>
-        /// <param name="dataRow">The data row</param>
-        /// <param name="column">The column name</param>
-        /// <param name="value">The value to set</param>
-        /// <param name="type">The value type</param>
-        public static void SetValue(this System.Data.DataRow dataRow, string column, object value, Type type = null)
+        try
         {
-            if (string.IsNullOrWhiteSpace(column))
-            {
-                throw new ArgumentException(null, nameof(column));
-            }
+            return (T)Convert.ChangeType(value, typeof(T));
+        }
+        catch (Exception exception)
+        {
+            throw new PayrollException($"Error in column {column}: convert value {value} to type {typeof(T)}.", exception);
+        }
+    }
 
-            type ??= typeof(string);
-            dataRow.Table.EnsureColumn(column, type);
-            dataRow[column] = value;
+    /// <summary>Set data row value</summary>
+    /// <remarks>Ensures the target column</remarks>
+    /// <param name="dataRow">The data row</param>
+    /// <param name="column">The column name</param>
+    /// <param name="value">The value to set</param>
+    public static void SetValue<T>(this System.Data.DataRow dataRow, string column, T value) =>
+        SetValue(dataRow, column, value, typeof(T));
+
+    /// <summary>Set data row value</summary>
+    /// <remarks>Ensures the target column</remarks>
+    /// <param name="dataRow">The data row</param>
+    /// <param name="column">The column name</param>
+    /// <param name="value">The value to set</param>
+    /// <param name="type">The value type</param>
+    public static void SetValue(this System.Data.DataRow dataRow, string column, object value, Type type = null)
+    {
+        if (string.IsNullOrWhiteSpace(column))
+        {
+            throw new ArgumentException(null, nameof(column));
         }
 
-        #endregion
+        type ??= typeof(string);
+        dataRow.Table.EnsureColumn(column, type);
+        dataRow[column] = value;
+    }
 
-        #region Payroll Value
+    #endregion
 
-        /// <summary>Get default payroll value type</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <returns>The payroll value tye</returns>
-        public static ValueType GetPayrollValueType(this System.Data.DataRow dataRow) =>
-            GetPayrollValueType(dataRow, nameof(ValueType));
+    #region Payroll Value
 
-        /// <summary>Get payroll value type</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <param name="column">The column name</param>
-        /// <param name="defaultType">The default value type</param>
-        /// <returns>The payroll value tye</returns>
-        public static ValueType GetPayrollValueType(this System.Data.DataRow dataRow,
-            string column, ValueType defaultType = ValueType.String) =>
-            GetEnumValue(dataRow, column, defaultType);
+    /// <summary>Get default payroll value type</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <returns>The payroll value tye</returns>
+    public static ValueType GetPayrollValueType(this System.Data.DataRow dataRow) =>
+        GetPayrollValueType(dataRow, nameof(ValueType));
 
-        /// <summary>Get default payroll value</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The payroll value</returns>
-        public static T GetPayrollValue<T>(this System.Data.DataRow dataRow, T defaultValue = default) =>
-            (T)GetPayrollValue(dataRow, (object)defaultValue);
+    /// <summary>Get payroll value type</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <param name="column">The column name</param>
+    /// <param name="defaultType">The default value type</param>
+    /// <returns>The payroll value tye</returns>
+    public static ValueType GetPayrollValueType(this System.Data.DataRow dataRow,
+        string column, ValueType defaultType = ValueType.String) =>
+        GetEnumValue(dataRow, column, defaultType);
 
-        /// <summary>Get payroll value</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <param name="valueColumn">The value column name</param>
-        /// <param name="valueTypeColumn">The value type column name</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The payroll value</returns>
-        public static T GetPayrollValue<T>(this System.Data.DataRow dataRow,
-            string valueColumn, string valueTypeColumn, T defaultValue = default) =>
-            (T)GetPayrollValue(dataRow, valueColumn, valueTypeColumn, (object)defaultValue);
+    /// <summary>Get default payroll value</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <param name="defaultValue">The default value</param>
+    /// <returns>The payroll value</returns>
+    public static T GetPayrollValue<T>(this System.Data.DataRow dataRow, T defaultValue = default) =>
+        (T)GetPayrollValue(dataRow, (object)defaultValue);
 
-        /// <summary>Get default payroll value</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The payroll value</returns>
-        public static object GetPayrollValue(this System.Data.DataRow dataRow, object defaultValue = null) =>
-            GetPayrollValue(dataRow, "Value", nameof(ValueType), defaultValue);
+    /// <summary>Get payroll value</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <param name="valueColumn">The value column name</param>
+    /// <param name="valueTypeColumn">The value type column name</param>
+    /// <param name="defaultValue">The default value</param>
+    /// <returns>The payroll value</returns>
+    public static T GetPayrollValue<T>(this System.Data.DataRow dataRow,
+        string valueColumn, string valueTypeColumn, T defaultValue = default) =>
+        (T)GetPayrollValue(dataRow, valueColumn, valueTypeColumn, (object)defaultValue);
 
-        /// <summary>Get payroll value</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <param name="valueColumn">The value column name</param>
-        /// <param name="valueTypeColumn">The value type column name</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The payroll value</returns>
-        public static object GetPayrollValue(this System.Data.DataRow dataRow,
-            string valueColumn, string valueTypeColumn, object defaultValue = null) =>
-            dataRow.GetJsonValue(valueColumn,
-                GetPayrollValueType(dataRow, valueTypeColumn).GetSystemType(), defaultValue);
+    /// <summary>Get default payroll value</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <param name="defaultValue">The default value</param>
+    /// <returns>The payroll value</returns>
+    public static object GetPayrollValue(this System.Data.DataRow dataRow, object defaultValue = null) =>
+        GetPayrollValue(dataRow, "Value", nameof(ValueType), defaultValue);
 
-        #endregion
+    /// <summary>Get payroll value</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <param name="valueColumn">The value column name</param>
+    /// <param name="valueTypeColumn">The value type column name</param>
+    /// <param name="defaultValue">The default value</param>
+    /// <returns>The payroll value</returns>
+    public static object GetPayrollValue(this System.Data.DataRow dataRow,
+        string valueColumn, string valueTypeColumn, object defaultValue = null) =>
+        dataRow.GetJsonValue(valueColumn,
+            GetPayrollValueType(dataRow, valueTypeColumn).GetSystemType(), defaultValue);
 
-        #region Collections
+    #endregion
 
-        /// <summary>Get data rows value</summary>
-        /// <param name="dataRows">The data rows</param>
-        /// <param name="column">The column name</param>
-        /// <param name="defaultValue">The default value</param>
-        /// <returns>The data rows value</returns>
-        public static List<T> GetValues<T>(this IEnumerable<System.Data.DataRow> dataRows, string column, T defaultValue = default)
+    #region Collections
+
+    /// <summary>Get data row values as dictionary</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <returns>The data rows values as dictionary, key is the column name</returns>
+    public static Dictionary<string, object> AsDictionary(this System.Data.DataRow dataRow)
+    {
+        ArgumentNullException.ThrowIfNull(dataRow);
+        var values = new Dictionary<string, object>();
+        foreach (System.Data.DataColumn column in dataRow.Table.Columns)
         {
-            ArgumentNullException.ThrowIfNull(dataRows);
-            if (string.IsNullOrWhiteSpace(column))
-            {
-                throw new ArgumentException(null, nameof(column));
-            }
+            values.Add(column.ColumnName, GetValue<object>(dataRow, column.ColumnName));
+        }
+        return values;
+    }
 
-            var values = new List<T>();
-            foreach (System.Data.DataRow dataRow in dataRows)
-            {
-                values.Add(GetValue(dataRow, column, defaultValue));
-            }
-            return values;
+    /// <summary>Get data row as json</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <param name="namingPolicy">Naming policy (default: camel case)</param>
+    /// <param name="ignoreNull">Ignore null values (default: true)</param>
+    public static string Json(this System.Data.DataRow dataRow, JsonNamingPolicy namingPolicy = null,
+        bool ignoreNull = true)
+    {
+        ArgumentNullException.ThrowIfNull(dataRow);
+        return JsonSerializer.Serialize(AsDictionary(dataRow), new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = namingPolicy ?? JsonNamingPolicy.CamelCase,
+            DictionaryKeyPolicy = namingPolicy ?? JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = ignoreNull ? JsonIgnoreCondition.WhenWritingNull : default
+        });
+    }
+
+    /// <summary>Get data rows value</summary>
+    /// <param name="dataRows">The data rows</param>
+    /// <param name="column">The column name</param>
+    /// <param name="defaultValue">The default value</param>
+    /// <returns>The data rows value</returns>
+    public static List<T> GetValues<T>(this IEnumerable<System.Data.DataRow> dataRows, string column, T defaultValue = default)
+    {
+        ArgumentNullException.ThrowIfNull(dataRows);
+        if (string.IsNullOrWhiteSpace(column))
+        {
+            throw new ArgumentException(null, nameof(column));
         }
 
-        /// <summary>Get data row JSON value as list</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <param name="column">The column name</param>
-        /// <returns>The list</returns>
-        public static List<T> GetListValue<T>(this System.Data.DataRow dataRow, string column)
+        var values = new List<T>();
+        foreach (System.Data.DataRow dataRow in dataRows)
         {
-            ArgumentNullException.ThrowIfNull(dataRow);
-            if (string.IsNullOrWhiteSpace(column))
-            {
-                throw new ArgumentException(null, nameof(column));
-            }
+            values.Add(GetValue(dataRow, column, defaultValue));
+        }
+        return values;
+    }
 
-            var value = dataRow[column];
-            if (value is null or DBNull)
+    /// <summary>Get data row JSON value as list</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <param name="column">The column name</param>
+    /// <returns>The list</returns>
+    public static List<T> GetListValue<T>(this System.Data.DataRow dataRow, string column)
+    {
+        ArgumentNullException.ThrowIfNull(dataRow);
+        if (string.IsNullOrWhiteSpace(column))
+        {
+            throw new ArgumentException(null, nameof(column));
+        }
+
+        var value = dataRow[column];
+        if (value is null or DBNull)
+        {
+            return [];
+        }
+        if (value is IEnumerable<T> enumerable)
+        {
+            return [.. enumerable];
+        }
+        if (value is string json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
             {
                 return [];
             }
-            if (value is IEnumerable<T> enumerable)
-            {
-                return [.. enumerable];
-            }
-            if (value is string json)
-            {
-                if (string.IsNullOrWhiteSpace(json))
-                {
-                    return [];
-                }
-                return JsonSerializer.Deserialize<List<T>>(json);
-            }
-
-            throw new ArgumentException($"{value} from column {column} is not a JSON list.", nameof(column));
+            return JsonSerializer.Deserialize<List<T>>(json);
         }
 
-        /// <summary>Get data row JSON value as dictionary</summary>
-        /// <param name="dataRow">The data row</param>
-        /// <param name="column">The column name</param>
-        /// <returns>The dictionary</returns>
-        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(this System.Data.DataRow dataRow, string column)
-        {
-            ArgumentNullException.ThrowIfNull(dataRow);
-            if (string.IsNullOrWhiteSpace(column))
-            {
-                throw new ArgumentException(null, nameof(column));
-            }
-
-            var value = dataRow[column];
-            return value switch
-            {
-                null or DBNull => new(),
-                IDictionary<TKey, TValue> dictionary => new(dictionary),
-                string json => string.IsNullOrWhiteSpace(json)
-                    ? new()
-                    : JsonSerializer.Deserialize<Dictionary<TKey, TValue>>(json),
-                _ => throw new ArgumentException($"{value} from column {column} is not a JSON dictionary.", nameof(column))
-            };
-        }
-
-        #endregion
-
+        throw new ArgumentException($"{value} from column {column} is not a JSON list.", nameof(column));
     }
+
+    /// <summary>Get data row JSON value as dictionary</summary>
+    /// <param name="dataRow">The data row</param>
+    /// <param name="column">The column name</param>
+    /// <returns>Value as dictionary</returns>
+    public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(this System.Data.DataRow dataRow, string column)
+    {
+        ArgumentNullException.ThrowIfNull(dataRow);
+        if (string.IsNullOrWhiteSpace(column))
+        {
+            throw new ArgumentException(null, nameof(column));
+        }
+
+        var value = dataRow[column];
+        return value switch
+        {
+            null or DBNull => new(),
+            IDictionary<TKey, TValue> dictionary => new(dictionary),
+            string json => string.IsNullOrWhiteSpace(json)
+                ? new()
+                : JsonSerializer.Deserialize<Dictionary<TKey, TValue>>(json),
+            _ => throw new ArgumentException($"{value} from column {column} is not a JSON dictionary.", nameof(column))
+        };
+    }
+
+    #endregion
+
 }

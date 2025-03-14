@@ -20,8 +20,9 @@ public static class DocumentTypeExtensions
             case DocumentType.Pdf:
                 return FileExtensions.PdfDocument;
             case DocumentType.Xml:
-            case DocumentType.XmlRaw:
                 return FileExtensions.Xml;
+            case DocumentType.Json:
+                return FileExtensions.Json;
             default:
                 throw new ArgumentOutOfRangeException(nameof(documentType), documentType, null);
         }

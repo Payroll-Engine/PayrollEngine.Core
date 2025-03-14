@@ -1105,6 +1105,17 @@
             <param name="defaultValue">The default value</param>
             <returns>The payroll value</returns>
         </member>
+        <member name="M:PayrollEngine.Data.DataRowExtensions.AsDictionary(System.Data.DataRow)">
+            <summary>Get data row values as dictionary</summary>
+            <param name="dataRow">The data row</param>
+            <returns>The data rows values as dictionary, key is the column name</returns>
+        </member>
+        <member name="M:PayrollEngine.Data.DataRowExtensions.Json(System.Data.DataRow,System.Text.Json.JsonNamingPolicy,System.Boolean)">
+            <summary>Get data row as json</summary>
+            <param name="dataRow">The data row</param>
+            <param name="namingPolicy">Naming policy (default: camel case)</param>
+            <param name="ignoreNull">Ignore null values (default: true)</param>
+        </member>
         <member name="M:PayrollEngine.Data.DataRowExtensions.GetValues``1(System.Collections.Generic.IEnumerable{System.Data.DataRow},System.String,``0)">
             <summary>Get data rows value</summary>
             <param name="dataRows">The data rows</param>
@@ -1122,7 +1133,7 @@
             <summary>Get data row JSON value as dictionary</summary>
             <param name="dataRow">The data row</param>
             <param name="column">The column name</param>
-            <returns>The dictionary</returns>
+            <returns>Value as dictionary</returns>
         </member>
         <member name="T:PayrollEngine.Data.DataRowJsonExtensions">
             <summary>Data row json extension methods</summary>
@@ -1263,6 +1274,17 @@
             </summary>
             <param name="dataSet">The system data set to convert</param>
             <returns>True if any row is available</returns>
+        </member>
+        <member name="M:PayrollEngine.Data.DataSetExtensions.AsDictionary(System.Data.DataSet)">
+            <summary>Get data set table rows values as dictionary</summary>
+            <param name="dataSet">The payroll data set to convert</param>
+            <returns>The data table values as dictionary, key is table column name</returns>
+        </member>
+        <member name="M:PayrollEngine.Data.DataSetExtensions.Json(System.Data.DataSet,System.Text.Json.JsonNamingPolicy,System.Boolean)">
+            <summary>Get data set as json</summary>
+            <param name="dataSet">The payroll data set to convert</param>
+            <param name="namingPolicy">Naming policy (default: camel case)</param>
+            <param name="ignoreNull">Ignore null values (default: true)</param>
         </member>
         <member name="M:PayrollEngine.Data.DataSetExtensions.ToSystemDataSet(PayrollEngine.Data.DataSet)">
             <summary>
@@ -1476,13 +1498,16 @@
             <param name="defaultValue">The default value</param>
             <returns>The data table rows value</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataTableExtensions.GetDictionary(System.Data.DataTable,System.String,System.String,System.String)">
-            <summary>Get data table rows JSON value as dictionary</summary>
+        <member name="M:PayrollEngine.Data.DataTableExtensions.AsDictionary(System.Data.DataTable)">
+            <summary>Get data table as dictionary</summary>
             <param name="dataTable">The data table</param>
-            <param name="column">The column name</param>
-            <param name="keyField">The json object key field</param>
-            <param name="valueField">The json object value field</param>
-            <returns>The data table rows value</returns>
+            <returns>List of row dictionaries</returns>
+        </member>
+        <member name="M:PayrollEngine.Data.DataTableExtensions.Json(System.Data.DataTable,System.Text.Json.JsonNamingPolicy,System.Boolean)">
+            <summary>Get data table as json</summary>
+            <param name="dataTable">The data table</param>
+            <param name="namingPolicy">Naming policy (default: camel case)</param>
+            <param name="ignoreNull">Ignore null values (default: true)</param>
         </member>
         <member name="T:PayrollEngine.Data.DataTableItemExtensions">
             <summary>Data table item extension methods</summary>
@@ -2370,8 +2395,8 @@
         <member name="F:PayrollEngine.Document.DocumentType.Xml">
             <summary>XML document</summary>
         </member>
-        <member name="F:PayrollEngine.Document.DocumentType.XmlRaw">
-            <summary>Raw XML document</summary>
+        <member name="F:PayrollEngine.Document.DocumentType.Json">
+            <summary>Json document</summary>
         </member>
         <member name="T:PayrollEngine.Document.DocumentTypeExtensions">
             <summary>Extensions for <see cref="T:PayrollEngine.Document.DocumentType"/></summary>
