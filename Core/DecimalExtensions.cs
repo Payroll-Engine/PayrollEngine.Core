@@ -61,7 +61,6 @@ public static class DecimalExtensions
             DecimalRounding.Twentieth => RoundTwentieth(value),
             DecimalRounding.Fiftieth => RoundFiftieth(value),
             DecimalRounding.Hundredth => RoundHundredth(value),
-            DecimalRounding.None => value,
             _ => value
         };
 
