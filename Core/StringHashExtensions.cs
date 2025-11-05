@@ -23,6 +23,10 @@ public static class StringHashExtensions
         {
             return GetHashCode(source);
         }
+        if (string.IsNullOrWhiteSpace(source))
+        {
+            return GetHashCode(rangeValue);
+        }
 
         // combined hash key
         return GetHashCode(source, rangeValue.Value.ToString(CultureInfo.InvariantCulture));

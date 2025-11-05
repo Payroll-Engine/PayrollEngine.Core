@@ -20,7 +20,11 @@ public static class DefaultJsonSerializer
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         TypeInfoResolver = new DefaultJsonTypeInfoResolver
         {
-            Modifiers = { DefaultValueModifier }
+            Modifiers =
+            {
+                // default value
+                DefaultValueModifier
+            }
         },
         Converters = { new NamedDictionaryConverter() }
     };
@@ -63,16 +67,26 @@ public static class DefaultJsonSerializer
     /// <summary>
     /// Suppress empty collections
     /// </summary>
-    /// <remarks>see https://stackoverflow.com/a/73777873/15659039</remarks>
     /// <param name="typeInfo"></param>
     private static void DefaultValueModifier(JsonTypeInfo typeInfo)
     {
         foreach (var property in typeInfo.Properties)
         {
+            // ignore empty collections
+            // see https://stackoverflow.com/a/73777873/15659039
             if (typeof(ICollection).IsAssignableFrom(property.PropertyType))
             {
                 property.ShouldSerialize = (_, value) =>
                     value is ICollection collection && collection.Count > 0;
+                continue;
+            }
+
+            // read-only json property
+            var attributes = property.AttributeProvider?.GetCustomAttributes(typeof(JsonReadOnlyAttribute), true) ?? [];
+            JsonReadOnlyAttribute attribute = attributes.Length == 1 ? (JsonReadOnlyAttribute)attributes[0] : null;
+            if (attribute != null)
+            {
+                property.ShouldSerialize = (_, _) => false;
             }
         }
     }

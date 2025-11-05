@@ -3054,6 +3054,18 @@
             <param name="name">The stopwatch name</param>
             <param name="logLevel">The logger level, default is information</param>
         </member>
+        <member name="T:PayrollEngine.LookupRangeMode">
+            <summary>The lookup range mode</summary>
+        </member>
+        <member name="F:PayrollEngine.LookupRangeMode.None">
+            <summary>No lookup range mode</summary>
+        </member>
+        <member name="F:PayrollEngine.LookupRangeMode.Threshold">
+            <summary>Threshold by range value (first range value must be zero)</summary>
+        </member>
+        <member name="F:PayrollEngine.LookupRangeMode.Progressive">
+            <summary>Split by range value and factor (first range value must be zero)</summary>
+        </member>
         <member name="T:PayrollEngine.Month">
             <summary>Enumeration with the year months</summary>
         </member>
@@ -3967,8 +3979,12 @@
             <summary>
             Suppress empty collections
             </summary>
-            <remarks>see https://stackoverflow.com/a/73777873/15659039</remarks>
             <param name="typeInfo"></param>
+        </member>
+        <member name="T:PayrollEngine.Serialization.JsonReadOnlyAttribute">
+            <summary>
+            JSON attribute for read-only attributes
+            </summary>
         </member>
         <member name="T:PayrollEngine.Serialization.JsonSerializer">
             <summary>Extensions for System.Text.Json.JsonSerializer</summary>
