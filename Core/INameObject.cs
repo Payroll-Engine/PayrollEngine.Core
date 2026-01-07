@@ -1,9 +1,11 @@
-﻿
-namespace PayrollEngine;
+﻿namespace PayrollEngine;
 
-/// <summary>Object identified by name</summary>
-public interface INameObject
+/// <summary>Object with namespace identifiers</summary>
+public interface INamespaceObject
 {
-    /// <summary>The object name</summary>
-    string Name { get; set; }
+    /// <summary>
+    /// Apply namespace
+    /// </summary>
+    /// <param name="namespace">Namespace to apply</param>
+    void ApplyNamespace(string @namespace);
 }

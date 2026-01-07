@@ -22,78 +22,77 @@ public static class UriExtensions
         return id;
     }
 
-    /// <summary>Ensures the URL validity</summary>
     /// <param name="uri">The base URI</param>
-    /// <returns>Closed URI</returns>
-    public static string EnsureClosedUri(this string uri) => uri.EnsureEnd("/");
-
-    /// <summary>Append the given query key and value to the URI</summary>
-    /// <param name="uri">The base URI</param>
-    /// <param name="name">The name of the query key</param>
-    /// <param name="values">The collection value</param>
-    /// <returns>The combined result</returns>
-    public static string AddCollectionQueryString(this string uri, string name, IEnumerable values)
+    extension(string uri)
     {
-        if (values != null)
+        /// <summary>Ensures the URL validity</summary>
+        /// <returns>Closed URI</returns>
+        public string EnsureClosedUri() => uri.EnsureEnd("/");
+
+        /// <summary>Append the given query key and value to the URI</summary>
+        /// <param name="name">The name of the query key</param>
+        /// <param name="values">The collection value</param>
+        /// <returns>The combined result</returns>
+        public string AddCollectionQueryString(string name, IEnumerable values)
         {
-            foreach (var value in values)
+            if (values != null)
             {
-                uri = uri.AddQueryString(name, value);
+                foreach (var value in values)
+                {
+                    uri = uri.AddQueryString(name, value);
+                }
             }
-        }
-        return uri;
-    }
-
-    /// <summary>Append the given query key and value to the URI</summary>
-    /// <param name="uri">The base URI</param>
-    /// <param name="name">The name of the query key</param>
-    /// <param name="value">The query value (enum:names, date time: UTC round trip pattern)</param>
-    /// <returns>The combined result</returns>
-    public static string AddQueryString(this string uri, string name, object value)
-    {
-        if (value == null)
-        {
             return uri;
         }
-        var type = value.GetType();
 
-        string stringValue;
-        if (type.IsEnum)
+        /// <summary>Append the given query key and value to the URI</summary>
+        /// <param name="name">The name of the query key</param>
+        /// <param name="value">The query value (enum:names, date time: UTC round trip pattern)</param>
+        /// <returns>The combined result</returns>
+        public string AddQueryString(string name, object value)
         {
-            stringValue = Enum.GetName(type, value);
-        }
-        else if (value is decimal decimalValue)
-        {
-            return AddQueryString(uri, name, decimalValue);
-        }
-        else if (value is DateTime dateTimeValue)
-        {
-            return AddQueryString(uri, name, dateTimeValue);
-        }
-        else
-        {
-            // others
-            stringValue = value.ToString();
+            if (value == null)
+            {
+                return uri;
+            }
+            var type = value.GetType();
+
+            string stringValue;
+            if (type.IsEnum)
+            {
+                stringValue = Enum.GetName(type, value);
+            }
+            else if (value is decimal decimalValue)
+            {
+                return uri.AddQueryString(name, decimalValue);
+            }
+            else if (value is DateTime dateTimeValue)
+            {
+                return uri.AddQueryString(name, dateTimeValue);
+            }
+            else
+            {
+                // others
+                stringValue = value.ToString();
+            }
+
+            return string.IsNullOrWhiteSpace(stringValue) ?
+                uri :
+                QueryHelpers.AddQueryString(uri, name, stringValue);
         }
 
-        return string.IsNullOrWhiteSpace(stringValue) ?
-            uri :
-            QueryHelpers.AddQueryString(uri, name, stringValue);
+        /// <summary>Append the given query key and value to the URI</summary>
+        /// <param name="name">The name of the query key</param>
+        /// <param name="value">The decimal value</param>
+        /// <returns>The combined result</returns>
+        public string AddQueryString(string name, decimal value) =>
+            QueryHelpers.AddQueryString(uri, name, value.ToString(CultureInfo.InvariantCulture));
+
+        /// <summary>Append the given query key and value to the URI</summary>
+        /// <param name="name">The name of the query key</param>
+        /// <param name="value">The date time value</param>
+        /// <returns>The combined result</returns>
+        public string AddQueryString(string name, DateTime value) =>
+            QueryHelpers.AddQueryString(uri, name, value.ToString(CultureInfo.InvariantCulture));
     }
-
-    /// <summary>Append the given query key and value to the URI</summary>
-    /// <param name="uri">The base URI</param>
-    /// <param name="name">The name of the query key</param>
-    /// <param name="value">The decimal value</param>
-    /// <returns>The combined result</returns>
-    public static string AddQueryString(this string uri, string name, decimal value) =>
-        QueryHelpers.AddQueryString(uri, name, value.ToString(CultureInfo.InvariantCulture));
-
-    /// <summary>Append the given query key and value to the URI</summary>
-    /// <param name="uri">The base URI</param>
-    /// <param name="name">The name of the query key</param>
-    /// <param name="value">The date time value</param>
-    /// <returns>The combined result</returns>
-    public static string AddQueryString(this string uri, string name, DateTime value) =>
-        QueryHelpers.AddQueryString(uri, name, value.ToString(CultureInfo.InvariantCulture));
 }

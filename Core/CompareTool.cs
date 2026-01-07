@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PayrollEngine;
 
@@ -20,6 +20,7 @@ public static class CompareTool
         {
             return true;
         }
+
         // one side undefined or different count
         if (left == null || right == null)
         {
@@ -29,7 +30,7 @@ public static class CompareTool
         return left.Equals(right);
     }
 
-    /// <summary>Compare objects by properties, base types are not considered</summary>
+    /// <summary>Compare objects properties, ignoring base types</summary>
     /// <param name="left">The left object to compare</param>
     /// <param name="right">The right object to compare</param>
     /// <returns>True if the objects contains equals values</returns>
@@ -40,12 +41,14 @@ public static class CompareTool
         {
             return true;
         }
+
         // one side undefined or different count
         if (left == null || right == null)
         {
             return false;
         }
 
+        // property values
         var properties = TypeTool.GetTypeProperties(typeof(T));
         foreach (var property in properties)
         {
@@ -58,23 +61,27 @@ public static class CompareTool
         return true;
     }
 
-    /// <summary>Compare a list with object containing value</summary>
+    /// <summary>Compare typed lists</summary>
     /// <param name="left">The left item to compare</param>
     /// <param name="right">The right item to compare</param>
     /// <returns>True if the lists items are equal</returns>
     public static bool EqualTypeLists<T>(IList<T> left, IList<T> right) where T : IEquatable<T>
     {
-        // both undefined
-        if (left == null && right == null)
+        // undefined or empty
+        if ((left == null && right == null) ||
+            (left == null && right.Count == 0) ||
+            (right == null && left.Count == 0))
         {
             return true;
         }
+
         // one side undefined or different count
         if (left == null || right == null || left.Count != right.Count)
         {
             return false;
         }
 
+        // list values
         for (var index = 0; index < left.Count; index++)
         {
             var leftValue = left[index];
@@ -91,24 +98,27 @@ public static class CompareTool
         return true;
     }
 
-    /// <summary>Compare values of two lists</summary>
+    /// <summary>Compare values of lists</summary>
     /// <param name="left">The left item to compare</param>
     /// <param name="right">The right item to compare</param>
     /// <returns>True if the list items are equal</returns>
     public static bool EqualLists(IList left, IList right)
     {
-        // both undefined
-        if (left == null && right == null)
+        // undefined or empty
+        if ((left == null && right == null) ||
+            (left == null && right.Count == 0) ||
+            (right == null && left.Count == 0))
         {
             return true;
         }
+
         // one side undefined or different count
         if (left == null || right == null || left.Count != right.Count)
         {
             return false;
         }
 
-        // compare values
+        // list values
         for (var index = 0; index < left.Count; index++)
         {
             var leftValue = left[index];
@@ -121,7 +131,7 @@ public static class CompareTool
         return true;
     }
 
-    /// <summary>Compare distinct items of two lists</summary>
+    /// <summary>Compare distinct items of lists</summary>
     /// <param name="left">The left item to compare</param>
     /// <param name="right">The right item to compare</param>
     /// <returns>True if the distinct list items are equal</returns>
@@ -132,33 +142,39 @@ public static class CompareTool
         {
             return true;
         }
+
         // one side undefined
         if (left == null || right == null)
         {
             return false;
         }
+
         // order distinct items by hash code
         var leftDistinct = left.Distinct().OrderBy(x => x != null ? x.GetHashCode() : 0).ToList();
         var rightDistinct = right.Distinct().OrderBy(x => x != null ? x.GetHashCode() : 0).ToList();
         return EqualLists(leftDistinct, rightDistinct);
     }
 
-    /// <summary>Compare two dictionaries</summary>
+    /// <summary>Compare  dictionaries</summary>
     /// <param name="left">The left item to compare</param>
     /// <param name="right">The right item to compare</param>
     /// <returns>True if the dictionary items are equal</returns>
     public static bool EqualDictionaries<TKey, TValue>(IDictionary<TKey, TValue> left, IDictionary<TKey, TValue> right)
     {
-        // both undefined
-        if (left == null && right == null)
+        // undefined or empty
+        if ((left == null && right == null) ||
+            (left == null && right.Count == 0) ||
+            (right == null && left.Count == 0))
         {
             return true;
         }
+
         // one side undefined or different count
         if (left == null || right == null)
         {
             return false;
         }
+
         // compare content: contains key and same value
         // https://stackoverflow.com/questions/3804367/testing-for-equality-between-dictionaries-in-c-sharp
         // ReSharper disable once UsageOfDefaultStructEquality
@@ -166,23 +182,27 @@ public static class CompareTool
         return equals;
     }
 
-    /// <summary>Compare two dictionaries</summary>
+    /// <summary>Compare dictionaries</summary>
     /// <param name="left">The left item to compare</param>
     /// <param name="right">The right item to compare</param>
     /// <returns>True if the dictionary items are equal</returns>
     public static bool EqualDictionaries(IDictionary left, IDictionary right)
     {
-        // both undefined
-        if (left == null && right == null)
+        // undefined or empty
+        if ((left == null && right == null) ||
+            (left == null && right.Count == 0) ||
+            (right == null && left.Count == 0))
         {
             return true;
         }
+
         // one side undefined or different count
         if (left == null || right == null || left.Count != right.Count)
         {
             return false;
         }
 
+        // compare item
         foreach (var key in left.Keys)
         {
             if (!right.Contains(key) || !EqualValues(left[key], right[key]))
@@ -194,17 +214,20 @@ public static class CompareTool
         return true;
     }
 
-    /// <summary>Compare two byte arrays</summary>
+    /// <summary>Compare byte arrays</summary>
     /// <param name="left">The left bytes to compare</param>
     /// <param name="right">The right bytes to compare</param>
     /// <returns>True if the byte arrays are equal</returns>
     public static bool EqualBytes(byte[] left, byte[] right)
     {
-        // both undefined
-        if (left == null && right == null)
+        // undefined or empty
+        if ((left == null && right == null) ||
+            (left == null && right.Length == 0) ||
+            (right == null && left.Length == 0))
         {
             return true;
         }
+
         // one side undefined
         if (left == null || right == null)
         {
@@ -213,6 +236,12 @@ public static class CompareTool
         return left.SequenceEqual(right);
     }
 
+    /// <summary>
+    /// Compare values
+    /// </summary>
+    /// <param name="leftValue">Left value to compare</param>
+    /// <param name="rightValue">True value to compare</param>
+    /// <returns>True on equal object</returns>
     private static bool EqualValues(object leftValue, object rightValue)
     {
         if (leftValue == null && rightValue == null)
@@ -221,23 +250,15 @@ public static class CompareTool
         }
 
         // list
-        if (leftValue is IList leftList && rightValue is IList rightList)
+        if (leftValue is IList || rightValue is IList)
         {
-            if (!EqualLists(leftList, rightList))
-            {
-                return false;
-            }
-            return true;
+            return EqualLists(leftValue as IList, rightValue as IList);
         }
 
         // dictionary
-        if (leftValue is IDictionary leftDictionary && rightValue is IDictionary rightDictionary)
+        if (leftValue is IDictionary || rightValue is IDictionary)
         {
-            if (!EqualDictionaries(leftDictionary, rightDictionary))
-            {
-                return false;
-            }
-            return true;
+            return EqualDictionaries(leftValue as IDictionary, rightValue as IDictionary);
         }
 
         // equatable
@@ -252,6 +273,12 @@ public static class CompareTool
         return equalObject;
     }
 
+    /// <summary>
+    /// Compare equatable values
+    /// </summary>
+    /// <param name="leftValue">Left value to compare</param>
+    /// <param name="rightValue">True value to compare</param>
+    /// <returns>True on equal object</returns>
     private static bool? EqualEquatable(object leftValue, object rightValue)
     {
         if (leftValue == null || rightValue == null)
@@ -259,30 +286,34 @@ public static class CompareTool
             return null;
         }
 
+        // object type
         var leftType = leftValue.GetType();
         var rightType = rightValue.GetType();
-        if (leftType == rightType)
+        if (leftType != rightType)
         {
-            var leftEquatable = leftType.GetInterfaces()
-                .Where(t => t.IsGenericType)
-                .Select(t => t.GetGenericTypeDefinition())
-                .Any(t => t == typeof(IEquatable<>));
-            var rightEquatable = rightType.GetInterfaces()
-                .Where(t => t.IsGenericType)
-                .Select(t => t.GetGenericTypeDefinition())
-                .Any(t => t == typeof(IEquatable<>));
-            if (leftEquatable.Equals(rightEquatable))
-            {
-                MethodInfo method = leftType.GetMethod(nameof(IEquatable<object>.Equals), [rightType]);
-                if (method != null)
-                {
-                    var equals = method.Invoke(leftValue, [rightValue]);
-                    {
-                        return equals != null && (bool)equals;
-                    }
-                }
-            }
+            return null;
         }
-        return null;
+
+        var leftEquatable = leftType.GetInterfaces()
+            .Where(t => t.IsGenericType)
+            .Select(t => t.GetGenericTypeDefinition())
+            .Any(t => t == typeof(IEquatable<>));
+        var rightEquatable = rightType.GetInterfaces()
+            .Where(t => t.IsGenericType)
+            .Select(t => t.GetGenericTypeDefinition())
+            .Any(t => t == typeof(IEquatable<>));
+        if (!leftEquatable.Equals(rightEquatable))
+        {
+            return null;
+        }
+
+        // object values
+        MethodInfo method = leftType.GetMethod(nameof(IEquatable<>.Equals), [rightType]);
+        if (method == null)
+        {
+            return null;
+        }
+        var equals = method.Invoke(leftValue, [rightValue]);
+        return equals != null && (bool)equals;
     }
 }

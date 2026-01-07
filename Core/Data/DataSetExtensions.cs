@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.Json;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace PayrollEngine.Data;
@@ -24,47 +24,48 @@ public static class DataSetExtensions
         return dataSet.Tables.Any(table => table.Rows.Any());
     }
 
-    /// <summary>
-    /// Test for  data set rows
-    /// </summary>
     /// <param name="dataSet">The system data set to convert</param>
-    /// <returns>True if any row is available</returns>
-    public static bool HasRows(this System.Data.DataSet dataSet)
+    extension(System.Data.DataSet dataSet)
     {
-        if (dataSet?.Tables == null || dataSet.Tables.Count == 0)
+        /// <summary>
+        /// Test for  data set rows
+        /// </summary>
+        /// <returns>True if any row is available</returns>
+        public bool HasRows()
         {
-            return false;
+            if (dataSet?.Tables == null || dataSet.Tables.Count == 0)
+            {
+                return false;
+            }
+            return dataSet.Tables.Cast<System.Data.DataTable>().Any(table => table.Rows.Count > 0);
         }
-        return dataSet.Tables.Cast<System.Data.DataTable>().Any(table => table.Rows.Count > 0);
-    }
 
-    /// <summary>Get data set table rows values as dictionary</summary>
-    /// <param name="dataSet">The payroll data set to convert</param>
-    /// <returns>The data table values as dictionary, key is table column name</returns>
-    public static Dictionary<string, List<Dictionary<string, object>>> AsDictionary(this System.Data.DataSet dataSet)
-    {
-        var values = new Dictionary<string, List<Dictionary<string, object>>>();
-        foreach (System.Data.DataTable table in dataSet.Tables)
+        /// <summary>Get data set table rows values as dictionary</summary>
+        /// <returns>The data table values as dictionary, key is table column name</returns>
+        public Dictionary<string, List<Dictionary<string, object>>> AsDictionary()
         {
-            values.Add(table.TableName, table.AsDictionary());
+            var values = new Dictionary<string, List<Dictionary<string, object>>>();
+            foreach (System.Data.DataTable table in dataSet.Tables)
+            {
+                values.Add(table.TableName, table.AsDictionary());
+            }
+            return values;
         }
-        return values;
-    }
 
-    /// <summary>Get data set as json</summary>
-    /// <param name="dataSet">The payroll data set to convert</param>
-    /// <param name="namingPolicy">Naming policy (default: camel case)</param>
-    /// <param name="ignoreNull">Ignore null values (default: true)</param>
-    public static string Json(this System.Data.DataSet dataSet, JsonNamingPolicy namingPolicy = null,
-        bool ignoreNull = true)
-    {
-        return JsonSerializer.Serialize(AsDictionary(dataSet), new JsonSerializerOptions
+        /// <summary>Get data set as json</summary>
+        /// <param name="namingPolicy">Naming policy (default: camel case)</param>
+        /// <param name="ignoreNull">Ignore null values (default: true)</param>
+        public string Json(JsonNamingPolicy namingPolicy = null,
+            bool ignoreNull = true)
         {
-            WriteIndented = true,
-            PropertyNamingPolicy = namingPolicy ?? JsonNamingPolicy.CamelCase,
-            DictionaryKeyPolicy = namingPolicy ?? JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = ignoreNull ? JsonIgnoreCondition.WhenWritingNull : default
-        });
+            return JsonSerializer.Serialize(dataSet.AsDictionary(), new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                PropertyNamingPolicy = namingPolicy ?? JsonNamingPolicy.CamelCase,
+                DictionaryKeyPolicy = namingPolicy ?? JsonNamingPolicy.CamelCase,
+                DefaultIgnoreCondition = ignoreNull ? JsonIgnoreCondition.WhenWritingNull : default
+            });
+        }
     }
 
     /// <summary>

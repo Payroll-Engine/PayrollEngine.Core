@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Text.Json;
-using System;
+using System.Collections.Generic;
 
 namespace PayrollEngine.Data;
 
@@ -8,68 +8,65 @@ namespace PayrollEngine.Data;
 /// <summary>Data row attribute extension methods</summary>
 public static class DataRowAttributeExtensions
 {
-    /// <summary>Get attributes column value as attribute dictionary</summary>
     /// <param name="dataRow">The data row</param>
-    /// <returns>The attributes dictionary</returns>
-    public static Dictionary<string, object> GetAttributes(this System.Data.DataRow dataRow) =>
-        GetAttributes(dataRow, nameof(IAttributeObject.Attributes));
-
-    /// <summary>Get data row json value as attribute dictionary</summary>
-    /// <param name="dataRow">The data row</param>
-    /// <param name="column">The column name</param>
-    /// <returns>The attributes dictionary</returns>
-    public static Dictionary<string, object> GetAttributes(this System.Data.DataRow dataRow, string column) =>
-        dataRow.GetDictionary<string, object>(column);
-
-    /// <summary>Get value from attributes column</summary>
-    /// <param name="dataRow">The data row</param>
-    /// <param name="attribute">The attribute name</param>
-    /// <param name="defaultValue">The default value</param>
-    /// <returns>The attribute value</returns>
-    public static T GetAttribute<T>(this System.Data.DataRow dataRow, string attribute, T defaultValue = default) =>
-        GetAttribute(dataRow, nameof(IAttributeObject.Attributes), attribute, defaultValue);
-
-    /// <summary>Get attribute from a data row json value</summary>
-    /// <param name="dataRow">The data row</param>
-    /// <param name="column">The column name</param>
-    /// <param name="attribute">The attribute name</param>
-    /// <param name="defaultValue">The default value</param>
-    /// <returns>The attribute value</returns>
-    public static T GetAttribute<T>(this System.Data.DataRow dataRow, string column, string attribute, T defaultValue = default) =>
-        (T)Convert.ChangeType(GetAttribute(dataRow, column, attribute, (object)defaultValue), typeof(T));
-
-    /// <summary>Get value from attributes column</summary>
-    /// <param name="dataRow">The data row</param>
-    /// <param name="attribute">The attribute name</param>
-    /// <param name="defaultValue">The default value</param>
-    /// <returns>The attribute value</returns>
-    public static object GetAttribute(this System.Data.DataRow dataRow, string attribute, object defaultValue = null) =>
-        GetAttribute(dataRow, nameof(IAttributeObject.Attributes), attribute, defaultValue);
-
-    /// <summary>Get attribute from a data row json value</summary>
-    /// <param name="dataRow">The data row</param>
-    /// <param name="column">The column name</param>
-    /// <param name="attribute">The attribute name</param>
-    /// <param name="defaultValue">The default value</param>
-    /// <returns>The attribute value</returns>
-    public static object GetAttribute(this System.Data.DataRow dataRow, string column, string attribute, object defaultValue = null)
+    extension(System.Data.DataRow dataRow)
     {
-        if (string.IsNullOrWhiteSpace(attribute))
-        {
-            throw new ArgumentException(null, nameof(attribute));
-        }
+        /// <summary>Get attributes column value as attribute dictionary</summary>
+        /// <returns>The attributes dictionary</returns>
+        public Dictionary<string, object> GetAttributes() =>
+            dataRow.GetAttributes(nameof(IAttributeObject.Attributes));
 
-        var attributes = GetAttributes(dataRow, column);
-        if (!attributes.TryGetValue(attribute, out var value))
-        {
-            return defaultValue;
-        }
+        /// <summary>Get data row json value as attribute dictionary</summary>
+        /// <param name="column">The column name</param>
+        /// <returns>The attributes dictionary</returns>
+        public Dictionary<string, object> GetAttributes(string column) =>
+            dataRow.GetDictionary<string, object>(column);
 
-        if (value is JsonElement jsonElement)
+        /// <summary>Get value from attributes column</summary>
+        /// <param name="attribute">The attribute name</param>
+        /// <param name="defaultValue">The default value</param>
+        /// <returns>The attribute value</returns>
+        public T GetAttribute<T>(string attribute, T defaultValue = default) =>
+            dataRow.GetAttribute(nameof(IAttributeObject.Attributes), attribute, defaultValue);
+
+        /// <summary>Get attribute from a data row json value</summary>
+        /// <param name="column">The column name</param>
+        /// <param name="attribute">The attribute name</param>
+        /// <param name="defaultValue">The default value</param>
+        /// <returns>The attribute value</returns>
+        public T GetAttribute<T>(string column, string attribute, T defaultValue = default) =>
+            (T)Convert.ChangeType(dataRow.GetAttribute(column, attribute, (object)defaultValue), typeof(T));
+
+        /// <summary>Get value from attributes column</summary>
+        /// <param name="attribute">The attribute name</param>
+        /// <param name="defaultValue">The default value</param>
+        /// <returns>The attribute value</returns>
+        public object GetAttribute(string attribute, object defaultValue = null) => 
+            dataRow.GetAttribute(nameof(IAttributeObject.Attributes), attribute, defaultValue);
+
+        /// <summary>Get attribute from a data row json value</summary>
+        /// <param name="column">The column name</param>
+        /// <param name="attribute">The attribute name</param>
+        /// <param name="defaultValue">The default value</param>
+        /// <returns>The attribute value</returns>
+        public object GetAttribute(string column, string attribute, object defaultValue = null)
         {
-            value = jsonElement.GetValue();
+            if (string.IsNullOrWhiteSpace(attribute))
+            {
+                throw new ArgumentException(null, nameof(attribute));
+            }
+
+            var attributes = dataRow.GetAttributes(column);
+            if (!attributes.TryGetValue(attribute, out var value))
+            {
+                return defaultValue;
+            }
+
+            if (value is JsonElement jsonElement)
+            {
+                value = jsonElement.GetValue();
+            }
+            return value ?? defaultValue;
         }
-        return value ?? defaultValue;
     }
-
 }

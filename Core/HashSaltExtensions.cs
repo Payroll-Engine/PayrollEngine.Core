@@ -12,43 +12,45 @@ public static class HashSaltExtensions
     private const int HashSize = 24; // size in bytes
     private const int Iterations = 100000; // number of pbkdf2 iterations
 
-    /// <summary>
-    /// Encrypt password
-    /// </summary>
     /// <param name="password">The password to encrypt</param>
-    /// <returns></returns>
-    public static HashSalt ToHashSalt(this string password)
+    extension(string password)
     {
-        if (string.IsNullOrWhiteSpace(password))
+        /// <summary>
+        /// Encrypt password
+        /// </summary>
+        /// <returns></returns>
+        public HashSalt ToHashSalt()
         {
-            throw new ArgumentException(null, nameof(password));
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException(null, nameof(password));
+            }
+
+            // generate salt
+            var salt = RandomNumberGenerator.GetBytes(SaltSize);
+
+            // encrypt
+            return password.ToHashSalt(salt);
         }
 
-        // generate salt
-        var salt = RandomNumberGenerator.GetBytes(SaltSize);
-
-        // encrypt
-        return ToHashSalt(password, salt);
-    }
-
-    /// <summary>
-    /// Encrypt password with salt
-    /// </summary>
-    /// <remarks>https://riptutorial.com/csharp/example/10258/pbkdf2-for-password-hashing</remarks>
-    /// <param name="password">The password to encrypt</param>
-    /// <param name="salt">The salt</param>
-    /// <returns>The hash salt</returns>
-    public static HashSalt ToHashSalt(this string password, byte[] salt)
-    {
-        if (string.IsNullOrWhiteSpace(password))
+        /// <summary>
+        /// Encrypt password with salt
+        /// </summary>
+        /// <remarks>https://riptutorial.com/csharp/example/10258/pbkdf2-for-password-hashing</remarks>
+        /// <param name="salt">The salt</param>
+        /// <returns>The hash salt</returns>
+        public HashSalt ToHashSalt(byte[] salt)
         {
-            throw new ArgumentException(null, nameof(password));
-        }
-        ArgumentNullException.ThrowIfNull(salt);
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException(null, nameof(password));
+            }
+            ArgumentNullException.ThrowIfNull(salt);
 
-        // generate hash
-        var pbkdf2 = new Rfc2898DeriveBytes(password, salt, Iterations, HashAlgorithmName.SHA1);
-        return new() { Hash = Convert.ToBase64String(pbkdf2.GetBytes(HashSize)), Salt = salt };
+            // generate hash
+            var pbkdf2 = Rfc2898DeriveBytes.Pbkdf2(password, salt, Iterations, HashAlgorithmName.SHA1, HashSize);
+            return new() { Hash = Convert.ToBase64String(pbkdf2), Salt = salt };
+        }
     }
 
     /// <summary>
@@ -65,7 +67,7 @@ public static class HashSaltExtensions
             throw new ArgumentException(null, nameof(verifyPassword));
         }
 
-        var testEncrypted = ToHashSalt(verifyPassword, hashSalt.Salt);
+        var testEncrypted = verifyPassword.ToHashSalt(hashSalt.Salt);
         return string.Equals(testEncrypted.Hash, hashSalt.Hash);
     }
 }

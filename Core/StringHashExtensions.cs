@@ -5,38 +5,40 @@ namespace PayrollEngine;
 /// <summary>Hash extensions for <see cref="string"/></summary>
 public static class StringHashExtensions
 {
-    /// <summary>Get the payroll lookup hash code, combined by key and range value
-    /// See https://andrewlock.net/why-is-string-gethashcode-different-each-time-i-run-my-program-in-net-core/
-    /// </summary>
     /// <param name="source">The source value</param>
-    /// <param name="rangeValue">The range value(lookup)</param>
-    /// <returns>The value key hash code, zero on value or range value</returns>
-    public static int ToPayrollHash(this string source, decimal? rangeValue)
+    extension(string source)
     {
-        if (string.IsNullOrWhiteSpace(source) && !rangeValue.HasValue)
+        /// <summary>Get the payroll lookup hash code, combined by key and range value
+        /// See https://andrewlock.net/why-is-string-gethashcode-different-each-time-i-run-my-program-in-net-core/
+        /// </summary>
+        /// <param name="rangeValue">The range value(lookup)</param>
+        /// <returns>The value key hash code, zero on value or range value</returns>
+        public int ToPayrollHash(decimal? rangeValue)
         {
-            return 0;
+            if (string.IsNullOrWhiteSpace(source) && !rangeValue.HasValue)
+            {
+                return 0;
+            }
+
+            // single hash key
+            if (!rangeValue.HasValue)
+            {
+                return StringHashExtensions.GetHashCode(source);
+            }
+            if (string.IsNullOrWhiteSpace(source))
+            {
+                return StringHashExtensions.GetHashCode(rangeValue);
+            }
+
+            // combined hash key
+            return StringHashExtensions.GetHashCode(source, rangeValue.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        // single hash key
-        if (!rangeValue.HasValue)
-        {
-            return GetHashCode(source);
-        }
-        if (string.IsNullOrWhiteSpace(source))
-        {
-            return GetHashCode(rangeValue);
-        }
-
-        // combined hash key
-        return GetHashCode(source, rangeValue.Value.ToString(CultureInfo.InvariantCulture));
+        /// <summary>Get the lookup key hash code</summary>
+        /// <returns>The value key hash code, zero on empty value</returns>
+        public int ToPayrollHash() =>
+            string.IsNullOrWhiteSpace(source) ? 0 : StringHashExtensions.GetHashCode(source);
     }
-
-    /// <summary>Get the lookup key hash code</summary>
-    /// <param name="source">The source value</param>
-    /// <returns>The value key hash code, zero on empty value</returns>
-    public static int ToPayrollHash(this string source) =>
-        string.IsNullOrWhiteSpace(source) ? 0 : GetHashCode(source);
 
     private static int GetHashCode(params object[] values)
     {

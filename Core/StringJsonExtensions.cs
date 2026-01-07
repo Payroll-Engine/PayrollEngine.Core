@@ -7,96 +7,89 @@ namespace PayrollEngine;
 /// <summary>Json extensions for <see cref="string"/></summary>
 public static class StringJsonExtensions
 {
-    /// <summary>Test if the string is a json array or object</summary>
     /// <param name="value">The string value</param>
-    /// <returns>True if the string represents a json array or object</returns>
-    public static bool IsJson(this string value) =>
-        IsJsonArray(value) || IsJsonObject(value);
-
-    /// <summary>Test if the string is a json array</summary>
-    /// <param name="value">The string value</param>
-    /// <returns>True if the string represents a json array</returns>
-    public static bool IsJsonArray(this string value)
+    extension(string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
+        /// <summary>Test if the string is a json array or object</summary>
+        /// <returns>True if the string represents a json array or object</returns>
+        public bool IsJson() => value.IsJsonArray() || value.IsJsonObject();
+
+        /// <summary>Test if the string is a json array</summary>
+        /// <returns>True if the string represents a json array</returns>
+        public bool IsJsonArray()
         {
-            return false;
-        }
-        var trimmedValue = value.Trim();
-        return trimmedValue.StartsWith('[') && trimmedValue.EndsWith(']');
-    }
-
-    /// <summary>Test if the string is a json object</summary>
-    /// <param name="value">The string value</param>
-    /// <returns>True if the string represents a json object</returns>
-    public static bool IsJsonObject(this string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return false;
-        }
-        var trimmedValue = value.Trim();
-        return trimmedValue.StartsWith('{') && trimmedValue.EndsWith('}');
-    }
-
-    /// <summary>Convert a string to case value</summary>
-    /// <param name="value">The string to convert</param>
-    /// <param name="valueType">Target type</param>
-    /// <param name="culture">The culture</param>
-    /// <returns>The converted value</returns>
-    public static object JsonToValue(this string value, ValueType valueType, CultureInfo culture) =>
-        ValueConvert.ToValue(value, valueType, culture);
-
-    /// <summary>Converts a json string to an integer value</summary>
-    /// <param name="json">The json representation</param>
-    /// <param name="culture">The culture</param>
-    /// <returns>The integer value</returns>
-    public static int JsonToInteger(this string json, CultureInfo culture) =>
-        ValueConvert.ToInteger(json, culture);
-
-    /// <summary>Converts a json string to an decimal value</summary>
-    /// <param name="json">The json representation</param>
-    /// <param name="culture">The culture</param>
-    /// <returns>The decimal value</returns>
-    public static decimal JsonToDecimal(this string json, CultureInfo culture) =>
-        ValueConvert.ToDecimal(json, culture);
-
-    /// <summary>Converts a json string to a string value</summary>
-    /// <param name="json">The json representation</param>
-    /// <param name="culture">The culture</param>
-    /// <returns>The string value</returns>
-    public static string JsonToString(this string json, CultureInfo culture) =>
-        ValueConvert.ToString(json, culture);
-
-    /// <summary>Converts a json string to a date value</summary>
-    /// <param name="json">The json representation</param>
-    /// <param name="culture">The culture</param>
-    /// <returns>The date value</returns>
-    public static DateTime JsonToDateTime(this string json, CultureInfo culture) =>
-        ValueConvert.ToDateTime(json, culture);
-
-    /// <summary>Converts a json string to a boolean value</summary>
-    /// <param name="json">The json representation</param>
-    /// <param name="culture">The culture</param>
-    /// <returns>The boolean value</returns>
-    public static bool JsonToBoolean(this string json, CultureInfo culture) =>
-        ValueConvert.ToBoolean(json, culture);
-
-    /// <summary>Prettify json string</summary>
-    /// <param name="json">The json representation</param>
-    /// <returns>Indented json representation</returns>
-    public static string JsonPrettify(this string json)
-    {
-        if (string.IsNullOrWhiteSpace(json))
-        {
-            return json;
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return false;
+            }
+            var trimmedValue = value.Trim();
+            return trimmedValue.StartsWith('[') && trimmedValue.EndsWith(']');
         }
 
-        // slow approach
-        using var jDoc = JsonDocument.Parse(json);
-        return JsonSerializer.Serialize(jDoc, new JsonSerializerOptions
+        /// <summary>Test if the string is a json object</summary>
+        /// <returns>True if the string represents a json object</returns>
+        public bool IsJsonObject()
         {
-            WriteIndented = true
-        });
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return false;
+            }
+            var trimmedValue = value.Trim();
+            return trimmedValue.StartsWith('{') && trimmedValue.EndsWith('}');
+        }
+
+        /// <summary>Convert a string to case value</summary>
+        /// <param name="valueType">Target type</param>
+        /// <param name="culture">The culture</param>
+        /// <returns>The converted value</returns>
+        public object JsonToValue(ValueType valueType, CultureInfo culture) =>
+            ValueConvert.ToValue(value, valueType, culture);
+
+        /// <summary>Converts a json string to an integer value</summary>
+        /// <param name="culture">The culture</param>
+        /// <returns>The integer value</returns>
+        public int JsonToInteger(CultureInfo culture) =>
+            ValueConvert.ToInteger(value, culture);
+
+        /// <summary>Converts a json string to an decimal value</summary>
+        /// <param name="culture">The culture</param>
+        /// <returns>The decimal value</returns>
+        public decimal JsonToDecimal(CultureInfo culture) =>
+            ValueConvert.ToDecimal(value, culture);
+
+        /// <summary>Converts a json string to a string value</summary>
+        /// <param name="culture">The culture</param>
+        /// <returns>The string value</returns>
+        public string JsonToString(CultureInfo culture) =>
+            ValueConvert.ToString(value, culture);
+
+        /// <summary>Converts a json string to a date value</summary>
+        /// <param name="culture">The culture</param>
+        /// <returns>The date value</returns>
+        public DateTime JsonToDateTime(CultureInfo culture) =>
+            ValueConvert.ToDateTime(value, culture);
+
+        /// <summary>Converts a json string to a boolean value</summary>
+        /// <param name="culture">The culture</param>
+        /// <returns>The boolean value</returns>
+        public bool JsonToBoolean(CultureInfo culture) =>
+            ValueConvert.ToBoolean(value, culture);
+
+        /// <summary>Prettify json string</summary>
+        /// <returns>Indented json representation</returns>
+        public string JsonPrettify()
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return value;
+            }
+
+            // slow approach
+            using var jDoc = JsonDocument.Parse(value);
+            return JsonSerializer.Serialize(jDoc, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+        }
     }
 }

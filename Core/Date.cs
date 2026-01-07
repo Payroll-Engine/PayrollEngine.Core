@@ -31,13 +31,13 @@ public static class Date
     /// <param name="dateTime">The source date time</param>
     /// <returns>The previous tick</returns>
     public static DateTime PreviousTick(DateTime dateTime) =>
-        dateTime.AddTicks(-1);
+        dateTime == DateTime.MinValue ? dateTime : dateTime.AddTicks(-1);
 
     /// <summary>Get the next tick</summary>
     /// <param name="dateTime">The source date time</param>
     /// <returns>The next tick</returns>
     public static DateTime NextTick(DateTime dateTime) =>
-        dateTime.AddTicks(1);
+        dateTime == DateTime.MaxValue ? dateTime : dateTime.AddTicks(1);
 
     /// <summary>Test if the date is midnight.
     /// See https://stackoverflow.com/questions/681435/what-is-the-best-way-to-determine-if-a-system-datetime-is-midnight
@@ -252,7 +252,7 @@ public static class Date
     /// <param name="moment">Moment within the day</param>
     /// <returns><seealso cref="System.DateTime"/> from the latest moment in a day</returns>
     public static DateTime LastMomentOfDay(DateTime moment) =>
-        moment.Date.AddTicks(TimeSpan.TicksPerDay).PreviousTick();
+        moment == DateTime.MaxValue ? moment : moment.Date.AddTicks(TimeSpan.TicksPerDay).PreviousTick();
 
     /// <summary>Test if the date is the last moment of the day</summary>
     /// <param name="moment">Moment to test</param>
@@ -361,9 +361,74 @@ public static class Date
             return null;
         }
 
-        // predefined expressions
-        switch (expression.ToLower())
+        // predefined constants
+        var dateTime = ParsePredefined(expression);
+        if (dateTime != null)
         {
+            return dateTime;
+        }
+
+        // offset
+        dateTime = ParseOffset(expression);
+        if (dateTime != null)
+        {
+            return dateTime;
+        }
+
+        // date time parsing
+        if (DateTime.TryParse(expression, CultureInfo.InvariantCulture,
+                DateTimeStyles.AdjustToUniversal, out var parameter))
+        {
+            return parameter;
+        }
+
+        return null;
+    }
+
+    private static DateTime? ParseOffset(string dateValue)
+    {
+        // offset
+        if (!dateValue.StartsWith("offset:", StringComparison.InvariantCultureIgnoreCase))
+        {
+            return null;
+        }
+        var offset = dateValue.Substring("offset:".Length);
+        if (string.IsNullOrWhiteSpace(offset))
+        {
+            return null;
+        }
+
+        // count
+        var countText = offset.Substring(0, offset.Length - 1).TrimStart('+');
+        if (!int.TryParse(countText, out var count))
+        {
+            return null;
+        }
+
+        // offset with count
+        switch (offset[^1])
+        {
+            // days
+            case 'd':
+                return Today.AddDays(count);
+            // weeks
+            case 'w':
+                return Today.AddDays(DaysInWeek * count);
+            // months
+            case 'm':
+                return Today.AddMonths(count);
+            // years
+            case 'y':
+                return Today.AddYears(count);
+        }
+        return null;
+    }
+
+    private static DateTime? ParsePredefined(string dateValue)
+    {
+        switch (dateValue.ToLower())
+        {
+            // ReSharper disable StringLiteralTypo
             case "yesterday":
                 return Yesterday;
             case "today":
@@ -385,35 +450,10 @@ public static class Date
                 return new(Today.Year, 1, 1);
             case "nextyear":
                 return new(Today.AddYears(1).Year, 1, 1);
+            default:
+                return null;
+                // ReSharper restore StringLiteralTypo
         }
-
-        // offset
-        if (expression.StartsWith("offset:", StringComparison.InvariantCultureIgnoreCase))
-        {
-            var offset = expression.Substring("offset:".Length);
-            if (!string.IsNullOrWhiteSpace(offset))
-            {
-                var valueText = offset.Substring(0, offset.Length - 1).TrimStart('+');
-                if (int.TryParse(valueText, out var value))
-                {
-
-                    switch (offset[^1])
-                    {
-                        case 'd':
-                            return Today.AddDays(value);
-                        case 'w':
-                            return Today.AddDays(DaysInWeek * value);
-                        case 'm':
-                            return Today.AddMonths(value);
-                        case 'y':
-                            return Today.AddYears(value);
-                    }
-                }
-            }
-        }
-
-        // date time parsing
-        return ValueConvert.ToDateTime(expression, culture);
     }
 
     #endregion

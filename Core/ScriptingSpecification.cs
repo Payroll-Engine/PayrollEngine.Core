@@ -9,7 +9,7 @@ public static class ScriptingSpecification
     public static readonly Version ScriptingVersion = new(1, 0, 0);
 
     /// <summary>The c# language version, string represents the Microsoft.CodeAnalysis.CSharp.LanguageVersion enum</summary>
-    public static readonly string CSharpLanguageVersion = "CSharp12";
+    public static readonly string CSharpLanguageVersion = "CSharp14";
 
     /// <summary>Tags start marker</summary>
     public static readonly string TagsStartMarker = "/*";
@@ -23,7 +23,13 @@ public static class ScriptingSpecification
     /// <summary>Sealed (non-derivable) tag</summary>
     public static readonly string SealedTag = "#sealed";
 
-    /// <summary>Scripting region for the function</summary>
+    /// <summary>Code region for actions</summary>
+    public static readonly string ActionRegion = "Action";
+
+    /// <summary>Code region for action invoke</summary>
+    public static readonly string ActionInvokeRegion = "ActionInvoke";
+
+    /// <summary>Code region for the function</summary>
     public static readonly string FunctionRegion = "Function";
 
     /// <summary>Test if the tag is known</summary>

@@ -1,15 +1,102 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading;
+using System.Text.Encodings.Web;
+using System.Collections.Generic;
 
 namespace PayrollEngine;
 
 /// <summary>Extensions for <see cref="string"/></summary>
 public static class StringExtensions
 {
+
+    #region Namespace
+
+    /// <summary>
+    /// Ensure namespace on text list
+    /// </summary>
+    /// <param name="texts">Texts</param>
+    /// <param name="namespace">Namespace to ensure</param>
+    /// <param name="checkExisting">Check for existing namespace (default: true)</param>
+    public static IList<string> EnsureNamespace(this IList<string> texts, string @namespace, bool checkExisting = true) => texts.ToList().EnsureNamespace(@namespace, checkExisting);
+
+    /// <summary>
+    /// Ensure namespace on text list
+    /// </summary>
+    /// <param name="texts">Texts</param>
+    /// <param name="namespace">Namespace to ensure</param>
+    /// <param name="checkExisting">Check for existing namespace (default: true)</param>
+    public static List<string> EnsureNamespace(this List<string> texts, string @namespace, bool checkExisting = true)
+    {
+        if (string.IsNullOrWhiteSpace(@namespace))
+        {
+            return texts;
+        }
+
+        if (!@namespace.EndsWith('.'))
+        {
+            @namespace += '.';
+        }
+        if (texts == null || !texts.Any() || texts.All(x => x.HasNamespace(@namespace, checkExisting)))
+        {
+            return texts;
+        }
+        return texts.Select(text => text.EnsureNamespace(@namespace, checkExisting)).ToList();
+    }
+
+    /// <param name="text">Text</param>
+    extension(string text)
+    {
+        /// <summary>
+        /// Check for valid namespace
+        /// </summary>
+        public bool HasNamespace() =>
+            !string.IsNullOrWhiteSpace(text) && text.Contains('.');
+
+        /// <summary>
+        /// Check for valid namespace
+        /// </summary>
+        /// <param name="namespace">Namespace to test</param>
+        /// <param name="checkExisting">Check for existing namespace (default: true)</param>
+        public bool HasNamespace(string @namespace, bool checkExisting = true)
+        {
+            if (string.IsNullOrWhiteSpace(text) || string.IsNullOrWhiteSpace(@namespace))
+            {
+                return true;
+            }
+            if (checkExisting && text.HasNamespace())
+            {
+                return true;
+            }
+
+            if (!@namespace.EndsWith('.'))
+            {
+                @namespace += '.';
+            }
+            return text.StartsWith(@namespace);
+        }
+
+        /// <summary>
+        /// Ensure namespace on text
+        /// </summary>
+        /// <param name="namespace">Namespace to ensure</param>
+        /// <param name="checkExisting">Check for existing namespace (default: false)</param>
+        public string EnsureNamespace(string @namespace, bool checkExisting = false)
+        {
+            if (string.IsNullOrWhiteSpace(text) || string.IsNullOrWhiteSpace(@namespace))
+            {
+                return text;
+            }
+            if (!@namespace.EndsWith('.'))
+            {
+                @namespace += '.';
+            }
+            return text.HasNamespace(@namespace, checkExisting) ? text : text.EnsureStart(@namespace);
+        }
+    }
+
+    #endregion
 
     #region Localization
 
@@ -82,249 +169,236 @@ public static class StringExtensions
 
     #region Modification
 
-    /// <summary>Ensures first string character is lower</summary>
     /// <param name="value">The string value</param>
-    /// <returns>String starting lowercase</returns>
-    public static string FirstCharacterToLower(this string value) =>
-        char.ToLowerInvariant(value[0]) + value.Substring(1);
-
-    /// <summary>Ensures first string character is upper</summary>
-    /// <param name="value">The string value</param>
-    /// <returns>String starting uppercase</returns>
-    public static string FirstCharacterToUpper(this string value) =>
-        value[0].ToString().ToUpper() + value.Substring(1);
-
-    /// <summary>Ensures a start prefix</summary>
-    /// <param name="source">The source value</param>
-    /// <param name="prefix">The prefix to add</param>
-    /// <returns>The string with prefix</returns>
-    public static string EnsureStart(this string source, string prefix)
+    extension(string value)
     {
-        if (!string.IsNullOrWhiteSpace(prefix))
+        /// <summary>Ensures first string character is lower</summary>
+        /// <returns>String starting lowercase</returns>
+        public string FirstCharacterToLower() =>
+            char.ToLowerInvariant(value[0]) + value.Substring(1);
+
+        /// <summary>Ensures first string character is upper</summary>
+        /// <returns>String starting uppercase</returns>
+        public string FirstCharacterToUpper() =>
+            value[0].ToString().ToUpper() + value.Substring(1);
+
+        /// <summary>Ensures a start prefix</summary>
+        /// <param name="prefix">The prefix to add</param>
+        /// <returns>The string with prefix</returns>
+        public string EnsureStart(string prefix)
         {
-            if (string.IsNullOrWhiteSpace(source))
+            if (!string.IsNullOrWhiteSpace(prefix))
             {
-                source = prefix;
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    value = prefix;
+                }
+                else if (!value.StartsWith(prefix))
+                {
+                    value = $"{prefix}{value}";
+                }
             }
-            else if (!source.StartsWith(prefix))
-            {
-                source = $"{prefix}{source}";
-            }
-        }
-        return source;
-    }
-
-    /// <summary>Ensures a start prefix</summary>
-    /// <param name="source">The source value</param>
-    /// <param name="prefix">The prefix to add</param>
-    /// <param name="comparison">The comparison culture</param>
-    /// <returns>The string with prefix</returns>
-    public static string EnsureStart(this string source, string prefix, StringComparison comparison)
-    {
-        if (!string.IsNullOrWhiteSpace(prefix))
-        {
-            if (string.IsNullOrWhiteSpace(source))
-            {
-                source = prefix;
-            }
-            else if (!source.StartsWith(prefix, comparison))
-            {
-                source = $"{prefix}{source}";
-            }
-        }
-        return source;
-    }
-
-    /// <summary>Ensures an ending suffix</summary>
-    /// <param name="source">The source value</param>
-    /// <param name="suffix">The suffix to add</param>
-    /// <returns>The string with suffix</returns>
-    public static string EnsureEnd(this string source, string suffix)
-    {
-        if (!string.IsNullOrWhiteSpace(suffix))
-        {
-            if (string.IsNullOrWhiteSpace(source))
-            {
-                source = suffix;
-            }
-            else if (!source.EndsWith(suffix))
-            {
-                source = $"{source}{suffix}";
-            }
-        }
-        return source;
-    }
-
-    /// <summary>Ensures an ending suffix</summary>
-    /// <param name="source">The source value</param>
-    /// <param name="suffix">The suffix to add</param>
-    /// <param name="comparison">The comparison culture</param>
-    /// <returns>The string with suffix</returns>
-    public static string EnsureEnd(this string source, string suffix, StringComparison comparison)
-    {
-        if (!string.IsNullOrWhiteSpace(suffix))
-        {
-            if (string.IsNullOrWhiteSpace(source))
-            {
-                source = suffix;
-            }
-            else if (!source.EndsWith(suffix, comparison))
-            {
-                source = $"{source}{suffix}";
-            }
-        }
-        return source;
-    }
-
-    /// <summary>Remove prefix from string</summary>
-    /// <param name="source">The source value</param>
-    /// <param name="prefix">The prefix to remove</param>
-    /// <returns>The string without suffix</returns>
-    public static string RemoveFromStart(this string source, string prefix)
-    {
-        if (!string.IsNullOrWhiteSpace(source) && !string.IsNullOrWhiteSpace(prefix) &&
-            source.StartsWith(prefix))
-        {
-            source = source.Substring(prefix.Length);
-        }
-        return source;
-    }
-
-    /// <summary>Remove prefix from string</summary>
-    /// <param name="source">The source value</param>
-    /// <param name="prefix">The prefix to remove</param>
-    /// <param name="comparison">The comparison culture</param>
-    /// <returns>The string without the starting prefix</returns>
-    public static string RemoveFromStart(this string source, string prefix, StringComparison comparison)
-    {
-        if (!string.IsNullOrWhiteSpace(source) && !string.IsNullOrWhiteSpace(prefix) &&
-            source.StartsWith(prefix, comparison))
-        {
-            source = source.Substring(prefix.Length);
-        }
-        return source;
-    }
-
-    /// <summary>Remove suffix from string</summary>
-    /// <param name="source">The source value</param>
-    /// <param name="suffix">The suffix to remove</param>
-    /// <returns>The string without the ending suffix</returns>
-    public static string RemoveFromEnd(this string source, string suffix)
-    {
-        if (!string.IsNullOrWhiteSpace(source) && !string.IsNullOrWhiteSpace(suffix) &&
-            source.EndsWith(suffix))
-        {
-            source = source.Substring(0, source.Length - suffix.Length);
-        }
-        return source;
-    }
-
-    /// <summary>Remove suffix from string</summary>
-    /// <param name="source">The source value</param>
-    /// <param name="suffix">The suffix to remove</param>
-    /// <param name="comparison">The comparison culture</param>
-    /// <returns>The string without the ending suffix</returns>
-    public static string RemoveFromEnd(this string source, string suffix, StringComparison comparison)
-    {
-        if (!string.IsNullOrWhiteSpace(source) && !string.IsNullOrWhiteSpace(suffix) &&
-            source.EndsWith(suffix, comparison))
-        {
-            source = source.Substring(0, source.Length - suffix.Length);
-        }
-        return source;
-    }
-
-    /// <summary>Remove all special characters</summary>
-    /// <param name="source">The source value</param>
-    /// <returns>The source value without special characters</returns>
-    public static string RemoveSpecialCharacters(this string source)
-    {
-        if (string.IsNullOrWhiteSpace(source))
-        {
-            return source;
-        }
-        var builder = new StringBuilder();
-        foreach (var c in source)
-        {
-            if (c is >= '0' and <= '9' or >= 'A' and <= 'Z' or >= 'a' and <= 'z')
-            {
-                builder.Append(c);
-            }
-        }
-        return builder.ToString();
-    }
-
-    /// <summary>Change to camel case sentence</summary>
-    /// <param name="source">The source value</param>
-    /// <param name="wordCase">The word start character casing</param>
-    /// <param name="separator">The word separator</param>
-    /// <returns>Camel case text sentence</returns>
-    public static string ToCamelSentence(this string source,
-        CharacterCase wordCase = CharacterCase.ToLower, char separator = ' ') =>
-        ToSentence(source, CharacterCase.ToLower, wordCase, separator);
-
-    /// <summary>Change to pascal case sentence</summary>
-    /// <param name="source">The source value</param>
-    /// <param name="wordCase">The word start character casing</param>
-    /// <param name="separator">The word separator</param>
-    /// <returns>Camel case text sentence</returns>
-    public static string ToPascalSentence(this string source,
-        CharacterCase wordCase = CharacterCase.ToLower, char separator = ' ') =>
-        ToSentence(source, CharacterCase.ToUpper, wordCase, separator);
-
-    /// <summary>Change text sentence</summary>
-    /// <remarks>source: https://stackoverflow.com/a/51310790/15659039 </remarks>
-    /// <param name="source">The source value</param>
-    /// <param name="startCase">The first character casing</param>
-    /// <param name="wordCase">The word start character casing</param>
-    /// <param name="separator">The word separator</param>
-    /// <returns></returns>
-    public static string ToSentence(this string source,
-        CharacterCase startCase = CharacterCase.Keep,
-        CharacterCase wordCase = CharacterCase.Keep,
-        char separator = ' ')
-    {
-        if (string.IsNullOrWhiteSpace(source))
-        {
-            return source;
+            return value;
         }
 
-        var buffer = new StringBuilder();
-        // start with the first character -- consistent camelcase and pascal case
-        buffer.Append(ChangeCase(source[0], startCase));
-
-        // march through the rest of it
-        var newWord = false;
-        for (var i = 1; i < source.Length; i++)
+        /// <summary>Ensures a start prefix</summary>
+        /// <param name="prefix">The prefix to add</param>
+        /// <param name="comparison">The comparison culture</param>
+        /// <returns>The string with prefix</returns>
+        public string EnsureStart(string prefix, StringComparison comparison)
         {
-            var c = source[i];
-            // new word
-            if (newWord)
+            if (!string.IsNullOrWhiteSpace(prefix))
             {
-                buffer.Append(ChangeCase(c, wordCase));
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    value = prefix;
+                }
+                else if (!value.StartsWith(prefix, comparison))
+                {
+                    value = $"{prefix}{value}";
+                }
             }
-            // any time we hit an uppercase OR number, it's a new word
-            else if (char.IsUpper(c) || char.IsDigit(c))
-            {
-                buffer.Append(separator);
-                buffer.Append(ChangeCase(c, wordCase));
-            }
-            // word separator
-            else if (c == separator)
-            {
-                newWord = true;
-                buffer.Append(c);
-                continue;
-            }
-            else
-            {
-                // add regularly
-                buffer.Append(c);
-            }
-            newWord = false;
+            return value;
         }
 
-        return buffer.ToString();
+        /// <summary>Ensures an ending suffix</summary>
+        /// <param name="suffix">The suffix to add</param>
+        /// <returns>The string with suffix</returns>
+        public string EnsureEnd(string suffix)
+        {
+            if (!string.IsNullOrWhiteSpace(suffix))
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    value = suffix;
+                }
+                else if (!value.EndsWith(suffix))
+                {
+                    value = $"{value}{suffix}";
+                }
+            }
+            return value;
+        }
+
+        /// <summary>Ensures an ending suffix</summary>
+        /// <param name="suffix">The suffix to add</param>
+        /// <param name="comparison">The comparison culture</param>
+        /// <returns>The string with suffix</returns>
+        public string EnsureEnd(string suffix, StringComparison comparison)
+        {
+            if (!string.IsNullOrWhiteSpace(suffix))
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    value = suffix;
+                }
+                else if (!value.EndsWith(suffix, comparison))
+                {
+                    value = $"{value}{suffix}";
+                }
+            }
+            return value;
+        }
+
+        /// <summary>Remove prefix from string</summary>
+        /// <param name="prefix">The prefix to remove</param>
+        /// <returns>The string without suffix</returns>
+        public string RemoveFromStart(string prefix)
+        {
+            if (!string.IsNullOrWhiteSpace(value) && !string.IsNullOrWhiteSpace(prefix) &&
+                value.StartsWith(prefix))
+            {
+                value = value.Substring(prefix.Length);
+            }
+            return value;
+        }
+
+        /// <summary>Remove prefix from string</summary>
+        /// <param name="prefix">The prefix to remove</param>
+        /// <param name="comparison">The comparison culture</param>
+        /// <returns>The string without the starting prefix</returns>
+        public string RemoveFromStart(string prefix, StringComparison comparison)
+        {
+            if (!string.IsNullOrWhiteSpace(value) && !string.IsNullOrWhiteSpace(prefix) &&
+                value.StartsWith(prefix, comparison))
+            {
+                value = value.Substring(prefix.Length);
+            }
+            return value;
+        }
+
+        /// <summary>Remove suffix from string</summary>
+        /// <param name="suffix">The suffix to remove</param>
+        /// <returns>The string without the ending suffix</returns>
+        public string RemoveFromEnd(string suffix)
+        {
+            if (!string.IsNullOrWhiteSpace(value) && !string.IsNullOrWhiteSpace(suffix) &&
+                value.EndsWith(suffix))
+            {
+                value = value.Substring(0, value.Length - suffix.Length);
+            }
+            return value;
+        }
+
+        /// <summary>Remove suffix from string</summary>
+        /// <param name="suffix">The suffix to remove</param>
+        /// <param name="comparison">The comparison culture</param>
+        /// <returns>The string without the ending suffix</returns>
+        public string RemoveFromEnd(string suffix, StringComparison comparison)
+        {
+            if (!string.IsNullOrWhiteSpace(value) && !string.IsNullOrWhiteSpace(suffix) &&
+                value.EndsWith(suffix, comparison))
+            {
+                value = value.Substring(0, value.Length - suffix.Length);
+            }
+            return value;
+        }
+
+        /// <summary>Remove all special characters</summary>
+        /// <returns>The source value without special characters</returns>
+        public string RemoveSpecialCharacters()
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return value;
+            }
+            var builder = new StringBuilder();
+            foreach (var c in value)
+            {
+                if (c is >= '0' and <= '9' or >= 'A' and <= 'Z' or >= 'a' and <= 'z')
+                {
+                    builder.Append(c);
+                }
+            }
+            return builder.ToString();
+        }
+
+        /// <summary>Change to camel case sentence</summary>
+        /// <param name="wordCase">The word start character casing</param>
+        /// <param name="separator">The word separator</param>
+        /// <returns>Camel case text sentence</returns>
+        public string ToCamelSentence(CharacterCase wordCase = CharacterCase.ToLower, char separator = ' ') =>
+            value.ToSentence(CharacterCase.ToLower, wordCase, separator);
+
+        /// <summary>Change to pascal case sentence</summary>
+        /// <param name="wordCase">The word start character casing</param>
+        /// <param name="separator">The word separator</param>
+        /// <returns>Camel case text sentence</returns>
+        public string ToPascalSentence(CharacterCase wordCase = CharacterCase.ToLower, char separator = ' ') =>
+            value.ToSentence(CharacterCase.ToUpper, wordCase, separator);
+
+        /// <summary>Change text sentence</summary>
+        /// <remarks>source: https://stackoverflow.com/a/51310790/15659039 </remarks>
+        /// <param name="startCase">The first character casing</param>
+        /// <param name="wordCase">The word start character casing</param>
+        /// <param name="separator">The word separator</param>
+        /// <returns></returns>
+        public string ToSentence(CharacterCase startCase = CharacterCase.Keep,
+            CharacterCase wordCase = CharacterCase.Keep,
+            char separator = ' ')
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return value;
+            }
+
+            var buffer = new StringBuilder();
+            // start with the first character -- consistent camelcase and pascal case
+            buffer.Append(ChangeCase(value[0], startCase));
+
+            // march through the rest of it
+            var newWord = false;
+            for (var i = 1; i < value.Length; i++)
+            {
+                var c = value[i];
+                // new word
+                if (newWord)
+                {
+                    buffer.Append(ChangeCase(c, wordCase));
+                }
+                // any time we hit an uppercase OR number, it's a new word
+                else if (char.IsUpper(c) || char.IsDigit(c))
+                {
+                    buffer.Append(separator);
+                    buffer.Append(ChangeCase(c, wordCase));
+                }
+                // word separator
+                else if (c == separator)
+                {
+                    newWord = true;
+                    buffer.Append(c);
+                    continue;
+                }
+                else
+                {
+                    // add regularly
+                    buffer.Append(c);
+                }
+                newWord = false;
+            }
+
+            return buffer.ToString();
+        }
     }
 
     private static char ChangeCase(char input, CharacterCase startCase)
@@ -340,57 +414,60 @@ public static class StringExtensions
         }
     }
 
-    /// <summary>Truncate a string, preserving the sentence words</summary>
     /// <param name="source">The source value</param>
-    /// <param name="length">The string length</param>
-    /// <returns>Truncated case text sentence</returns>
-    public static string TruncateSentence(this string source, int length) =>
-        TruncateSentence(source, length, "...");
-
-    /// <summary>Truncate a string, preserving the sentence words</summary>
-    /// <param name="source">The source value</param>
-    /// <param name="length">The string length</param>
-    /// <param name="ellipsis">Replacement for cut text</param>
-    /// <remarks>source https://stackoverflow.com/a/53843505/15659039</remarks>
-    /// <returns>Truncated case text sentence</returns>
-    public static string TruncateSentence(this string source, int length, string ellipsis)
+    extension(string source)
     {
-        if (string.IsNullOrWhiteSpace(source) || source.Length < length)
-        {
-            return source;
-        }
+        /// <summary>Truncate a string, preserving the sentence words</summary>
+        /// <param name="length">The string length</param>
+        /// <returns>Truncated case text sentence</returns>
+        public string TruncateSentence(int length) => 
+            source.TruncateSentence(length, "...");
 
-        var truncate = source;
-        if (source.Length > length)
+        /// <summary>Truncate a string, preserving the sentence words</summary>
+        /// <param name="length">The string length</param>
+        /// <param name="ellipsis">Replacement for cut text</param>
+        /// <remarks>source https://stackoverflow.com/a/53843505/15659039</remarks>
+        /// <returns>Truncated case text sentence</returns>
+        public string TruncateSentence(int length, string ellipsis)
         {
-            var truncateRaw = source.Substring(0, length);
-            // preserve words
-            var lastWordIndex = truncateRaw.LastIndexOf(' ');
-            if (lastWordIndex > 0)
+            if (string.IsNullOrWhiteSpace(source) || source.Length < length)
             {
-                truncate = truncateRaw.Substring(0, lastWordIndex) + ellipsis;
+                return source;
             }
+
+            var truncate = source;
+            if (source.Length > length)
+            {
+                var truncateRaw = source.Substring(0, length);
+                // preserve words
+                var lastWordIndex = truncateRaw.LastIndexOf(' ');
+                if (lastWordIndex > 0)
+                {
+                    truncate = truncateRaw.Substring(0, lastWordIndex) + ellipsis;
+                }
+            }
+            return truncate;
         }
-        return truncate;
     }
 
     #endregion
 
     #region Html
 
-    /// <summary>Encode string to html, single quotation marks and double quotation marks are included as ' and "</summary>
     /// <param name="value">The string value</param>
-    /// <returns>Encoded Html value</returns>
-    public static string HtmlEncode(this string value) =>
-        JavaScriptEncoder.Default.Encode(value);
+    extension(string value)
+    {
+        /// <summary>Encode string to html, single quotation marks and double quotation marks are included as ' and "</summary>
+        /// <returns>Encoded Html value</returns>
+        public string HtmlEncode() =>
+            JavaScriptEncoder.Default.Encode(value);
 
-    /// <summary>Encode string to html, single quotation marks and double quotation marks are included as ' and "</summary>
-    /// <param name="value">The string value</param>
-    /// <returns>Encoded Html value</returns>
-    public static string HtmlDecode(this string value) =>
-        System.Net.WebUtility.HtmlDecode(value);
+        /// <summary>Encode string to html, single quotation marks and double quotation marks are included as ' and "</summary>
+        /// <returns>Encoded Html value</returns>
+        public string HtmlDecode() =>
+            System.Net.WebUtility.HtmlDecode(value);
+    }
 
     #endregion
-
 
 }

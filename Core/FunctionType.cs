@@ -21,9 +21,10 @@ public enum FunctionType
     /// <summary>All case relation functions</summary>
     CaseRelation = CaseRelationBuild | CaseRelationValidate,
     /// <summary>All report functions</summary>
-    Payrun = PayrunStart | PayrunEmployeeAvailable | PayrunEmployeeStart |
-             PayrunEmployeeEnd | PayrunWageTypeAvailable | PayrunEnd |
-             Collector | WageType,
+    Payrun = PayrunBase | Collector | WageType,
+    /// <summary>All report functions</summary>
+    PayrunBase = PayrunStart | PayrunEmployeeAvailable | PayrunEmployeeStart |
+             PayrunEmployeeEnd | PayrunWageTypeAvailable | PayrunEnd,
     /// <summary>All collector functions</summary>
     Collector = CollectorStart | CollectorApply | CollectorEnd,
     /// <summary>All wage type functions</summary>

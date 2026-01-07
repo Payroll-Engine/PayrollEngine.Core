@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace PayrollEngine.Data;
@@ -73,50 +73,70 @@ public class DataTable : IEquatable<DataTable>
 
         // convert raw values to json values
         var rawValues = new List<object>();
-        if (row.Values != null)
+        if (row.Values == null)
         {
-            for (var i = 0; i < Columns.Count; i++)
+            return rawValues;
+        }
+
+        for (var column = 0; column < Columns.Count; column++)
+        {
+            if (TryGetCellValue(row, column, rawValues, out var value))
             {
-                var column = Columns[i];
-                if (!string.IsNullOrWhiteSpace(column.Expression))
-                {
-                    continue;
-                }
-
-                var rawValue = row.Values[i];
-                if (rawValue == null)
-                {
-                    rawValues.Add(null);
-                    continue;
-                }
-
-                var type = Columns[i].GetValueType();
-
-                object value = null;
-                // string/datetime escaping
-                if (type != null && (type == typeof(string) || type == typeof(DateTime)))
-                {
-                    value = Regex.Unescape(rawValue.Trim('"'));
-                }
-                else if (!string.IsNullOrWhiteSpace(rawValue))
-                {
-                    value = type == null ?
-                        // serialize unknown types to json string
-                        JsonSerializer.Serialize(rawValue) :
-                        JsonSerializer.Deserialize(rawValue, type);
-                }
-
-                // enum (string to int)
-                var baseType = column.GetValueBaseType();
-                if (baseType != null && baseType.IsEnum)
-                {
-                    value = (int)Enum.Parse(baseType, rawValue.Trim('"'));
-                }
-
                 rawValues.Add(value);
             }
         }
         return rawValues;
+    }
+
+    /// <summary>
+    /// Get data row cell value
+    /// </summary>
+    /// <param name="row">Data row</param>
+    /// <param name="columnIndex">Column index</param>
+    /// <param name="rawValues">Row war values</param>
+    /// <param name="value">Output value</param>
+    /// <returns>True on valid cell value</returns>
+    private bool TryGetCellValue(DataRow row, int columnIndex, List<object> rawValues, out object value)
+    {
+        var column = Columns[columnIndex];
+        if (!string.IsNullOrWhiteSpace(column.Expression))
+        {
+            value = null;
+            return false;
+        }
+
+        var rawValue = row.Values[columnIndex];
+        if (rawValue == null)
+        {
+            rawValues.Add(null);
+            value = null;
+            return false;
+        }
+
+        var type = Columns[columnIndex].GetValueType();
+
+        value = null;
+        // string/datetime escaping
+        if (type != null && (type == typeof(string) || type == typeof(DateTime)))
+        {
+            value = Regex.Unescape(rawValue.Trim('"'));
+        }
+        else if (!string.IsNullOrWhiteSpace(rawValue))
+        {
+            value = type == null ?
+                // serialize unknown types to json string
+                JsonSerializer.Serialize(rawValue) :
+                JsonSerializer.Deserialize(rawValue, type);
+        }
+
+        // enum (string to int)
+        var baseType = column.GetValueBaseType();
+        if (baseType != null && baseType.IsEnum)
+        {
+            value = (int)Enum.Parse(baseType, rawValue.Trim('"'));
+        }
+
+        return true;
     }
 
     /// <summary>Add a row with raw data</summary>

@@ -61,39 +61,15 @@ public class DatePeriod
         }
     }
 
-    private DateTime start = Date.MinValue;
     /// <summary>The period start</summary>
-    public DateTime Start
-    {
-        get => start;
-        set
-        {
-            if (value > End)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value));
-            }
-            start = value;
-        }
-    }
+    public DateTime Start { get; } = Date.MinValue;
 
     /// <summary>Check for start</summary>
     [JsonIgnore]
     public bool HasStart => Start != Date.MinValue;
 
-    private DateTime end = Date.MaxValue;
     /// <summary>The period end</summary>
-    public DateTime End
-    {
-        get => end;
-        set
-        {
-            if (value < Start)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value));
-            }
-            end = value;
-        }
-    }
+    public DateTime End { get; } = Date.MaxValue;
 
     /// <summary>Check for end</summary>
     [JsonIgnore]

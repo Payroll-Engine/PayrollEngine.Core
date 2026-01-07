@@ -6,6 +6,43 @@ namespace PayrollEngine;
 /// <summary>Extensions for <see cref="FunctionType"/></summary>
 public static class FunctionTypeExtensions
 {
+    /// <param name="functionType">The function type</param>
+    extension(FunctionType functionType)
+    {
+        /// <summary>
+        /// Test for decimal function value type
+        /// </summary>
+        public bool IsDecimalResult() =>
+            functionType is FunctionType.CollectorApply or
+                FunctionType.WageTypeValue;
+
+        /// <summary>
+        /// Test for boolean function value type
+        /// </summary>
+        public bool IsBooleanResult() =>
+            functionType is FunctionType.CaseAvailable or
+                FunctionType.CaseBuild or
+                FunctionType.CaseValidate or
+                FunctionType.CaseRelationBuild or
+                FunctionType.CaseRelationValidate;
+
+        /// <summary>
+        /// Get function value type
+        /// </summary>
+        public Type GetFunctionValueType()
+        {
+            if (functionType.IsDecimalResult())
+            {
+                return typeof(decimal);
+            }
+            if (functionType.IsBooleanResult())
+            {
+                return typeof(bool);
+            }
+            return null;
+        }
+    }
+
     /// <summary>Convert to bitmask</summary>
     /// <param name="functionTypes">The function types</param>
     /// <returns>The function type bitmask</returns>

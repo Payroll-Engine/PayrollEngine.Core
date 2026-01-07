@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace PayrollEngine;
+namespace PayrollEngine.Action;
 
 /// <summary>The action source</summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
