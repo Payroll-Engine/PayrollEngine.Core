@@ -23,10 +23,10 @@ public static class AssemblyExtensions
                 throw new PayrollException($"Unknown embedded resource {resourceName}.");
             }
 
-            using Stream resourceStream = assembly.GetManifestResourceStream(resourceName);
+            using Stream resourceStream = assembly.GetManifestResourceStream(name);
             if (resourceStream == null)
             {
-                throw new PayrollException($"Error reading embedded Resource {resourceName}.");
+                throw new PayrollException($"Error reading embedded resource {name}.");
             }
 
             using StreamReader reader = new(resourceStream);
@@ -34,7 +34,7 @@ public static class AssemblyExtensions
 
             if (!allowEmpty && string.IsNullOrWhiteSpace(content))
             {
-                throw new PayrollException($"Empty embedded resource {resourceName}.");
+                throw new PayrollException($"Empty embedded resource {name}.");
             }
 
             return content;

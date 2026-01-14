@@ -5332,10 +5332,11 @@
         <member name="T:PayrollEngine.UriExtensions">
             <summary>Extension methods for <see cref="T:System.Uri"/> </summary>
         </member>
+        <member name="M:PayrollEngine.UriExtensions.TryGetLastSegmentId(System.Uri,System.Int32@)">
+            <inheritdoc cref="M:PayrollEngine.UriExtensions.&lt;G&gt;$A2D159684F90C84BD35ED118E17F9ADC.TryGetLastSegmentId(System.Int32@)"/>
+        </member>
         <member name="M:PayrollEngine.UriExtensions.GetLastSegmentId(System.Uri)">
-            <summary>Get the last uri segment as numeric value</summary>
-            <param name="uri">The uri</param>
-            <returns>The numeric value of the last uri segment</returns>
+            <inheritdoc cref="M:PayrollEngine.UriExtensions.&lt;G&gt;$A2D159684F90C84BD35ED118E17F9ADC.GetLastSegmentId"/>
         </member>
         <member name="M:PayrollEngine.UriExtensions.EnsureClosedUri(System.String)">
             <inheritdoc cref="M:PayrollEngine.UriExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.EnsureClosedUri"/>
@@ -5351,6 +5352,18 @@
         </member>
         <member name="M:PayrollEngine.UriExtensions.AddQueryString(System.String,System.String,System.DateTime)">
             <inheritdoc cref="M:PayrollEngine.UriExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.AddQueryString(System.String,System.DateTime)"/>
+        </member>
+        <member name="T:PayrollEngine.UriExtensions.&lt;G&gt;$A2D159684F90C84BD35ED118E17F9ADC.&lt;M&gt;$B2B8DA6FFB1764ED4F0C753040B37AE4">
+            <param name="uri">The uri</param>
+        </member>
+        <member name="M:PayrollEngine.UriExtensions.&lt;G&gt;$A2D159684F90C84BD35ED118E17F9ADC.TryGetLastSegmentId(System.Int32@)">
+            <summary>Get the last uri segment as numeric value</summary>
+            <param name="id">The last segment as number</param>
+            <returns>The numeric value of the last uri segment</returns>
+        </member>
+        <member name="M:PayrollEngine.UriExtensions.&lt;G&gt;$A2D159684F90C84BD35ED118E17F9ADC.GetLastSegmentId">
+            <summary>Get the last uri segment as numeric value</summary>
+            <returns>The numeric value of the last uri segment</returns>
         </member>
         <member name="T:PayrollEngine.UriExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.&lt;M&gt;$DF7C30A01950AC2B6D0196008CD840D3">
             <param name="uri">The base URI</param>

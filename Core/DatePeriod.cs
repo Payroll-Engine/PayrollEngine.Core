@@ -62,14 +62,14 @@ public class DatePeriod
     }
 
     /// <summary>The period start</summary>
-    public DateTime Start { get; } = Date.MinValue;
+    public DateTime Start { get; init; } = Date.MinValue;
 
     /// <summary>Check for start</summary>
     [JsonIgnore]
     public bool HasStart => Start != Date.MinValue;
 
     /// <summary>The period end</summary>
-    public DateTime End { get; } = Date.MaxValue;
+    public DateTime End { get; init; } = Date.MaxValue;
 
     /// <summary>Check for end</summary>
     [JsonIgnore]

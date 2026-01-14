@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Globalization;
-using System.Linq;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace PayrollEngine;
@@ -9,17 +9,25 @@ namespace PayrollEngine;
 /// <summary>Extension methods for <see cref="Uri"/> </summary>
 public static class UriExtensions
 {
-    /// <summary>Get the last uri segment as numeric value</summary>
     /// <param name="uri">The uri</param>
-    /// <returns>The numeric value of the last uri segment</returns>
-    public static int GetLastSegmentId(this Uri uri)
+    extension(Uri uri)
     {
-        var lastSegment = uri.OriginalString.Split('/').Last();
-        if (!int.TryParse(lastSegment, out var id) || id <= 0)
+        /// <summary>Get the last uri segment as numeric value</summary>
+        /// <param name="id">The last segment as number</param>
+        /// <returns>The numeric value of the last uri segment</returns>
+        public bool TryGetLastSegmentId(out int id) =>
+            int.TryParse(uri.OriginalString.Split('/').Last(), out id);
+
+        /// <summary>Get the last uri segment as numeric value</summary>
+        /// <returns>The numeric value of the last uri segment</returns>
+        public int GetLastSegmentId()
         {
-            throw new PayrollException($"Invalid Uri {uri} for object id.");
+            if (!uri.TryGetLastSegmentId(out var id))
+            {
+                throw new PayrollException($"Invalid Uri {uri} for object id.");
+            }
+            return id;
         }
-        return id;
     }
 
     /// <param name="uri">The base URI</param>
@@ -93,6 +101,6 @@ public static class UriExtensions
         /// <param name="value">The date time value</param>
         /// <returns>The combined result</returns>
         public string AddQueryString(string name, DateTime value) =>
-            QueryHelpers.AddQueryString(uri, name, value.ToString(CultureInfo.InvariantCulture));
+            QueryHelpers.AddQueryString(uri, name, value.ToString("o", CultureInfo.InvariantCulture));
     }
 }
