@@ -3377,6 +3377,12 @@
         <member name="F:PayrollEngine.IO.FileExtensions.JsonSchema">
             <summary>JSON schema file extension</summary>
         </member>
+        <member name="F:PayrollEngine.IO.FileExtensions.Yaml">
+            <summary>YAML file extension</summary>
+        </member>
+        <member name="F:PayrollEngine.IO.FileExtensions.Yml">
+            <summary>YML file extension</summary>
+        </member>
         <member name="F:PayrollEngine.IO.FileExtensions.WordDocument">
             <summary>Word document</summary>
         </member>
@@ -4649,9 +4655,9 @@
             <param name="json">The JSON text</param>
             <returns>The string content</returns>
         </member>
-        <member name="M:PayrollEngine.Serialization.DefaultJsonSerializer.DefaultValueModifier(System.Text.Json.Serialization.Metadata.JsonTypeInfo)">
+        <member name="M:PayrollEngine.Serialization.DefaultJsonSerializer.ValueFilter(System.Text.Json.Serialization.Metadata.JsonTypeInfo)">
             <summary>
-            Suppress empty collections
+            Filter empty properties
             </summary>
             <param name="typeInfo"></param>
         </member>

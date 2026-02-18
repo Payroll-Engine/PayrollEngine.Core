@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Net.Http;
 using System.Text.Json;
 using System.Collections;
@@ -20,11 +21,7 @@ public static class DefaultJsonSerializer
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         TypeInfoResolver = new DefaultJsonTypeInfoResolver
         {
-            Modifiers =
-            {
-                // default value
-                DefaultValueModifier
-            }
+            Modifiers = { ValueFilter }
         },
         Converters = { new NamedDictionaryConverter() }
     };
@@ -65,11 +62,16 @@ public static class DefaultJsonSerializer
         new(json, Encoding.UTF8, ContentType.Json);
 
     /// <summary>
-    /// Suppress empty collections
+    /// Filter empty properties
     /// </summary>
     /// <param name="typeInfo"></param>
-    private static void DefaultValueModifier(JsonTypeInfo typeInfo)
+    private static void ValueFilter(JsonTypeInfo typeInfo)
     {
+        if (typeInfo.Kind != JsonTypeInfoKind.Object)
+        {
+            return;
+        }
+
         foreach (var property in typeInfo.Properties)
         {
             // ignore empty collections
@@ -82,9 +84,9 @@ public static class DefaultJsonSerializer
             }
 
             // read-only json property
-            var attributes = property.AttributeProvider?.GetCustomAttributes(typeof(JsonReadOnlyAttribute), true) ?? [];
-            JsonReadOnlyAttribute attribute = attributes.Length == 1 ? (JsonReadOnlyAttribute)attributes[0] : null;
-            if (attribute != null)
+            if (property.AttributeProvider?
+                    .GetCustomAttributes(typeof(JsonReadOnlyAttribute), false)
+                    .FirstOrDefault() is JsonReadOnlyAttribute)
             {
                 property.ShouldSerialize = (_, _) => false;
             }

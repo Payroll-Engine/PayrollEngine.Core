@@ -12,6 +12,12 @@ public static class FileExtensions
     /// <summary>JSON schema file extension</summary>
     public static readonly string JsonSchema = ".schema.json";
 
+    /// <summary>YAML file extension</summary>
+    public static readonly string Yaml = ".yaml";
+
+    /// <summary>YML file extension</summary>
+    public static readonly string Yml = ".yml";
+
     /// <summary>Word document</summary>
     public static readonly string WordDocument = ".docx";
 
