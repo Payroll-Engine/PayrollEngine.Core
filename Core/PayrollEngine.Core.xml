@@ -1037,6 +1037,12 @@
             <param name="compare">The object to compare with this</param>
             <returns>True for objects with the same data</returns>
         </member>
+        <member name="M:PayrollEngine.Data.DataColumn.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.Data.DataColumn.GetHashCode">
+            <inheritdoc/>
+        </member>
         <member name="M:PayrollEngine.Data.DataColumn.ToString">
             <summary>
             Returns a <see cref="T:System.String" /> that represents this instance.
@@ -1101,6 +1107,12 @@
             <param name="compare">The object to compare with this</param>
             <returns>True for objects with the same data</returns>
         </member>
+        <member name="M:PayrollEngine.Data.DataRelation.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.Data.DataRelation.GetHashCode">
+            <inheritdoc/>
+        </member>
         <member name="M:PayrollEngine.Data.DataRelation.ToString">
             <summary>
             Returns a <see cref="T:System.String" /> that represents this instance.
@@ -1133,6 +1145,12 @@
             <summary>Compare two objects</summary>
             <param name="compare">The object to compare with this</param>
             <returns>True for objects with the same data</returns>
+        </member>
+        <member name="M:PayrollEngine.Data.DataRow.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.Data.DataRow.GetHashCode">
+            <inheritdoc/>
         </member>
         <member name="M:PayrollEngine.Data.DataRow.ToString">
             <summary>
@@ -1550,6 +1568,12 @@
             <param name="compare">The object to compare with this</param>
             <returns>True for objects with the same data</returns>
         </member>
+        <member name="M:PayrollEngine.Data.DataSet.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.Data.DataSet.GetHashCode">
+            <inheritdoc/>
+        </member>
         <member name="M:PayrollEngine.Data.DataSet.ToString">
             <summary>
             Returns a <see cref="T:System.String" /> that represents this instance.
@@ -1650,15 +1674,14 @@
             <param name="row">The data row</param>
             <returns>The row raw data</returns>
         </member>
-        <member name="M:PayrollEngine.Data.DataTable.TryGetCellValue(PayrollEngine.Data.DataRow,System.Int32,System.Collections.Generic.List{System.Object},System.Object@)">
+        <member name="M:PayrollEngine.Data.DataTable.TryGetCellValue(PayrollEngine.Data.DataRow,System.Int32,System.Object@)">
             <summary>
             Get data row cell value
             </summary>
             <param name="row">Data row</param>
             <param name="columnIndex">Column index</param>
-            <param name="rawValues">Row war values</param>
             <param name="value">Output value</param>
-            <returns>True on valid cell value</returns>
+            <returns>True on valid cell value, false for expression columns</returns>
         </member>
         <member name="M:PayrollEngine.Data.DataTable.AddRow(System.Collections.Generic.IEnumerable{System.Object})">
             <summary>Add a row with raw data</summary>
@@ -1673,6 +1696,12 @@
             <summary>Compare two objects</summary>
             <param name="compare">The object to compare with this</param>
             <returns>True for objects with the same data</returns>
+        </member>
+        <member name="M:PayrollEngine.Data.DataTable.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.Data.DataTable.GetHashCode">
+            <inheritdoc/>
         </member>
         <member name="M:PayrollEngine.Data.DataTable.ToString">
             <summary>
@@ -2509,7 +2538,7 @@
         </member>
         <member name="M:PayrollEngine.DateTimeDayExtensions.&lt;G&gt;$AC0E513418EF159D5C3E15BA59576B4F.GetPastDaysCount">
             <summary>Get past days count since the minimum available date</summary>
-            <returns>Day count since <see cref="F:System.DateTime.MinValue"/></returns>
+            <returns>Day count since <see cref="F:PayrollEngine.Date.MinValue"/></returns>
         </member>
         <member name="T:PayrollEngine.DateTimeExtensions">
             <summary>Extensions for <see cref="T:System.DateTime"/></summary>
@@ -3161,6 +3190,12 @@
             <param name="compare">The object to compare with this</param>
             <returns>True for objects with the same data</returns>
         </member>
+        <member name="M:PayrollEngine.HashSalt.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.HashSalt.GetHashCode">
+            <inheritdoc/>
+        </member>
         <member name="P:PayrollEngine.HashSalt.Hash">
             <summary>
             The hash
@@ -3168,7 +3203,7 @@
         </member>
         <member name="P:PayrollEngine.HashSalt.Salt">
             <summary>
-            THe salt
+            The salt
             </summary>
         </member>
         <member name="T:PayrollEngine.HashSaltExtensions">
@@ -3184,7 +3219,7 @@
         </member>
         <member name="M:PayrollEngine.HashSaltExtensions.VerifyPassword(PayrollEngine.HashSalt,System.String)">
             <summary>
-            Verify an encrypted password
+            Verify an encrypted password using constant-time comparison
             </summary>
             <param name="verifyPassword">The password to verify</param>
             <param name="hashSalt">The hash salt to use</param>
@@ -3197,7 +3232,7 @@
             <summary>
             Encrypt password
             </summary>
-            <returns></returns>
+            <returns>The hash salt</returns>
         </member>
         <member name="M:PayrollEngine.HashSaltExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.ToHashSalt(System.Byte[])">
             <summary>
@@ -3226,6 +3261,12 @@
         </member>
         <member name="P:PayrollEngine.IIdentifierObject.Identifier">
             <summary>The object identifier</summary>
+        </member>
+        <member name="T:PayrollEngine.IJsonValue">
+            <summary>Interface for types that wrap a primitive value for JSON serialization</summary>
+        </member>
+        <member name="M:PayrollEngine.IJsonValue.ToJsonValue">
+            <summary>The primitive value for JSON serialization</summary>
         </member>
         <member name="T:PayrollEngine.ILogger">
             <summary>Payroll engine logger</summary>
@@ -3486,15 +3527,15 @@
             <summary>Static logger</summary>
         </member>
         <member name="P:PayrollEngine.Log.Logger">
-            <summary>The static logger</summary>
+            <summary>The static logger. Returns <see cref="F:PayrollEngine.PayrollNullLogger.Instance"/> if no logger has been configured.</summary>
+        </member>
+        <member name="P:PayrollEngine.Log.HasLogger">
+            <summary>Test if a logger has been configured</summary>
+            <returns>True if a custom logger has been set</returns>
         </member>
         <member name="M:PayrollEngine.Log.SetLogger(PayrollEngine.ILogger)">
             <summary>Set logger based on the configuration</summary>
-            <param name="logger">The static logger</param>
-        </member>
-        <member name="M:PayrollEngine.Log.GetLogger">
-            <summary>Get the logger</summary>
-            <returns>The logger</returns>
+            <param name="value">The static logger</param>
         </member>
         <member name="M:PayrollEngine.Log.IsEnabled(PayrollEngine.LogLevel)">
             <summary>Determine if events at the specified level will be passed through to the log sinks</summary>
@@ -3874,6 +3915,12 @@
             <param name="compare">The object to compare with this</param>
             <returns>True for objects with the same data</returns>
         </member>
+        <member name="M:PayrollEngine.PasswordChangeRequest.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PasswordChangeRequest.GetHashCode">
+            <inheritdoc/>
+        </member>
         <member name="T:PayrollEngine.PayrollException">
             <summary>Payroll exception</summary>
         </member>
@@ -3896,6 +3943,58 @@
             <inheritdoc/>
         </member>
         <member name="M:PayrollEngine.PayrollMapException.#ctor(System.String,System.Exception)">
+            <inheritdoc/>
+        </member>
+        <member name="T:PayrollEngine.PayrollNullLogger">
+            <summary>Logger implementation that silently discards all log messages.
+            Used as a safe default when no logger has been configured.</summary>
+        </member>
+        <member name="F:PayrollEngine.PayrollNullLogger.Instance">
+            <summary>Singleton instance</summary>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.IsEnabled(PayrollEngine.LogLevel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Write(PayrollEngine.LogLevel,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Write(PayrollEngine.LogLevel,System.Exception,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Trace(System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Trace(System.Exception,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Debug(System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Debug(System.Exception,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Information(System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Information(System.Exception,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Warning(System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Warning(System.Exception,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Error(System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Error(System.Exception,System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Critical(System.String,System.Object[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrollNullLogger.Critical(System.Exception,System.String,System.Object[])">
             <inheritdoc/>
         </member>
         <member name="T:PayrollEngine.PayrunException">
@@ -4065,11 +4164,46 @@
             <param name="newJobStatus">The target payrun job status</param>
             <returns>True, if the state change is valid</returns>
         </member>
+        <member name="T:PayrollEngine.PayrunPreviewRetroException">
+            <summary>
+            Thrown when a payrun preview encounters a retroactive calculation requirement.
+            Preview mode cannot perform retro calculations because results are not persisted.
+            </summary>
+        </member>
+        <member name="P:PayrollEngine.PayrunPreviewRetroException.EmployeeIdentifier">
+            <summary>The employee identifier that triggered the retro calculation</summary>
+        </member>
+        <member name="P:PayrollEngine.PayrunPreviewRetroException.RetroDate">
+            <summary>The retro date that would be required</summary>
+        </member>
+        <member name="M:PayrollEngine.PayrunPreviewRetroException.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrunPreviewRetroException.#ctor(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:PayrollEngine.PayrunPreviewRetroException.#ctor(System.String,System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Creates a new instance with employee and retro date context.
+            </summary>
+            <param name="message">The error message</param>
+            <param name="employeeIdentifier">The employee identifier that triggered the retro calculation</param>
+            <param name="retroDate">The retro date that would be required</param>
+        </member>
+        <member name="M:PayrollEngine.PayrunPreviewRetroException.#ctor(System.String,System.Exception)">
+            <inheritdoc/>
+        </member>
         <member name="T:PayrollEngine.PersistenceErrorType">
             <summary>Persistence error type</summary>
         </member>
         <member name="F:PayrollEngine.PersistenceErrorType.UniqueConstraint">
-            <summary>Unique constraint error</summary>
+            <summary>Unique constraint error (SQL 2601, 2627)</summary>
+        </member>
+        <member name="F:PayrollEngine.PersistenceErrorType.ConstraintViolation">
+            <summary>Foreign key or check constraint violation (SQL 547)</summary>
+        </member>
+        <member name="F:PayrollEngine.PersistenceErrorType.NotNullViolation">
+            <summary>NOT NULL constraint violation (SQL 515)</summary>
         </member>
         <member name="T:PayrollEngine.PersistenceException">
             <summary>Persistence exception</summary>
@@ -4391,7 +4525,7 @@
             <summary>Items and count</summary>
         </member>
         <member name="T:PayrollEngine.QuerySpecification">
-            <summary>The script specification</summary>
+            <summary>The query specification</summary>
         </member>
         <member name="F:PayrollEngine.QuerySpecification.StatusOperation">
             <summary>Status</summary>
@@ -4537,11 +4671,11 @@
         <member name="T:PayrollEngine.RetroPayMode">
             <summary>The payrun retro pay mode</summary>
         </member>
-        <member name="F:PayrollEngine.RetroPayMode.None">
-            <summary>No retro pay calculation</summary>
-        </member>
         <member name="F:PayrollEngine.RetroPayMode.ValueChange">
             <summary>Retro pay calculation starting from the period containing the oldest value change (start date)</summary>
+        </member>
+        <member name="F:PayrollEngine.RetroPayMode.None">
+            <summary>No retro pay calculation</summary>
         </member>
         <member name="T:PayrollEngine.RetroTimeType">
             <summary>The payrun retro type</summary>
@@ -4615,8 +4749,8 @@
             <param name="columnSeparator">The default column separator (default: ,)</param>
             <returns>The CSV string list</returns>
         </member>
-        <member name="M:PayrollEngine.Serialization.CsvSerializer.FromReaderAsync(System.IO.TextReader,System.Boolean,System.Char)">
-            <summary>Get CSV from stream</summary>
+        <member name="M:PayrollEngine.Serialization.CsvSerializer.FromReader(System.IO.TextReader,System.Boolean,System.Char)">
+            <summary>Get CSV from text reader</summary>
             <param name="reader">The reader</param>
             <param name="ignoreFirstLine">Ignore the header line (default: false)</param>
             <param name="columnSeparator">The default column separator (default: ,)</param>
@@ -5151,20 +5285,20 @@
         <member name="M:PayrollEngine.StringJsonExtensions.JsonToValue(System.String,PayrollEngine.ValueType,System.Globalization.CultureInfo)">
             <inheritdoc cref="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToValue(PayrollEngine.ValueType,System.Globalization.CultureInfo)"/>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.JsonToInteger(System.String,System.Globalization.CultureInfo)">
-            <inheritdoc cref="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToInteger(System.Globalization.CultureInfo)"/>
+        <member name="M:PayrollEngine.StringJsonExtensions.JsonToInteger(System.String)">
+            <inheritdoc cref="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToInteger"/>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.JsonToDecimal(System.String,System.Globalization.CultureInfo)">
-            <inheritdoc cref="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToDecimal(System.Globalization.CultureInfo)"/>
+        <member name="M:PayrollEngine.StringJsonExtensions.JsonToDecimal(System.String)">
+            <inheritdoc cref="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToDecimal"/>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.JsonToString(System.String,System.Globalization.CultureInfo)">
-            <inheritdoc cref="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToString(System.Globalization.CultureInfo)"/>
+        <member name="M:PayrollEngine.StringJsonExtensions.JsonToString(System.String)">
+            <inheritdoc cref="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToString"/>
         </member>
         <member name="M:PayrollEngine.StringJsonExtensions.JsonToDateTime(System.String,System.Globalization.CultureInfo)">
             <inheritdoc cref="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToDateTime(System.Globalization.CultureInfo)"/>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.JsonToBoolean(System.String,System.Globalization.CultureInfo)">
-            <inheritdoc cref="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToBoolean(System.Globalization.CultureInfo)"/>
+        <member name="M:PayrollEngine.StringJsonExtensions.JsonToBoolean(System.String)">
+            <inheritdoc cref="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToBoolean"/>
         </member>
         <member name="M:PayrollEngine.StringJsonExtensions.JsonPrettify(System.String)">
             <inheritdoc cref="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonPrettify"/>
@@ -5190,19 +5324,16 @@
             <param name="culture">The culture</param>
             <returns>The converted value</returns>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToInteger(System.Globalization.CultureInfo)">
+        <member name="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToInteger">
             <summary>Converts a json string to an integer value</summary>
-            <param name="culture">The culture</param>
             <returns>The integer value</returns>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToDecimal(System.Globalization.CultureInfo)">
+        <member name="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToDecimal">
             <summary>Converts a json string to an decimal value</summary>
-            <param name="culture">The culture</param>
             <returns>The decimal value</returns>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToString(System.Globalization.CultureInfo)">
+        <member name="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToString">
             <summary>Converts a json string to a string value</summary>
-            <param name="culture">The culture</param>
             <returns>The string value</returns>
         </member>
         <member name="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToDateTime(System.Globalization.CultureInfo)">
@@ -5210,9 +5341,8 @@
             <param name="culture">The culture</param>
             <returns>The date value</returns>
         </member>
-        <member name="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToBoolean(System.Globalization.CultureInfo)">
+        <member name="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonToBoolean">
             <summary>Converts a json string to a boolean value</summary>
-            <param name="culture">The culture</param>
             <returns>The boolean value</returns>
         </member>
         <member name="M:PayrollEngine.StringJsonExtensions.&lt;G&gt;$34505F560D9EACF86A87F3ED1F85E448.JsonPrettify">
@@ -5263,9 +5393,10 @@
         <member name="T:PayrollEngine.TimeSpanExtensions">
             <summary>Extensions for <see cref="T:PayrollEngine.TimeSpanExtensions"/></summary>
         </member>
-        <member name="M:PayrollEngine.TimeSpanExtensions.ToReadableString(System.TimeSpan)">
+        <member name="M:PayrollEngine.TimeSpanExtensions.ToReadableString(System.TimeSpan,System.Int32)">
             <summary>Test if time type is scalable</summary>
             <param name="timeSpan">The time span</param>
+            <param name="milliSecondThreshold">Threshold to display milliseconds</param>
             <remarks>see https://stackoverflow.com/questions/842057/how-do-i-convert-a-timespan-to-a-formatted-string</remarks>
             <returns>True for time type is scalable</returns>
         </member>
@@ -5407,13 +5538,16 @@
             User password tool
             </summary>
         </member>
+        <member name="F:PayrollEngine.UserPassword.RegexTimeout">
+            <summary>Regex timeout to prevent ReDoS attacks</summary>
+        </member>
         <member name="M:PayrollEngine.UserPassword.IsValid(System.String)">
             <summary>
             Test for valid user password
             </summary>
-            <remarks>password rules: 1 digit, 1 lowercase, 1 uppercase, 1 special character and minimum 8 characters</remarks>
-            <param name="test"></param>
-            <returns></returns>
+            <remarks>Password rules: 1 digit, 1 lowercase, 1 uppercase, 1 special character and minimum 8 characters</remarks>
+            <param name="test">The password to validate</param>
+            <returns>True if the password meets complexity requirements</returns>
         </member>
         <member name="M:PayrollEngine.UserPassword.VerifyPassword(System.String,System.Byte[],System.String)">
             <summary>Verify an encrypted password</summary>
@@ -5498,25 +5632,22 @@
             <summary>Converts JSON string to value</summary>
             <param name="json">The JSON representation</param>
             <param name="valueType">The value type</param>
-            <param name="culture">The culture</param>
+            <param name="culture">The date culture</param>
             <returns>The value</returns>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.ToInteger(System.String,System.Globalization.CultureInfo)">
+        <member name="M:PayrollEngine.ValueConvert.ToInteger(System.String)">
             <summary>Converts a JSON string to an integer value</summary>
             <param name="json">The JSON representation</param>
-            <param name="culture">The culture</param>
             <returns>The integer value</returns>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.ToDecimal(System.String,System.Globalization.CultureInfo)">
+        <member name="M:PayrollEngine.ValueConvert.ToDecimal(System.String)">
             <summary>Converts a JSON string to an decimal value</summary>
             <param name="json">The JSON representation</param>
-            <param name="culture">The culture</param>
             <returns>The decimal value</returns>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.ToString(System.String,System.Globalization.CultureInfo)">
+        <member name="M:PayrollEngine.ValueConvert.ToString(System.String)">
             <summary>Converts a JSON string to a string value</summary>
             <param name="json">The JSON representation</param>
-            <param name="culture">The culture</param>
             <returns>The string value</returns>
         </member>
         <member name="M:PayrollEngine.ValueConvert.ToDateTime(System.String,System.Globalization.CultureInfo)">
@@ -5525,10 +5656,9 @@
             <param name="culture">The culture</param>
             <returns>The date value</returns>
         </member>
-        <member name="M:PayrollEngine.ValueConvert.ToBoolean(System.String,System.Globalization.CultureInfo)">
+        <member name="M:PayrollEngine.ValueConvert.ToBoolean(System.String)">
             <summary>Converts a JSON string to a boolean value</summary>
             <param name="json">The JSON representation</param>
-            <param name="culture">The culture</param>
             <returns>The boolean value</returns>
         </member>
         <member name="T:PayrollEngine.ValueScope">

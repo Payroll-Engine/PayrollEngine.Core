@@ -6,9 +6,9 @@ namespace PayrollEngine;
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum RetroPayMode
 {
-    /// <summary>No retro pay calculation</summary>
-    None = 0,
-
     /// <summary>Retro pay calculation starting from the period containing the oldest value change (start date)</summary>
-    ValueChange = 1
+    ValueChange = 0,
+
+    /// <summary>No retro pay calculation</summary>
+    None = 1
 }

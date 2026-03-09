@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
@@ -65,10 +65,7 @@ public static class DataRowExtensions
         public T GetValue<T>(string column, T defaultValue = default)
         {
             ArgumentNullException.ThrowIfNull(dataRow);
-            if (string.IsNullOrWhiteSpace(column))
-            {
-                throw new ArgumentException(null, nameof(column));
-            }
+            ArgumentException.ThrowIfNullOrWhiteSpace(column);
 
             var value = dataRow[column];
             if (value is null or DBNull)
@@ -109,10 +106,7 @@ public static class DataRowExtensions
         /// <param name="type">The value type</param>
         public void SetValue(string column, object value, Type type = null)
         {
-            if (string.IsNullOrWhiteSpace(column))
-            {
-                throw new ArgumentException(null, nameof(column));
-            }
+            ArgumentException.ThrowIfNullOrWhiteSpace(column);
 
             type ??= typeof(string);
             dataRow.Table.EnsureColumn(column, type);
@@ -213,10 +207,7 @@ public static class DataRowExtensions
     public static List<T> GetValues<T>(this IEnumerable<System.Data.DataRow> dataRows, string column, T defaultValue = default)
     {
         ArgumentNullException.ThrowIfNull(dataRows);
-        if (string.IsNullOrWhiteSpace(column))
-        {
-            throw new ArgumentException(null, nameof(column));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(column);
 
         var values = new List<T>();
         foreach (System.Data.DataRow dataRow in dataRows)
@@ -235,10 +226,7 @@ public static class DataRowExtensions
         public List<T> GetListValue<T>(string column)
         {
             ArgumentNullException.ThrowIfNull(dataRow);
-            if (string.IsNullOrWhiteSpace(column))
-            {
-                throw new ArgumentException(null, nameof(column));
-            }
+            ArgumentException.ThrowIfNullOrWhiteSpace(column);
 
             var value = dataRow[column];
             if (value is null or DBNull)
@@ -267,10 +255,7 @@ public static class DataRowExtensions
         public Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(string column)
         {
             ArgumentNullException.ThrowIfNull(dataRow);
-            if (string.IsNullOrWhiteSpace(column))
-            {
-                throw new ArgumentException(null, nameof(column));
-            }
+            ArgumentException.ThrowIfNullOrWhiteSpace(column);
 
             var value = dataRow[column];
             return value switch

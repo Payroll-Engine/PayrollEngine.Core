@@ -41,13 +41,23 @@ public class HashSalt : IEquatable<HashSalt>
         string.Equals(Hash, compare.Hash) &&
         CompareTool.EqualLists(Salt, compare.Salt);
 
+    /// <inheritdoc/>
+    public override bool Equals(object obj) =>
+        obj is HashSalt other && Equals(other);
+
+    /// <inheritdoc/>
+    // ReSharper disable NonReadonlyMemberInGetHashCode
+    public override int GetHashCode() =>
+        HashCode.Combine(Hash);
+    // ReSharper restore NonReadonlyMemberInGetHashCode
+
     /// <summary>
     /// The hash
     /// </summary>
     public string Hash { get; set; }
 
     /// <summary>
-    /// THe salt
+    /// The salt
     /// </summary>
     public byte[] Salt { get; set; }
 }

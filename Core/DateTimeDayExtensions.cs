@@ -87,8 +87,8 @@ public static class DateTimeDayExtensions
             days.Contains((DayOfWeek)moment.DayOfWeek);
 
         /// <summary>Get past days count since the minimum available date</summary>
-        /// <returns>Day count since <see cref="DateTime.MinValue"/></returns>
+        /// <returns>Day count since <see cref="Date.MinValue"/></returns>
         public int GetPastDaysCount() =>
-            (int)moment.Date.Subtract(DateTime.MinValue.Date).TotalDays;
+            (int)moment.Date.Subtract(Date.MinValue.Date).TotalDays;
     }
 }

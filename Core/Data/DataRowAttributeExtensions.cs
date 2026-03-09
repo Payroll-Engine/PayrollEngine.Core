@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json;
 using System.Collections.Generic;
 
@@ -51,10 +51,7 @@ public static class DataRowAttributeExtensions
         /// <returns>The attribute value</returns>
         public object GetAttribute(string column, string attribute, object defaultValue = null)
         {
-            if (string.IsNullOrWhiteSpace(attribute))
-            {
-                throw new ArgumentException(null, nameof(attribute));
-            }
+            ArgumentException.ThrowIfNullOrWhiteSpace(attribute);
 
             var attributes = dataRow.GetAttributes(column);
             if (!attributes.TryGetValue(attribute, out var value))

@@ -110,6 +110,16 @@ public class DataColumn : IEquatable<DataColumn>
     public bool Equals(DataColumn compare) =>
         CompareTool.EqualProperties(this, compare);
 
+    /// <inheritdoc/>
+    public override bool Equals(object obj) =>
+        obj is DataColumn other && Equals(other);
+
+    /// <inheritdoc/>
+    // ReSharper disable NonReadonlyMemberInGetHashCode
+    public override int GetHashCode() =>
+        HashCode.Combine(Name, ValueType, ValueBaseType);
+    // ReSharper restore NonReadonlyMemberInGetHashCode
+
     /// <summary>
     /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>

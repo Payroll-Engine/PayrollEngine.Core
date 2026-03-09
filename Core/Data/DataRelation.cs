@@ -54,6 +54,16 @@ public class DataRelation : IEquatable<DataRelation>
     public bool Equals(DataRelation compare) =>
         CompareTool.EqualProperties(this, compare);
 
+    /// <inheritdoc/>
+    public override bool Equals(object obj) =>
+        obj is DataRelation other && Equals(other);
+
+    /// <inheritdoc/>
+    // ReSharper disable NonReadonlyMemberInGetHashCode
+    public override int GetHashCode() =>
+        HashCode.Combine(Name, ParentTable, ParentColumn, ChildTable, ChildColumn);
+    // ReSharper restore NonReadonlyMemberInGetHashCode
+
     /// <summary>
     /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>

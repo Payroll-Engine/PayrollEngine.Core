@@ -36,6 +36,27 @@ public class DataRow : IEquatable<DataRow>
     public bool Equals(DataRow compare) =>
         CompareTool.EqualProperties(this, compare);
 
+    /// <inheritdoc/>
+    public override bool Equals(object obj) =>
+        obj is DataRow other && Equals(other);
+
+    /// <inheritdoc/>
+    // ReSharper disable NonReadonlyMemberInGetHashCode
+    public override int GetHashCode()
+    {
+        if (Values == null || Values.Count == 0)
+        {
+            return 0;
+        }
+        var hash = new HashCode();
+        foreach (var value in Values)
+        {
+            hash.Add(value);
+        }
+        return hash.ToHashCode();
+    }
+    // ReSharper restore NonReadonlyMemberInGetHashCode
+
     /// <summary>
     /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>

@@ -31,13 +31,13 @@ public static class Date
     /// <param name="dateTime">The source date time</param>
     /// <returns>The previous tick</returns>
     public static DateTime PreviousTick(DateTime dateTime) =>
-        dateTime == DateTime.MinValue ? dateTime : dateTime.AddTicks(-1);
+        dateTime.Ticks == DateTime.MinValue.Ticks ? dateTime : dateTime.AddTicks(-1);
 
     /// <summary>Get the next tick</summary>
     /// <param name="dateTime">The source date time</param>
     /// <returns>The next tick</returns>
     public static DateTime NextTick(DateTime dateTime) =>
-        dateTime == DateTime.MaxValue ? dateTime : dateTime.AddTicks(1);
+        dateTime.Ticks == DateTime.MaxValue.Ticks ? dateTime : dateTime.AddTicks(1);
 
     /// <summary>Test if the date is midnight.
     /// See https://stackoverflow.com/questions/681435/what-is-the-best-way-to-determine-if-a-system-datetime-is-midnight
@@ -252,7 +252,7 @@ public static class Date
     /// <param name="moment">Moment within the day</param>
     /// <returns><seealso cref="System.DateTime"/> from the latest moment in a day</returns>
     public static DateTime LastMomentOfDay(DateTime moment) =>
-        moment == DateTime.MaxValue ? moment : moment.Date.AddTicks(TimeSpan.TicksPerDay).PreviousTick();
+        moment.Ticks == DateTime.MaxValue.Ticks ? moment : moment.Date.AddTicks(TimeSpan.TicksPerDay).PreviousTick();
 
     /// <summary>Test if the date is the last moment of the day</summary>
     /// <param name="moment">Moment to test</param>

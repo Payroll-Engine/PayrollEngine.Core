@@ -73,17 +73,10 @@ public class DataTable : IEquatable<DataTable>
 
         // convert raw values to json values
         var rawValues = new List<object>();
-        if (row.Values == null)
-        {
-            return rawValues;
-        }
-
         for (var column = 0; column < Columns.Count; column++)
         {
-            if (TryGetCellValue(row, column, rawValues, out var value))
-            {
-                rawValues.Add(value);
-            }
+            // placeholder for expression columns to preserve column index alignment
+            rawValues.Add(TryGetCellValue(row, column, out var value) ? value : null);
         }
         return rawValues;
     }
@@ -93,12 +86,13 @@ public class DataTable : IEquatable<DataTable>
     /// </summary>
     /// <param name="row">Data row</param>
     /// <param name="columnIndex">Column index</param>
-    /// <param name="rawValues">Row war values</param>
     /// <param name="value">Output value</param>
-    /// <returns>True on valid cell value</returns>
-    private bool TryGetCellValue(DataRow row, int columnIndex, List<object> rawValues, out object value)
+    /// <returns>True on valid cell value, false for expression columns</returns>
+    private bool TryGetCellValue(DataRow row, int columnIndex, out object value)
     {
         var column = Columns[columnIndex];
+
+        // expression columns have no stored value
         if (!string.IsNullOrWhiteSpace(column.Expression))
         {
             value = null;
@@ -106,11 +100,12 @@ public class DataTable : IEquatable<DataTable>
         }
 
         var rawValue = row.Values[columnIndex];
+
+        // null is a valid cell value
         if (rawValue == null)
         {
-            rawValues.Add(null);
             value = null;
-            return false;
+            return true;
         }
 
         var type = Columns[columnIndex].GetValueType();
@@ -213,6 +208,16 @@ public class DataTable : IEquatable<DataTable>
     /// <returns>True for objects with the same data</returns>
     public bool Equals(DataTable compare) =>
         CompareTool.EqualProperties(this, compare);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) =>
+        obj is DataTable other && Equals(other);
+
+    /// <inheritdoc/>
+    // ReSharper disable NonReadonlyMemberInGetHashCode
+    public override int GetHashCode() =>
+        Name?.GetHashCode() ?? 0;
+    // ReSharper restore NonReadonlyMemberInGetHashCode
 
     /// <summary>
     /// Returns a <see cref="string" /> that represents this instance.

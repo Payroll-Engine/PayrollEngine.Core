@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace PayrollEngine;
 
@@ -67,15 +69,18 @@ public static class CopyTool
         }
     }
 
-    private static List<Type> GetIgnoreTypes(IEnumerable<Type> ignoreAttributes = null)
+    private static List<Type> GetIgnoreTypes(IEnumerable<Type> types = null)
     {
-        var ignoreTypes = ignoreAttributes != null ? ignoreAttributes.ToList() : [];
-        if (!ignoreTypes.Any())
+        if (types != null)
         {
-            ignoreTypes.Add(typeof(System.ComponentModel.DataAnnotations.Schema.NotMappedAttribute));
-            ignoreTypes.Add(typeof(System.Text.Json.Serialization.JsonIgnoreAttribute));
+            return types.ToList();
         }
-        return ignoreTypes;
+        // support empty type list, but add default ignore types
+        return
+        [
+            typeof(NotMappedAttribute),
+            typeof(JsonIgnoreAttribute)
+        ];
     }
 
     private static bool IgnoreProperty(PropertyInfo property, List<Type> ignoreTypes = null)

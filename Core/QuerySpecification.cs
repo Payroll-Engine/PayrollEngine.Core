@@ -1,6 +1,6 @@
 ﻿namespace PayrollEngine;
 
-/// <summary>The script specification</summary>
+/// <summary>The query specification</summary>
 public static class QuerySpecification
 {
     /// <summary>Status</summary>

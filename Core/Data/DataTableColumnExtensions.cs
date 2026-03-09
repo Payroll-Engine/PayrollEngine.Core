@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Collections.Generic;
 
@@ -29,10 +29,7 @@ public static class DataTableColumnExtensions
         /// <param name="expression">The compute expression</param>
         public System.Data.DataColumn AddColumn(string columnName, Type type, string expression = null)
         {
-            if (string.IsNullOrWhiteSpace(columnName))
-            {
-                throw new ArgumentException(null, nameof(columnName));
-            }
+            ArgumentException.ThrowIfNullOrWhiteSpace(columnName);
 
             if (expression == null)
             {

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text.Json;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace PayrollEngine.Serialization;
@@ -77,12 +77,15 @@ public sealed class NamedDictionaryConverterType<TKey, TValue> :
         writer.WriteStartObject();
         foreach (var value in values)
         {
-            var propertyName = value.Key.ToString();
-            if (!string.IsNullOrWhiteSpace(propertyName))
+            var propertyName = value.Key?.ToString();
+            if (string.IsNullOrWhiteSpace(propertyName))
             {
-                writer.WritePropertyName(propertyName);
-                System.Text.Json.JsonSerializer.Serialize(writer, value.Value, options);
+                continue;
             }
+
+            // serialize value
+            writer.WritePropertyName(propertyName);
+            System.Text.Json.JsonSerializer.Serialize(writer, value.Value, options);
         }
         writer.WriteEndObject();
     }

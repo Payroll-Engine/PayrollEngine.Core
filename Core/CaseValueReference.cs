@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 
 namespace PayrollEngine;
@@ -27,10 +27,7 @@ public class CaseValueReference
     /// <param name="reference">The case field reference</param>
     public CaseValueReference(string reference)
     {
-        if (string.IsNullOrWhiteSpace(reference))
-        {
-            throw new ArgumentException(null, nameof(reference));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(reference);
         if (reference.Count(x => x == CaseFieldSlotSeparator) > 1)
         {
             throw new FormatException($"Invalid case value reference {reference}");
@@ -56,10 +53,7 @@ public class CaseValueReference
     /// <param name="caseSlot">The case slot</param>
     public CaseValueReference(string caseFieldName, string caseSlot)
     {
-        if (string.IsNullOrWhiteSpace(caseFieldName))
-        {
-            throw new ArgumentException(null, nameof(caseFieldName));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(caseFieldName);
         if (caseFieldName.Contains(CaseFieldSlotSeparator))
         {
             throw new FormatException($"Invalid case field name {caseFieldName}");

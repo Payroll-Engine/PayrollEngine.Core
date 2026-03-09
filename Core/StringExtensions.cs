@@ -131,7 +131,7 @@ public static class StringExtensions
 
         // neutral language
         var index = culture.IndexOf('-');
-        if (index <= 0 && culture.Length == 2)
+        if (index < 0 && culture.Length == 2)
         {
             // search for first country specific language
             var specificCulture = localizations.Keys.FirstOrDefault(

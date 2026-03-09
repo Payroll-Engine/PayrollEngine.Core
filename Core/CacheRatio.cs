@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace PayrollEngine;
 
@@ -27,10 +27,7 @@ public class CacheRatio
     /// <summary>A new stopwatch</summary>
     public CacheRatio(string name, LogLevel logLevel = LogLevel.Information)
     {
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            throw new ArgumentException("Invalid stopwatch name.", nameof(name));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
 
         Name = name;
         LogLevel = logLevel;

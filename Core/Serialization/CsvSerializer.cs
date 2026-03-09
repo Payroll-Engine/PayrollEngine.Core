@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
@@ -48,15 +48,12 @@ public static class CsvSerializer
     public static IEnumerable<IList<string>> FromFile(string fileName, Encoding encoding = null,
         bool ignoreFirstLine = false, char columnSeparator = ',')
     {
-        if (string.IsNullOrWhiteSpace(fileName))
-        {
-            throw new ArgumentException(null, nameof(fileName));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
 
         // default encoding
         encoding ??= Encoding.UTF8;
         using StreamReader reader = new(fileName, encoding);
-        foreach (var item in FromReaderAsync(reader, ignoreFirstLine, columnSeparator))
+        foreach (var item in FromReader(reader, ignoreFirstLine, columnSeparator))
         {
             yield return item;
         }
@@ -73,18 +70,18 @@ public static class CsvSerializer
         ArgumentNullException.ThrowIfNull(stream);
 
         using StreamReader reader = new(stream);
-        foreach (var item in FromReaderAsync(reader, ignoreFirstLine, columnSeparator))
+        foreach (var item in FromReader(reader, ignoreFirstLine, columnSeparator))
         {
             yield return item;
         }
     }
 
-    /// <summary>Get CSV from stream</summary>
+    /// <summary>Get CSV from text reader</summary>
     /// <param name="reader">The reader</param>
     /// <param name="ignoreFirstLine">Ignore the header line (default: false)</param>
     /// <param name="columnSeparator">The default column separator (default: ,)</param>
     /// <returns>The CSV string list</returns>
-    public static IEnumerable<IList<string>> FromReaderAsync(TextReader reader,
+    public static IEnumerable<IList<string>> FromReader(TextReader reader,
         bool ignoreFirstLine = false, char columnSeparator = ',')
     {
         ArgumentNullException.ThrowIfNull(reader);

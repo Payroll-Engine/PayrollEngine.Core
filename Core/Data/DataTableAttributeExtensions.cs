@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -22,10 +22,7 @@ public static class DataTableAttributeExtensions
         string relationSourceColumn, string relationTargetColumn)
     {
         ArgumentNullException.ThrowIfNull(dataTable);
-        if (string.IsNullOrWhiteSpace(attributesTableName))
-        {
-            throw new ArgumentException(null, nameof(attributesTableName));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(attributesTableName);
         ArgumentNullException.ThrowIfNull(relationSourceColumn);
         ArgumentNullException.ThrowIfNull(relationTargetColumn);
 

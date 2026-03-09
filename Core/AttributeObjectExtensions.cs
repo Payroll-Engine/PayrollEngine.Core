@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json;
 
 namespace PayrollEngine;
@@ -50,10 +50,7 @@ public static class AttributeObjectExtensions
         /// <param name="value">The value to set</param>
         public void SetAttribute(string key, object value)
         {
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                throw new ArgumentException(null, nameof(key));
-            }
+            ArgumentException.ThrowIfNullOrWhiteSpace(key);
 
             // remove
             if (value == null)

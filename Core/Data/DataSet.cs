@@ -54,6 +54,16 @@ public class DataSet : IEquatable<DataSet>
     public bool Equals(DataSet compare) =>
         CompareTool.EqualProperties(this, compare);
 
+    /// <inheritdoc/>
+    public override bool Equals(object obj) =>
+        obj is DataSet other && Equals(other);
+
+    /// <inheritdoc/>
+    // ReSharper disable NonReadonlyMemberInGetHashCode
+    public override int GetHashCode() =>
+        Name?.GetHashCode() ?? 0;
+    // ReSharper restore NonReadonlyMemberInGetHashCode
+
     /// <summary>
     /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>

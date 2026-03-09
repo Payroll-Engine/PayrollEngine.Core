@@ -42,4 +42,14 @@ public class PasswordChangeRequest : IEquatable<PasswordChangeRequest>
     /// <returns>True for objects with the same data</returns>
     public bool Equals(PasswordChangeRequest compare) =>
         CompareTool.EqualProperties(this, compare);
+
+    /// <inheritdoc/>
+    public override bool Equals(object obj) =>
+        obj is PasswordChangeRequest other && Equals(other);
+
+    /// <inheritdoc/>
+    // ReSharper disable NonReadonlyMemberInGetHashCode
+    public override int GetHashCode() =>
+        HashCode.Combine(NewPassword, ExistingPassword);
+    // ReSharper restore NonReadonlyMemberInGetHashCode
 }

@@ -44,7 +44,7 @@ public static class DatePeriodExtensions
         /// <param name="testPeriod">The period to test</param>
         /// <returns>True, if the test period is within this period</returns>
         public bool IsWithin(DatePeriod testPeriod) => 
-            testPeriod.IsWithin(period.Start) && testPeriod.IsWithin(period.End);
+            period.IsWithin(testPeriod.Start) && period.IsWithin(testPeriod.End);
 
         /// <summary>Test if a specific time moment is within or before the period, including open periods</summary>
         /// <param name="testMoment">The moment to test</param>
@@ -112,7 +112,7 @@ public static class DatePeriodExtensions
                     splitPeriods.Add(new(last.End.NextTick(), period.End));
                 }
             }
-            return splitPeriods;
+            return splitPeriods.Any() ? splitPeriods : [period];
         }
 
         /// <summary>Calculate the count of working days</summary>

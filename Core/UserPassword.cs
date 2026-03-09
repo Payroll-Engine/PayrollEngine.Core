@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.RegularExpressions;
 
 namespace PayrollEngine;
@@ -8,24 +8,31 @@ namespace PayrollEngine;
 /// </summary>
 public static class UserPassword
 {
-    private const string expression = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[@$!%*?&]).{8,}$";
+    /// <summary>Regex timeout to prevent ReDoS attacks</summary>
+    private static readonly TimeSpan RegexTimeout = TimeSpan.FromSeconds(1);
+
+    private const string Expression = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[@$!%*?&]).{8,}$";
 
     /// <summary>
     /// Test for valid user password
     /// </summary>
-    /// <remarks>password rules: 1 digit, 1 lowercase, 1 uppercase, 1 special character and minimum 8 characters</remarks>
-    /// <param name="test"></param>
-    /// <returns></returns>
+    /// <remarks>Password rules: 1 digit, 1 lowercase, 1 uppercase, 1 special character and minimum 8 characters</remarks>
+    /// <param name="test">The password to validate</param>
+    /// <returns>True if the password meets complexity requirements</returns>
     public static bool IsValid(string test)
     {
-        if (string.IsNullOrWhiteSpace(test))
-        {
-            throw new ArgumentException(nameof(test));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(test);
 
         // test .NET regex: https://regex101.com/
-        var match = Regex.Match(test, expression);
-        return match.Success;
+        try
+        {
+            var match = Regex.Match(test, Expression, RegexOptions.None, RegexTimeout);
+            return match.Success;
+        }
+        catch (RegexMatchTimeoutException)
+        {
+            return false;
+        }
     }
 
     /// <summary>Verify an encrypted password</summary>
@@ -35,18 +42,9 @@ public static class UserPassword
     /// <returns>True for valid password</returns>
     public static bool VerifyPassword(string password, byte[] hashSalt, string verifyPassword)
     {
-        if (string.IsNullOrWhiteSpace(password))
-        {
-            throw new ArgumentException(nameof(password));
-        }
-        if (hashSalt == null)
-        {
-            throw new ArgumentNullException(nameof(hashSalt));
-        }
-        if (string.IsNullOrWhiteSpace(verifyPassword))
-        {
-            throw new ArgumentException(nameof(verifyPassword));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(password);
+        ArgumentNullException.ThrowIfNull(hashSalt);
+        ArgumentException.ThrowIfNullOrWhiteSpace(verifyPassword);
 
         var existingHashSalt = new HashSalt(password, hashSalt);
         var testHashSalt = verifyPassword.ToHashSalt(hashSalt);

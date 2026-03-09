@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace PayrollEngine;
 
@@ -59,10 +59,7 @@ public static class StringAttributeExtensions
 
         private string ToAttributeField(string prefix)
         {
-            if (string.IsNullOrWhiteSpace(attribute))
-            {
-                throw new ArgumentException(null, nameof(attribute));
-            }
+            ArgumentException.ThrowIfNullOrWhiteSpace(attribute);
             return attribute.EnsureStart(prefix);
         }
     }

@@ -18,7 +18,7 @@ public class ProgramConfiguration<TApp> where TApp : class
         // app settings: json file or log
         if (options.HasFlag(ProgramConfigurationOptions.AppSettings))
         {
-            builder.AddJsonFile("appsettings.json");
+            builder.AddJsonFile("appsettings.json", optional: true);
         }
 
         // user secrets

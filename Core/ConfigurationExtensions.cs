@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Extensions.Configuration;
 
 namespace PayrollEngine;
@@ -19,10 +19,7 @@ public static class ConfigurationExtensions
         /// <returns>The configuration object</returns>
         public T GetConfiguration<T>(string name) where T : class
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException(nameof(name));
-            }
+            ArgumentException.ThrowIfNullOrWhiteSpace(name);
             IConfigurationSection configurationSection = configuration.GetSection(name);
             return configurationSection.Get<T>();
         }

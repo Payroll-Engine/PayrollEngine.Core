@@ -46,22 +46,19 @@ public static class StringJsonExtensions
             ValueConvert.ToValue(value, valueType, culture);
 
         /// <summary>Converts a json string to an integer value</summary>
-        /// <param name="culture">The culture</param>
         /// <returns>The integer value</returns>
-        public int JsonToInteger(CultureInfo culture) =>
-            ValueConvert.ToInteger(value, culture);
+        public int JsonToInteger() =>
+            ValueConvert.ToInteger(value);
 
         /// <summary>Converts a json string to an decimal value</summary>
-        /// <param name="culture">The culture</param>
         /// <returns>The decimal value</returns>
-        public decimal JsonToDecimal(CultureInfo culture) =>
-            ValueConvert.ToDecimal(value, culture);
+        public decimal JsonToDecimal() =>
+            ValueConvert.ToDecimal(value);
 
         /// <summary>Converts a json string to a string value</summary>
-        /// <param name="culture">The culture</param>
         /// <returns>The string value</returns>
-        public string JsonToString(CultureInfo culture) =>
-            ValueConvert.ToString(value, culture);
+        public string JsonToString() =>
+            ValueConvert.ToString(value);
 
         /// <summary>Converts a json string to a date value</summary>
         /// <param name="culture">The culture</param>
@@ -70,10 +67,9 @@ public static class StringJsonExtensions
             ValueConvert.ToDateTime(value, culture);
 
         /// <summary>Converts a json string to a boolean value</summary>
-        /// <param name="culture">The culture</param>
         /// <returns>The boolean value</returns>
-        public bool JsonToBoolean(CultureInfo culture) =>
-            ValueConvert.ToBoolean(value, culture);
+        public bool JsonToBoolean() =>
+            ValueConvert.ToBoolean(value);
 
         /// <summary>Prettify json string</summary>
         /// <returns>Indented json representation</returns>

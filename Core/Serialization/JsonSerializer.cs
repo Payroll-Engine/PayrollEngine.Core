@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,10 +16,7 @@ public static class JsonSerializer
     /// <param name="fileName">The file name</param>
     public static async Task<T> DeserializeFromFileAsync<T>(string fileName)
     {
-        if (string.IsNullOrWhiteSpace(fileName))
-        {
-            throw new ArgumentException(null, nameof(fileName));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
 
         // import file
         if (!File.Exists(fileName))
@@ -47,10 +44,7 @@ public static class JsonSerializer
     public static async Task<T> DeserializeFromResourceAsync<T>(Type type, string resourceName)
     {
         ArgumentNullException.ThrowIfNull(type);
-        if (string.IsNullOrWhiteSpace(resourceName))
-        {
-            throw new ArgumentException(null, nameof(resourceName));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(resourceName);
 
         var assembly = type.Assembly;
         await using Stream stream = assembly.GetManifestResourceStream(type.Namespace + resourceName.EnsureStart("."));
@@ -90,8 +84,24 @@ public static class JsonSerializer
     /// <summary>Prevent 'null' serialization of empty dictionaries</summary>
     /// <param name="values">The dictionary to serialize</param>
     /// <returns>String representation of the dictionary, null on undefined or empty dictionary</returns>
-    public static string SerializeNamedDictionary<TValue>(Dictionary<string, TValue> values) =>
-        values != null && values.Any() ? System.Text.Json.JsonSerializer.Serialize(values) : null;
+    public static string SerializeNamedDictionary<TValue>(Dictionary<string, TValue> values)
+    {
+        if (values == null || !values.Any())
+        {
+            return null;
+        }
+        // filter out null values to avoid ArgumentNullException in System.Text.Json
+        // when serializing Dictionary<string, object> entries with null values
+        var nonNullValues = new Dictionary<string, TValue>(values.Count);
+        foreach (var kvp in values)
+        {
+            if (kvp.Value != null)
+            {
+                nonNullValues[kvp.Key] = kvp.Value;
+            }
+        }
+        return nonNullValues.Any() ? System.Text.Json.JsonSerializer.Serialize(nonNullValues) : null;
+    }
 
     /// <summary>Serialize a string/object dictionary.
     /// replace MS JsonSerializer.Deserialize&lt;Dictionary&lt;string,object&gt;&gt;

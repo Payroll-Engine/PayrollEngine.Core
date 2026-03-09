@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -24,10 +24,7 @@ public static class DictionaryExtensions
         /// <returns>The key value if available, otherwise the default value</returns>
         public T GetValue<T>(string key, T defaultValue)
         {
-            if (string.IsNullOrWhiteSpace(key))
-            {
-                throw new ArgumentException(null, nameof(key));
-            }
+            ArgumentException.ThrowIfNullOrWhiteSpace(key);
 
             if (source == null || !source.TryGetValue(key, out var value))
             {

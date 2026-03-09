@@ -7,10 +7,17 @@ public static class TimeSpanExtensions
 {
     /// <summary>Test if time type is scalable</summary>
     /// <param name="timeSpan">The time span</param>
+    /// <param name="milliSecondThreshold">Threshold to display milliseconds</param>
     /// <remarks>see https://stackoverflow.com/questions/842057/how-do-i-convert-a-timespan-to-a-formatted-string</remarks>
     /// <returns>True for time type is scalable</returns>
-    public static string ToReadableString(this TimeSpan timeSpan)
+    public static string ToReadableString(this TimeSpan timeSpan, int milliSecondThreshold = 10000)
     {
+        // milliseconds are only displayed if the time span is less than the specified threshold
+        if (timeSpan.Duration().TotalMilliseconds < milliSecondThreshold)
+        {
+            return $"{timeSpan.TotalMilliseconds:0} ms";
+        }
+
         var days = timeSpan.Duration().Days > 0
             ? $"{timeSpan.Days:0} day{(timeSpan.Days == 1 ? string.Empty : "s")}, "
             : string.Empty;

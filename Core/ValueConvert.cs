@@ -58,7 +58,7 @@ public static class ValueConvert
     /// <param name="value">The value</param>
     /// <returns>The JSON representation of the value</returns>
     public static string ToJson(object value) =>
-        value != null ? JsonSerializer.Serialize(value) : null;
+        value != null ? JsonSerializer.Serialize(value, value.GetType()) : null;
 
     #endregion
 
@@ -102,7 +102,7 @@ public static class ValueConvert
     /// <summary>Converts JSON string to value</summary>
     /// <param name="json">The JSON representation</param>
     /// <param name="valueType">The value type</param>
-    /// <param name="culture">The culture</param>
+    /// <param name="culture">The date culture</param>
     /// <returns>The value</returns>
     public static object ToValue(string json, ValueType valueType, CultureInfo culture)
     {
@@ -113,38 +113,35 @@ public static class ValueConvert
 
         return valueType.GetSystemType().Name switch
         {
-            nameof(Int32) => ToInteger(json, culture),
-            nameof(Decimal) => ToDecimal(json, culture),
-            nameof(String) => ToString(json, culture),
+            nameof(Int32) => ToInteger(json),
+            nameof(Decimal) => ToDecimal(json),
+            nameof(String) => ToString(json),
             nameof(DateTime) => ToDateTime(json, culture),
-            nameof(Boolean) => ToBoolean(json, culture),
+            nameof(Boolean) => ToBoolean(json),
             _ => null
         };
     }
 
     /// <summary>Converts a JSON string to an integer value</summary>
     /// <param name="json">The JSON representation</param>
-    /// <param name="culture">The culture</param>
     /// <returns>The integer value</returns>
-    public static int ToInteger(string json, CultureInfo culture)
+    public static int ToInteger(string json)
     {
-        return string.IsNullOrWhiteSpace(json) ? 0 : JsonSerializer.Deserialize<int>(json.ToString(culture));
+        return string.IsNullOrWhiteSpace(json) ? 0 : JsonSerializer.Deserialize<int>(json);
     }
 
     /// <summary>Converts a JSON string to an decimal value</summary>
     /// <param name="json">The JSON representation</param>
-    /// <param name="culture">The culture</param>
     /// <returns>The decimal value</returns>
-    public static decimal ToDecimal(string json, CultureInfo culture) =>
-        string.IsNullOrWhiteSpace(json) ? 0 : JsonSerializer.Deserialize<decimal>(json.ToString(culture));
+    public static decimal ToDecimal(string json) =>
+        string.IsNullOrWhiteSpace(json) ? 0 : JsonSerializer.Deserialize<decimal>(json);
 
     /// <summary>Converts a JSON string to a string value</summary>
     /// <param name="json">The JSON representation</param>
-    /// <param name="culture">The culture</param>
     /// <returns>The string value</returns>
-    public static string ToString(string json, CultureInfo culture) =>
+    public static string ToString(string json) =>
         string.IsNullOrWhiteSpace(json) ? null :
-        json.StartsWith('"') ? JsonSerializer.Deserialize<string>(json.ToString(culture)) : json.ToString(culture);
+        json.StartsWith('"') ? JsonSerializer.Deserialize<string>(json) : json;
 
     /// <summary>Converts a JSON string to a date time value</summary>
     /// <param name="json">The JSON representation</param>
@@ -152,16 +149,15 @@ public static class ValueConvert
     /// <returns>The date value</returns>
     public static DateTime ToDateTime(string json, CultureInfo culture) =>
         string.IsNullOrWhiteSpace(json) ? default :
-        json.StartsWith('"') ? 
-            JsonSerializer.Deserialize<DateTime>(json.ToString(culture)) : 
-            DateTime.Parse(json.ToString(culture), null, DateTimeStyles.AdjustToUniversal);
+        json.StartsWith('"') ?
+            JsonSerializer.Deserialize<DateTime>(json) :
+            DateTime.Parse(json, culture, DateTimeStyles.AdjustToUniversal);
 
     /// <summary>Converts a JSON string to a boolean value</summary>
     /// <param name="json">The JSON representation</param>
-    /// <param name="culture">The culture</param>
     /// <returns>The boolean value</returns>
-    public static bool ToBoolean(string json, CultureInfo culture) =>
-        !string.IsNullOrWhiteSpace(json) && JsonSerializer.Deserialize<bool>(json.ToString(culture));
+    public static bool ToBoolean(string json) =>
+        !string.IsNullOrWhiteSpace(json) && JsonSerializer.Deserialize<bool>(json);
 
     #endregion
 

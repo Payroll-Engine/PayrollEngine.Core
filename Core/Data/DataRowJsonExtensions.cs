@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json;
 
 namespace PayrollEngine.Data;
@@ -25,10 +25,7 @@ public static class DataRowJsonExtensions
         public object GetJsonValue(string column,
             Type type, object defaultValue = null)
         {
-            if (string.IsNullOrWhiteSpace(column))
-            {
-                throw new ArgumentException(null, nameof(column));
-            }
+            ArgumentException.ThrowIfNullOrWhiteSpace(column);
             ArgumentNullException.ThrowIfNull(type);
 
             if (dataRow[column] is not string json)
@@ -55,10 +52,7 @@ public static class DataRowJsonExtensions
         public void SetJsonValue(Type type, string column, object value)
         {
             ArgumentNullException.ThrowIfNull(type);
-            if (string.IsNullOrWhiteSpace(column))
-            {
-                throw new ArgumentException(null, nameof(column));
-            }
+            ArgumentException.ThrowIfNullOrWhiteSpace(column);
             if (value == null)
             {
                 return;

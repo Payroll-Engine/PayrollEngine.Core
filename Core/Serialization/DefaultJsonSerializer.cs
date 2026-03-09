@@ -12,7 +12,7 @@ namespace PayrollEngine.Serialization;
 /// <summary>Default JSON serializer</summary>
 public static class DefaultJsonSerializer
 {
-    private static JsonSerializerOptions options => new()
+    private static readonly JsonSerializerOptions Options = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
@@ -31,14 +31,14 @@ public static class DefaultJsonSerializer
     /// <typeparam name="T">The object type</typeparam>
     /// <returns>Object of type T</returns>
     public static T Deserialize<T>(string json) =>
-        System.Text.Json.JsonSerializer.Deserialize<T>(json, options);
+        System.Text.Json.JsonSerializer.Deserialize<T>(json, Options);
 
     /// <summary>Serialize object using the default options</summary>
     /// <param name="obj">The object to serialize</param>
     /// <typeparam name="T">The object type</typeparam>
     /// <returns>The serialized JSON text</returns>
     public static string Serialize<T>(T obj) =>
-        obj != null ? System.Text.Json.JsonSerializer.Serialize(obj, obj.GetType(), options) : null;
+        obj != null ? System.Text.Json.JsonSerializer.Serialize(obj, obj.GetType(), Options) : null;
 
     /// <summary>Serialize object to string content using the default options</summary>
     /// <param name="obj">The object to serialize</param>
