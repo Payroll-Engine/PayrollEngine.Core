@@ -6,7 +6,7 @@
 The Payroll Engine core library, used by every other component:
 - Payroll exceptions (`PayrollException`, `PayrunException`, `PersistenceException`, `QueryException`)
 - Logger abstraction `ILogger` with static `Log` facade and `PayrollNullLogger` fallback
-- Document abstraction for reports (`IDataMerge`)
+- Document abstraction for reports (`IDocumentService`)
 - Value conversion (`ValueConvert`, `ValueType`, `ValueBaseType`)
 - Common types and extension methods
 - JSON and CSV serialization (`DefaultJsonSerializer`, `CsvSerializer`, `ClientJsonSerializer`)

@@ -2961,27 +2961,43 @@
             <param name="documentType">The document type</param>
             <returns>The file extension</returns>
         </member>
-        <member name="T:PayrollEngine.Document.IDataMerge">
-            <summary>Data merge</summary>
+        <member name="T:PayrollEngine.Document.IDocumentService">
+            <summary>Document service</summary>
         </member>
-        <member name="M:PayrollEngine.Document.IDataMerge.IsMergeable(PayrollEngine.Document.DocumentType)">
-            <summary>Test if document type is mergeable</summary>
+        <member name="M:PayrollEngine.Document.IDocumentService.IsSupported(PayrollEngine.Document.DocumentType)">
+            <summary>Test if document type is supported</summary>
             <param name="documentType">Type of the document</param>
         </member>
-        <member name="M:PayrollEngine.Document.IDataMerge.Merge(System.IO.Stream,System.Data.DataSet,PayrollEngine.Document.DocumentType,PayrollEngine.Document.DocumentMetadata,System.Collections.Generic.IDictionary{System.String,System.Object})">
-            <summary>Merge a document from a stream to a stream</summary>
-            <param name="templateStream">Name of the template file</param>
+        <member name="M:PayrollEngine.Document.IDocumentService.IsMergeable(PayrollEngine.Document.DocumentType)">
+            <summary>Test if document type requires a template for merge (Excel or Pdf)</summary>
+            <param name="documentType">Type of the document</param>
+        </member>
+        <member name="M:PayrollEngine.Document.IDocumentService.MergeAsync(System.IO.Stream,System.Data.DataSet,PayrollEngine.Document.DocumentType,PayrollEngine.Document.DocumentMetadata,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>Merge a template stream with data into a document stream</summary>
+            <param name="templateStream">The template stream</param>
             <param name="dataSet">The data set</param>
             <param name="documentType">Type of the document</param>
             <param name="metadata">The document metadata</param>
             <param name="parameters">The merge parameters</param>
             <returns>The merged document stream</returns>
         </member>
-        <member name="M:PayrollEngine.Document.IDataMerge.ExcelMerge(System.Data.DataSet,PayrollEngine.Document.DocumentMetadata,System.Collections.Generic.IDictionary{System.String,System.Object})">
-            <summary>Merge to excel stream</summary>
+        <member name="M:PayrollEngine.Document.IDocumentService.ExcelMergeAsync(System.Data.DataSet,PayrollEngine.Document.DocumentMetadata,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>Merge data into an Excel stream</summary>
             <param name="dataSet">The source data</param>
-            <param name="metadata">The document meta data</param>
+            <param name="metadata">The document metadata</param>
             <param name="parameters">The merge parameters</param>
+            <returns>The Excel document stream</returns>
+        </member>
+        <member name="M:PayrollEngine.Document.IDocumentService.GenerateAsync(System.Data.DataSet,System.IO.Stream)">
+            <summary>
+            Generate a schema document from a DataSet.
+            Without <paramref name="templateStream"/>, generates a new skeleton with an empty ReportPage.
+            With <paramref name="templateStream"/>, updates the schema section of the existing template
+            preserving all layout elements.
+            </summary>
+            <param name="dataSet">The source data</param>
+            <param name="templateStream">Existing template stream for schema update (optional, CI mode)</param>
+            <returns>Stream containing the generated document content</returns>
         </member>
         <member name="T:PayrollEngine.EnumerableExtensions">
             <summary>Extensions for <see cref="T:System.Collections.Generic.IEnumerable`1"/></summary>
@@ -4935,6 +4951,12 @@
             <param name="targetFileName">The target file name</param>
             <remarks>Existing file will be deleted</remarks>
             <returns>The configuration object</returns>
+        </member>
+        <member name="M:PayrollEngine.StreamExtensions.WriteToFile(System.IO.Stream,System.String)">
+            <summary>Write stream to file</summary>
+            <param name="stream">The stream</param>
+            <param name="targetFileName">The target file name</param>
+            <remarks>Existing file will be deleted</remarks>
         </member>
         <member name="T:PayrollEngine.StringAttributeExtensions">
             <summary>Attribute extensions for <see cref="T:System.String"/></summary>

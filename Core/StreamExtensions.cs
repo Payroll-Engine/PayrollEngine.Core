@@ -25,4 +25,22 @@ public static class StreamExtensions
         await using var fileStream = File.Create(targetFileName);
         await stream.CopyToAsync(fileStream);
     }
+
+    /// <summary>Write stream to file</summary>
+    /// <param name="stream">The stream</param>
+    /// <param name="targetFileName">The target file name</param>
+    /// <remarks>Existing file will be deleted</remarks>
+    public static async Task WriteToFile(this Stream stream, string targetFileName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(targetFileName);
+
+        if (File.Exists(targetFileName))
+        {
+            File.Delete(targetFileName);
+        }
+
+        stream.Position = 0;
+        await using var fileStream = File.Create(targetFileName);
+        await stream.CopyToAsync(fileStream);
+    }
 }
