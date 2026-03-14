@@ -38,6 +38,11 @@ public class Query
     public long? Skip { get; set; }
 
     /// <summary>
+    /// The OData apply expression for aggregation and grouping (e.g. groupby, aggregate)
+    /// </summary>
+    public string Apply { get; set; }
+
+    /// <summary>
     /// The query result type: items, count or items with count (default: result items)
     /// </summary>
     public QueryResultType? Result { get; set; }
@@ -114,6 +119,15 @@ public class Query
                 buffer.Append(", ");
             }
             buffer.Append($"Skip={Skip}");
+        }
+        // apply
+        if (!string.IsNullOrWhiteSpace(Apply))
+        {
+            if (buffer.Length > 0)
+            {
+                buffer.Append(", ");
+            }
+            buffer.Append($"Apply={Apply}");
         }
         // result
         if (Result.HasValue)

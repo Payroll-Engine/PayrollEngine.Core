@@ -4337,6 +4337,11 @@
             The number of items in the queried collection that are to be skipped
             </summary>
         </member>
+        <member name="P:PayrollEngine.Query.Apply">
+            <summary>
+            The OData apply expression for aggregation and grouping (e.g. groupby, aggregate)
+            </summary>
+        </member>
         <member name="P:PayrollEngine.Query.Result">
             <summary>
             The query result type: items, count or items with count (default: result items)
@@ -4596,6 +4601,9 @@
         </member>
         <member name="F:PayrollEngine.QuerySpecification.EndsWithFunction">
             <summary>Ends with function</summary>
+        </member>
+        <member name="F:PayrollEngine.QuerySpecification.ApplyOperation">
+            <summary>Apply</summary>
         </member>
         <member name="F:PayrollEngine.QuerySpecification.StartsWithFunction">
             <summary>Starts with function</summary>

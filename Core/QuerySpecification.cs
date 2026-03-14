@@ -57,6 +57,9 @@ public static class QuerySpecification
     /// <summary>Ends with function</summary>
     public static readonly string EndsWithFunction = "endswith";
 
+    /// <summary>Apply</summary>
+    public static readonly string ApplyOperation = "apply";
+
     /// <summary>Starts with function</summary>
     public static readonly string StartsWithFunction = "startswith";
 
