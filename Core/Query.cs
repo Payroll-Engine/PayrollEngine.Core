@@ -38,7 +38,7 @@ public class Query
     public long? Skip { get; set; }
 
     /// <summary>
-    /// The OData apply expression for aggregation and grouping (e.g. groupby, aggregate)
+    /// The OData apply expression for aggregation and grouping (e.g. group-by, aggregate)
     /// </summary>
     public string Apply { get; set; }
 
