@@ -4721,15 +4721,6 @@
         <member name="F:PayrollEngine.RetroPayMode.None">
             <summary>No retro pay calculation</summary>
         </member>
-        <member name="T:PayrollEngine.RetroTimeType">
-            <summary>The payrun retro type</summary>
-        </member>
-        <member name="F:PayrollEngine.RetroTimeType.Anytime">
-            <summary>Retro calculation without time limits</summary>
-        </member>
-        <member name="F:PayrollEngine.RetroTimeType.Cycle">
-            <summary>Retro calculation within the current cycle</summary>
-        </member>
         <member name="T:PayrollEngine.ScriptingSpecification">
             <summary>The script specification</summary>
         </member>
