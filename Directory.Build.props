@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
 
 
 	<PropertyGroup>
@@ -8,7 +8,7 @@
 		<InformationalVersion></InformationalVersion>
 		<Authors>Jani Giannoudis</Authors>
 		<Company>Software Consulting Giannoudis</Company>
-		<Copyright>Â© 2026 Software Consulting Giannoudis</Copyright>
+		<Copyright>© 2026 Software Consulting Giannoudis</Copyright>
 		<Product>Payroll Engine Core</Product>
 		<PackageProjectUrl>https://payrollengine.org/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Payroll-Engine/PayrollEngine.Core.git</RepositoryUrl>
