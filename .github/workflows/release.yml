@@ -53,7 +53,7 @@ jobs:
 
       # Use PAT for checkout so the push triggers no recursive workflows
       # and the tag/release is created on the correct commit
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           token: ${{ secrets.PAT_DISPATCH }}
           fetch-depth: 0
@@ -61,7 +61,7 @@ jobs:
       # ── Version Guard ────────────────────────────────
       - name: Check if version already exists
         if: steps.params.outputs.dry_run != 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.PAT_DISPATCH }}
           script: |
@@ -158,7 +158,7 @@ jobs:
 
       # ── Build ────────────────────────────────────────
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
@@ -192,7 +192,7 @@ jobs:
             --skip-duplicate
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ steps.params.outputs.version }}
           name: v${{ steps.params.outputs.version }}
@@ -203,7 +203,7 @@ jobs:
 
       - name: Notify orchestrator
         if: github.event_name == 'repository_dispatch'
-        uses: peter-evans/repository-dispatch@v3
+        uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ secrets.PAT_DISPATCH }}
           repository: Payroll-Engine/PayrollEngine
