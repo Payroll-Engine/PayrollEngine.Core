@@ -406,6 +406,15 @@
             <summary>Updates and logs the cache ratio</summary>
             <param name="cached">The cache state</param>
         </member>
+        <member name="T:PayrollEngine.CalendarCycleAssignment">
+            <summary>The assignment of a payrun period to a cycle and to the regulation date</summary>
+        </member>
+        <member name="F:PayrollEngine.CalendarCycleAssignment.PayDate">
+            <summary>The pay date determines the cycle and the regulation date (e.g. tax year by payment)</summary>
+        </member>
+        <member name="F:PayrollEngine.CalendarCycleAssignment.PeriodEnd">
+            <summary>The period end determines the cycle and the regulation date (e.g. tax year by pay period)</summary>
+        </member>
         <member name="T:PayrollEngine.CalendarTimeMap">
             <summary>The calendar time map</summary>
         </member>
