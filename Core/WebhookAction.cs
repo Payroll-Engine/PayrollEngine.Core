@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+using System;
+using System.Text.Json.Serialization;
 
 namespace PayrollEngine;
 
@@ -15,7 +16,8 @@ public enum WebhookAction
     /// <summary>Case change added</summary>
     CaseChangeAdded = 11,
 
-    /// <summary>Payrun function request</summary>
+    /// <summary>Payrun function request (reserved, never triggered)</summary>
+    [Obsolete("Never triggered by the backend. Scripts invoke webhooks with CaseFunctionRequest.")]
     PayrunFunctionRequest = 20,
 
     /// <summary>Process payrun job</summary>
@@ -24,7 +26,8 @@ public enum WebhookAction
     /// <summary>Payrun job finished</summary>
     PayrunJobFinish = 22,
 
-    /// <summary>Report function request</summary>
+    /// <summary>Report function request (reserved, never triggered)</summary>
+    [Obsolete("Never triggered by the backend. Scripts invoke webhooks with CaseFunctionRequest.")]
     ReportFunctionRequest = 30,
 
     /// <summary>Task change</summary>

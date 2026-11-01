@@ -5892,7 +5892,7 @@
             <summary>Case change added</summary>
         </member>
         <member name="F:PayrollEngine.WebhookAction.PayrunFunctionRequest">
-            <summary>Payrun function request</summary>
+            <summary>Payrun function request (reserved, never triggered)</summary>
         </member>
         <member name="F:PayrollEngine.WebhookAction.PayrunJobProcess">
             <summary>Process payrun job</summary>
@@ -5901,7 +5901,7 @@
             <summary>Payrun job finished</summary>
         </member>
         <member name="F:PayrollEngine.WebhookAction.ReportFunctionRequest">
-            <summary>Report function request</summary>
+            <summary>Report function request (reserved, never triggered)</summary>
         </member>
         <member name="F:PayrollEngine.WebhookAction.TaskChange">
             <summary>Task change</summary>
