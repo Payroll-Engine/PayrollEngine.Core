@@ -5881,6 +5881,7 @@
         </member>
         <member name="T:PayrollEngine.WebhookAction">
             <summary>The Webhook message type</summary>
+            <remarks>Values 20 and 30 belonged to removed actions and must not be reused</remarks>
         </member>
         <member name="F:PayrollEngine.WebhookAction.None">
             <summary>No message</summary>
@@ -5891,17 +5892,11 @@
         <member name="F:PayrollEngine.WebhookAction.CaseChangeAdded">
             <summary>Case change added</summary>
         </member>
-        <member name="F:PayrollEngine.WebhookAction.PayrunFunctionRequest">
-            <summary>Payrun function request (reserved, never triggered)</summary>
-        </member>
         <member name="F:PayrollEngine.WebhookAction.PayrunJobProcess">
             <summary>Process payrun job</summary>
         </member>
         <member name="F:PayrollEngine.WebhookAction.PayrunJobFinish">
             <summary>Payrun job finished</summary>
-        </member>
-        <member name="F:PayrollEngine.WebhookAction.ReportFunctionRequest">
-            <summary>Report function request (reserved, never triggered)</summary>
         </member>
         <member name="F:PayrollEngine.WebhookAction.TaskChange">
             <summary>Task change</summary>
